@@ -1,13 +1,34 @@
 
-import {ActionConstants} from '../flux/constants';
-import {StateControl} from '../flux/control';
+import {IDispatcher} from './dispatcher';
 
-export function doExample() {
+export class ActionControl {
 
-  StateControl.dispatcher.dispatch(ActionConstants.EXAMPLE, {
-    value: (new Date()).getTime()
-  });
+  public static get CONSTANTS() {
+    return {
+      EXAMPLE: 'EXAMPLE'
+    };
+  }
 
-  return Promise.resolve();
+  public get CONSTANTS() {
+    return ActionControl.CONSTANTS;
+  }
+
+  private dispatcher: IDispatcher;
+  private api: any; // TODO: API layer here
+
+  constructor(dispatcher: IDispatcher/*also put in the API*/) {
+    this.dispatcher = dispatcher;
+  }
+
+  doExample() {
+
+    this.dispatcher.dispatch(this.CONSTANTS.EXAMPLE, {
+      value: (new Date()).getTime()
+    });
+
+    return Promise.resolve();
+
+  }
 
 }
+

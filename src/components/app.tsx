@@ -1,8 +1,13 @@
 
 import * as React from 'react';
 import {StateControl} from '../flux/control';
-import {doExample} from '../flux/actions';
-import {ActionConstants} from '../flux/constants';
+
+const {
+  eventEmitter,
+  store,
+  actionControl
+} = StateControl;
+
 
 export interface IAppProps {
 
@@ -26,11 +31,11 @@ export class App extends React.Component<IAppProps, IAppState> {
   }
 
   componentWillMount() {
-    StateControl.eventEmitter.on(ActionConstants.EXAMPLE, this.exampleActionInvoked);
+    eventEmitter.on(actionControl.CONSTANTS.EXAMPLE, this.exampleActionInvoked);
   }
 
   componentWillUnmount() {
-    StateControl.eventEmitter.off(ActionConstants.EXAMPLE, this.exampleActionInvoked);
+    eventEmitter.off(actionControl.CONSTANTS.EXAMPLE, this.exampleActionInvoked);
   }
 
   render() {
@@ -52,7 +57,7 @@ export class App extends React.Component<IAppProps, IAppState> {
   }
 
   private invokeExampleAction() {
-    doExample();
+    actionControl.doExample();
   }
 
   private exampleActionInvoked() {

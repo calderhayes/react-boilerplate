@@ -1,6 +1,8 @@
 
-import {ActionConstants} from '../flux/constants';
+import {ActionControl} from '../flux/actions';
 import {IAppState} from '../flux/store';
+
+const {CONSTANTS} = ActionControl;
 
 export interface IEventData {
   type: string;
@@ -18,7 +20,7 @@ const reducer = (currentState: IAppState, actionType: string, payload: any) => {
 
   switch (actionType) {
 
-    case ActionConstants.EXAMPLE:
+    case CONSTANTS.EXAMPLE:
 
       // Scoping brackets
       {
@@ -30,7 +32,7 @@ const reducer = (currentState: IAppState, actionType: string, payload: any) => {
           parameters: {
             value: value
           },
-          type: ActionConstants.EXAMPLE
+          type: CONSTANTS.EXAMPLE
         });
 
       }

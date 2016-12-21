@@ -10,14 +10,19 @@ import {Dispatcher} from './src/flux/dispatcher';
 import {reducer} from './src/flux/reducer';
 import {Store} from './src/flux/store';
 import {StateControl} from './src/flux/control';
+import {ActionControl} from './src/flux/actions';
 
+
+// TODO:
+// IMMUTABLE STATE
+// LOGGER
+// ACTION API DEPENDENCY INJECTION
 
 
 // Or eventually initial state
 const AppStore = new Store();
 const AppDispatcher = new Dispatcher();
 const AppEmitter = new EventEmitter();
-
 
 AppDispatcher.register((actionType: string, payload: any) => {
 
@@ -32,10 +37,16 @@ AppDispatcher.register((actionType: string, payload: any) => {
 
 });
 
+
+// const API
+const AppActions = new ActionControl(AppDispatcher);
+
 // Allows for some level of dependency injection
 StateControl.setEventEmitter(AppEmitter);
 StateControl.setStore(AppStore);
 StateControl.setDispatcher(AppDispatcher);
+StateControl.setActionControl(AppActions);
+
 
 class MyReactDOM {
   static render(rootDOMElement: HTMLElement) {
