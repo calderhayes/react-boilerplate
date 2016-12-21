@@ -4,43 +4,34 @@ import {AppDispatcher} from '../flux/dispatcher';
 import {reducer} from '../flux/reducer';
 import * as _ from 'lodash';
 
+
+export interface IAppState {
+  exampleValue: number;
+}
+
 export class AppStore {
 
-  public exampleValue: number = null;
+
+  private state: IAppState;
+  public getState(): IAppState {
+    // TODO: Immutable
+    return this.state;
+  }
+
+  public updateState(newState: IAppState): void {
+    // TODO: Immutable
+    this.state = newState;
+  }
 
   constructor() {
-    this.exampleValue = null;
+    this.state = {
+      exampleValue: 1
+    };
   }
 
 }
 
-export class AppEventEmitter extends events.EventEmitter {
-
-  constructor() {
-      super();
-  }
-
-  off(action: string, func: Function) {
-      return this.removeListener(action, func);
-  }
-
-}
-
-const AppEmitter = new AppEventEmitter();
 
 let Store = new AppStore();
 
-AppDispatcher.register((actionType: string, payload: any) => {
-
-  // TODO: reducer(Immutable(Store), payoad);
-  let retVal = reducer(Store, actionType, payload);
-
-  Store = retVal.state;
-
-  _.each(retVal.eventData, ev => {
-    AppEmitter.emit(ev.type, ev.parameters);
-  });
-
-});
-
-export {Store, AppEmitter};
+export {Store};

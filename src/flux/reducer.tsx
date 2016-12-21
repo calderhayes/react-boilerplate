@@ -1,13 +1,18 @@
 
 import {ActionConstants} from '../flux/constants';
-import {AppStore} from '../flux/store';
+import {IAppState} from '../flux/store';
 
 export interface IEventData {
   type: string;
   parameters: any;
 };
 
-const reducer = (currentState: AppStore, actionType: string, payload: any) => {
+export interface IReducerResult {
+  eventData: IEventData[],
+  state: IAppState
+}
+
+const reducer = (currentState: IAppState, actionType: string, payload: any) => {
 
   let eventData: IEventData[] = [];
 
@@ -37,10 +42,12 @@ const reducer = (currentState: AppStore, actionType: string, payload: any) => {
 
   }
 
-  return {
+  let res: IReducerResult = {
     eventData: eventData,
     state: currentState
   };
+
+  return res;
 
 };
 
