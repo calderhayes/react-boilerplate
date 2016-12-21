@@ -1,6 +1,12 @@
 import * as events from 'events';
 
-export class AppEventEmitter extends events.EventEmitter {
+export interface IEventEmitter extends events.EventEmitter {
+  off(action: string, func: Function): this;
+}
+
+export class EventEmitter
+  extends events.EventEmitter
+  implements IEventEmitter {
 
   constructor() {
       super();
@@ -12,6 +18,6 @@ export class AppEventEmitter extends events.EventEmitter {
 
 }
 
-const AppEmitter = new AppEventEmitter();
+const AppEmitter = new EventEmitter();
 
 export {AppEmitter};

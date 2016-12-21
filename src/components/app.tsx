@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import {Store} from '../flux/store';
+import {AppStore} from '../flux/store';
 import {AppEmitter} from '../flux/event-emitter';
 import {doExample} from '../flux/actions';
 import {ActionConstants} from '../flux/constants';
@@ -18,7 +18,7 @@ export class App extends React.Component<IAppProps, IAppState> {
   constructor(props: IAppProps) {
     super(props);
 
-    let appState = Store.getState();
+    let appState = AppStore.getState();
     this.state = {
       value: appState.exampleValue
     };
@@ -57,7 +57,7 @@ export class App extends React.Component<IAppProps, IAppState> {
   }
 
   private exampleActionInvoked() {
-    this.state.value = Store.getState().exampleValue;
+    this.state.value = AppStore.getState().exampleValue;
     this.setState(this.state);
   }
 

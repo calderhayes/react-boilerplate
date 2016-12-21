@@ -9,7 +9,15 @@ export interface IAppState {
   exampleValue: number;
 }
 
-export class AppStore {
+export interface IStore {
+
+  getState(): IAppState;
+  updateState(state: IAppState): void;
+
+}
+
+export class Store
+  implements IStore {
 
 
   private state: IAppState;
@@ -32,6 +40,6 @@ export class AppStore {
 }
 
 
-let Store = new AppStore();
+let AppStore = new Store();
 
-export {Store};
+export {AppStore};
