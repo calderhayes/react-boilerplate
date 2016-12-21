@@ -1,6 +1,5 @@
 
 import * as events from 'events';
-import {AppDispatcher} from '../flux/dispatcher';
 import {reducer} from '../flux/reducer';
 import * as _ from 'lodash';
 
@@ -38,8 +37,3 @@ export class Store
   }
 
 }
-
-
-let AppStore = new Store();
-
-export {AppStore};

@@ -1,7 +1,6 @@
 
 import * as React from 'react';
-import {AppStore} from '../flux/store';
-import {AppEmitter} from '../flux/event-emitter';
+import {StateControl} from '../flux/control';
 import {doExample} from '../flux/actions';
 import {ActionConstants} from '../flux/constants';
 
@@ -18,7 +17,7 @@ export class App extends React.Component<IAppProps, IAppState> {
   constructor(props: IAppProps) {
     super(props);
 
-    let appState = AppStore.getState();
+    let appState = StateControl.store.getState();
     this.state = {
       value: appState.exampleValue
     };
@@ -27,11 +26,11 @@ export class App extends React.Component<IAppProps, IAppState> {
   }
 
   componentWillMount() {
-    AppEmitter.on(ActionConstants.EXAMPLE, this.exampleActionInvoked);
+    StateControl.eventEmitter.on(ActionConstants.EXAMPLE, this.exampleActionInvoked);
   }
 
   componentWillUnmount() {
-    AppEmitter.off(ActionConstants.EXAMPLE, this.exampleActionInvoked);
+    StateControl.eventEmitter.off(ActionConstants.EXAMPLE, this.exampleActionInvoked);
   }
 
   render() {
@@ -57,7 +56,7 @@ export class App extends React.Component<IAppProps, IAppState> {
   }
 
   private exampleActionInvoked() {
-    this.state.value = AppStore.getState().exampleValue;
+    this.state.value = StateControl.store.getState().exampleValue;
     this.setState(this.state);
   }
 

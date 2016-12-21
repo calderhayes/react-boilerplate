@@ -1,13 +1,13 @@
 
 import {ActionConstants} from '../flux/constants';
-import {AppDispatcher} from '../flux/dispatcher';
+import {StateControl} from '../flux/control';
 
 export function doExample() {
 
-  AppDispatcher.dispatch(ActionConstants.EXAMPLE, {
+  StateControl.dispatcher.dispatch(ActionConstants.EXAMPLE, {
     value: (new Date()).getTime()
   });
 
-  // return Promise.resolve();
+  return Promise.resolve();
 
 }

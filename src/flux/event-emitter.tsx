@@ -17,7 +17,3 @@ export class EventEmitter
   }
 
 }
-
-const AppEmitter = new EventEmitter();
-
-export {AppEmitter};

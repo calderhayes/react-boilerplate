@@ -5,11 +5,18 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as _ from 'lodash';
 import {App} from './src/components/app';
-import {AppEmitter} from './src/flux/event-emitter';
-import {AppDispatcher} from './src/flux/dispatcher';
+import {EventEmitter} from './src/flux/event-emitter';
+import {Dispatcher} from './src/flux/dispatcher';
 import {reducer} from './src/flux/reducer';
-import {AppStore} from './src/flux/store';
+import {Store} from './src/flux/store';
+import {StateControl} from './src/flux/control';
 
+
+
+// Or eventually initial state
+const AppStore = new Store();
+const AppDispatcher = new Dispatcher();
+const AppEmitter = new EventEmitter();
 
 
 AppDispatcher.register((actionType: string, payload: any) => {
@@ -24,6 +31,12 @@ AppDispatcher.register((actionType: string, payload: any) => {
   });
 
 });
+
+// Allows for some level of dependency injection
+StateControl.setEventEmitter(AppEmitter);
+StateControl.setStore(AppStore);
+StateControl.setDispatcher(AppDispatcher);
+
 
 
 
