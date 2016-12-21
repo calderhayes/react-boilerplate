@@ -27,6 +27,15 @@ Log.error('error hello!', {}, [], 'some other value');
 // FORM VALIDATION
 // UNIT TESTING
 
+// Look at this for immutable state example that is typed for compile time checking
+/*interface ImmutableState {
+    readonly value: number;
+}
+
+interface State extends ImmutableState {
+    value: number;
+}*/
+
 
 let api: IAPIService = null;
 if (Config.ENVIRONMENT === EnvironmentType.LOCAL) {
