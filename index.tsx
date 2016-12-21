@@ -13,13 +13,11 @@ import {ActionControl} from './src/flux/actions';
 import {Config, EnvironmentType} from './src/config';
 import {IAPIService} from './src/api/service';
 import {LocalAPIService} from './src/api/local-api-service';
+import {Log, ApiLog} from './src/logging';
 
 
-import * as log from 'loglevel';
-
-
-log.info('hello!', {}, [], 'some other value');
-log.error('error hello!', {}, [], 'some other value');
+Log.info('hello!', {}, [], 'some other value');
+Log.error('error hello!', {}, [], 'some other value');
 
 
 // TODO:
@@ -28,7 +26,7 @@ log.error('error hello!', {}, [], 'some other value');
 
 let api: IAPIService = null;
 if (Config.ENVIRONMENT === EnvironmentType.LOCAL) {
-  api = new LocalAPIService();
+  api = new LocalAPIService(ApiLog);
 }
 else {
   throw 'Not yet implemented';

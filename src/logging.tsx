@@ -16,11 +16,15 @@ const NullLogger: ILogger = logging.getLogger('NullLogger');
 (NullLogger as any).setLevel(LogLevel.SILENT);
 
 const Log: ILogger = logging.getLogger('GeneralLog');
-(Log as any).setLevel(Config.GENERAL_LOG_LEVEL);
+(Log as Log).setLevel(Config.GENERAL_LOG_LEVEL);
+
+const ApiLog: ILogger = logging.getLogger('ApiLog');
+(ApiLog as Log).setLevel(Config.API_LOG_LEVEL);
 
 // create other logs as needed
 
 export {
   NullLogger,
-  Log
+  Log,
+  ApiLog
 };
