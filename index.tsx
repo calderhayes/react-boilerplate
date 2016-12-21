@@ -25,6 +25,7 @@ Log.error('error hello!', {}, [], 'some other value');
 // LOGGER
 // FEATURE CONTROL
 // FORM VALIDATION
+// UNIT TESTING
 
 
 let api: IAPIService = null;
