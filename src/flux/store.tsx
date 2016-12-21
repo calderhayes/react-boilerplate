@@ -30,10 +30,15 @@ export class Store
     this.state = newState;
   }
 
-  constructor() {
-    this.state = {
-      exampleValue: 1
-    };
+  constructor(initialState?: IAppState) {
+    if (initialState) {
+      this.state = initialState;
+    }
+    else {
+      this.state = {
+        exampleValue: 1
+      };
+    }
   }
 
 }

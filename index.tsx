@@ -37,17 +37,14 @@ StateControl.setEventEmitter(AppEmitter);
 StateControl.setStore(AppStore);
 StateControl.setDispatcher(AppDispatcher);
 
-
-
-
 class MyReactDOM {
-  static render(rootDOMElement: any) {
+  static render(rootDOMElement: HTMLElement) {
 
     ReactDOM.render((
       <div>
         <App />
       </div>),
-      document.getElementById('app')
+      rootDOMElement
     );
   }
 }
