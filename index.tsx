@@ -4,7 +4,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as _ from 'lodash';
-import {App} from './src/components/app';
 import {EventEmitter} from './src/flux/event-emitter';
 import {Dispatcher} from './src/flux/dispatcher';
 import {reducer} from './src/flux/reducer';
@@ -14,6 +13,13 @@ import {ActionControl} from './src/flux/actions';
 import {Config, EnvironmentType} from './src/config';
 import {IAPIService} from './src/api/service';
 import {LocalAPIService} from './src/api/local-api-service';
+
+
+import * as log from 'loglevel';
+
+
+log.info('hello!', {}, [], 'some other value');
+log.error('error hello!', {}, [], 'some other value');
 
 
 // TODO:
@@ -63,6 +69,8 @@ StateControl.setDispatcher(AppDispatcher);
 StateControl.setActionControl(AppActions);
 
 
+// move this out
+import {App} from './src/components/app';
 class MyReactDOM {
   static render(rootDOMElement: HTMLElement) {
 

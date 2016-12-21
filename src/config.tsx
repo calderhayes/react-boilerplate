@@ -1,4 +1,6 @@
 
+import * as logging from 'loglevel';
+
 // Provided by webpack
 declare const ENVIRONMENT: string;
 
@@ -10,6 +12,8 @@ export enum EnvironmentType {
 export interface IConfig {
   ENVIRONMENT: EnvironmentType;
   API_URL: string;
+  GENERAL_LOG_LEVEL: LogLevel;
+  API_LOG_LEVEL: LogLevel;
 }
 
 class ConfigurationConstants {
@@ -24,7 +28,9 @@ let config: IConfig = null;
 if (ENVIRONMENT === ConfigurationConstants.LOCAL) {
   config = {
     ENVIRONMENT: EnvironmentType.LOCAL,
-    API_URL: ''
+    API_URL: '',
+    GENERAL_LOG_LEVEL: LogLevel.DEBUG,
+    API_LOG_LEVEL: LogLevel.DEBUG
   };
 }
 else {
