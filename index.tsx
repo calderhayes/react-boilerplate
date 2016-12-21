@@ -23,6 +23,9 @@ Log.error('error hello!', {}, [], 'some other value');
 // TODO:
 // IMMUTABLE STATE
 // LOGGER
+// FEATURE CONTROL
+// FORM VALIDATION
+
 
 let api: IAPIService = null;
 if (Config.ENVIRONMENT === EnvironmentType.LOCAL) {
