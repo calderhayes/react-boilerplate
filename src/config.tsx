@@ -12,6 +12,7 @@ export enum EnvironmentType {
 export interface IConfig {
   ENVIRONMENT: EnvironmentType;
   API_URL: string;
+  USE_ASSERTIONS: boolean;
   GENERAL_LOG_LEVEL: LogLevel;
   API_LOG_LEVEL: LogLevel;
 }
@@ -29,6 +30,7 @@ if (ENVIRONMENT === ConfigurationConstants.LOCAL) {
   config = {
     ENVIRONMENT: EnvironmentType.LOCAL,
     API_URL: '',
+    USE_ASSERTIONS: true,
     GENERAL_LOG_LEVEL: LogLevel.DEBUG,
     API_LOG_LEVEL: LogLevel.DEBUG
   };
@@ -37,4 +39,5 @@ else {
   throw 'Not implemented';
 }
 
+// TODO: Make this immutable
 export const Config = config;

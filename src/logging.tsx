@@ -23,8 +23,19 @@ const ApiLog: ILogger = logging.getLogger('ApiLog');
 
 // create other logs as needed
 
+const assert = (assertion: boolean, message: string) => {
+
+  if (Config.USE_ASSERTIONS) {
+    if (assertion) {
+      Log.error('Assertion Failed!', message);
+    }
+  }
+
+};
+
 export {
   NullLogger,
   Log,
-  ApiLog
+  ApiLog,
+  assert
 };
