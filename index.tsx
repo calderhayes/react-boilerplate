@@ -28,6 +28,7 @@ Log.error('error hello!', {}, [], 'some other value');
 // UNIT TESTING
 
 // Look at this for immutable state example that is typed for compile time checking
+// con" have to maintain the interfaces for both, might be worth it
 /*interface ImmutableState {
     readonly value: number;
 }
