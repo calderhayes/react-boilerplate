@@ -3,6 +3,7 @@ import {IEventEmitter} from './event-emitter';
 import {IStore} from './store';
 import {IDispatcher} from './dispatcher';
 import {ActionControl} from './actions';
+import {assert} from '../logging';
 
 export class FluxControl {
 
@@ -12,65 +13,57 @@ export class FluxControl {
   private _actionControl: ActionControl = null;
 
   public get eventEmitter() {
-    if (this._eventEmitter === null) {
-      // WARN, ASSERT, WHATEVER
-    }
+    assert(this._eventEmitter === null,
+      'Event Emitter has not been set and is being accessed!');
 
     return this._eventEmitter;
   }
 
   public get store() {
-    if (this._store === null) {
-      // WARN, ASSERT, WHATEVER
-    }
+    assert(this._store === null,
+      'Store has not been set and is being accessed!');
 
     return this._store;
   }
 
   public get dispatcher() {
-    if (this._dispatcher === null) {
-      // warn, assert, whatever
-    }
+    assert(this._dispatcher === null,
+      'Dispatcher has not been set and is being accessed!');
 
     return this._dispatcher;
   }
 
   public get actionControl() {
-    if (this._actionControl === null) {
-      // warn, assert, whatever
-    }
+    assert(this._actionControl === null,
+      'Action Control has not been set and is being accessed!');
 
     return this._actionControl;
   }
 
   public setEventEmitter(emitter: IEventEmitter) {
-    if (this._eventEmitter !== null) {
-      // WARN, ASSERT, WHATEVER
-    }
+    assert(this._eventEmitter !== null,
+      'Event Emitter has already been set, attempting to override!');
 
     this._eventEmitter = emitter;
   }
 
   public setStore(store: IStore) {
-    if (this._store !== null) {
-      // WARN, ASSERT, WHATEVER
-    }
+    assert(this._store !== null,
+      'Store has already been set, attempting to override!');
 
     this._store = store;
   }
 
   public setDispatcher(dispatcher: IDispatcher) {
-    if (this._dispatcher !== null) {
-      // WARN, ASSERT, WHATEVER
-    }
+    assert(this._dispatcher !== null,
+      'Dispatcher has already been set, attempting to override!');
 
     this._dispatcher = dispatcher;
   }
 
   public setActionControl(actionControl: ActionControl) {
-    if (this._actionControl !== null) {
-      // WARN, ASSERT, WHATEVER
-    }
+    assert(this._actionControl !== null,
+      'Action Control has already been set, attempting to override!');
 
     this._actionControl = actionControl;
   }
