@@ -2,12 +2,17 @@
 // Provided by webpack
 declare const ENVIRONMENT: string;
 
+export enum EnvironmentType {
+  LOCAL,
+  LOCAL_DEV
+}
+
 export interface IConfig {
-  ENVIRONMENT: string;
+  ENVIRONMENT: EnvironmentType;
   API_URL: string;
 }
 
-export class ConfigurationConstants {
+class ConfigurationConstants {
 
   static LOCAL: string = 'LOCAL'; // self contained
   static LOCAL_DEV: string = 'LOCAL_DEV';
@@ -18,12 +23,12 @@ let config: IConfig = null;
 
 if (ENVIRONMENT === ConfigurationConstants.LOCAL) {
   config = {
-    ENVIRONMENT: ENVIRONMENT,
+    ENVIRONMENT: EnvironmentType.LOCAL,
     API_URL: ''
   };
 }
 else {
-  // should not happen
+  throw 'Not implemented';
 }
 
 export const Config = config;

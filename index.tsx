@@ -11,12 +11,25 @@ import {reducer} from './src/flux/reducer';
 import {Store} from './src/flux/store';
 import {StateControl} from './src/flux/control';
 import {ActionControl} from './src/flux/actions';
+import {Config, EnvironmentType} from './src/config';
+import {IAPIService} from './src/api/service';
+import {LocalAPIService} from './src/api/local-api-service';
 
 
 // TODO:
 // IMMUTABLE STATE
 // LOGGER
-// ACTION API DEPENDENCY INJECTION
+
+let api: IAPIService = null;
+if (Config.ENVIRONMENT === EnvironmentType.LOCAL) {
+  api = new LocalAPIService();
+}
+else {
+  throw 'Not yet implemented';
+}
+
+const API = api;
+
 
 
 // Or eventually initial state
@@ -38,8 +51,10 @@ AppDispatcher.register((actionType: string, payload: any) => {
 });
 
 
+
+
 // const API
-const AppActions = new ActionControl(AppDispatcher);
+const AppActions = new ActionControl(AppDispatcher, API);
 
 // Allows for some level of dependency injection
 StateControl.setEventEmitter(AppEmitter);

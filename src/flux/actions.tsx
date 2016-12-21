@@ -1,5 +1,6 @@
 
 import {IDispatcher} from './dispatcher';
+import {IAPIService} from '../api/service';
 
 export class ActionControl {
 
@@ -14,10 +15,11 @@ export class ActionControl {
   }
 
   private dispatcher: IDispatcher;
-  private api: any; // TODO: API layer here
+  private api: IAPIService;
 
-  constructor(dispatcher: IDispatcher/*also put in the API*/) {
+  constructor(dispatcher: IDispatcher, service: IAPIService) {
     this.dispatcher = dispatcher;
+    this.api = service;
   }
 
   doExample() {
