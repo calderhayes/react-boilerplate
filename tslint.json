@@ -41,18 +41,35 @@
       "no-unused-new": true,
       "no-use-before-declare": true,
       "no-var-keyword": true,
+      "radix": true,
+      "restrict-plus-operands": true,
+      "strict-boolean-expressions": false,
+      "switch-default": true,
+      "triple-equals": true,
+      "use-isnan": true,
+
+
+
+
+
+
+      "cyclomatic-complexity": true,
+      "eofline": true,
+      "indent": [true, "spaces"],
+      "linebreak-style": [true, "LF"],
+
 
 
 
       "class-name": true,
       "comment-format": [true, "check-space"],
-      "indent": [true, "spaces"],
+
       "no-trailing-whitespace": true,
 
       "one-line": [true, "check-open-brace", "check-whitespace"],
       "quotemark": [true, "single"],
       "semicolon": false,
-      "triple-equals": [true, "allow-null-check"],
+
       "typedef-whitespace": [true, {
           "call-signature": "nospace",
           "index-signature": "nospace",
