@@ -1,6 +1,7 @@
 
-import {IAPIService, APIServiceType} from './service';
+import {IAPIService, APIServiceType, IAPIResult} from './service';
 import {ILogger, NullLogger} from '../logging';
+// import * as Model from './models';
 
 export class LocalAPIService implements IAPIService {
 
@@ -15,7 +16,15 @@ export class LocalAPIService implements IAPIService {
   }
 
   login(username: string, password: string) {
-    return Promise.resolve('');
+    return Promise.resolve({
+      value: ''
+    });
+  }
+
+  getFeatures() {
+    return Promise.resolve({
+      value: []
+    });
   }
 
 }
