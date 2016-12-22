@@ -23,6 +23,20 @@ Log.info('hello!', {}, [], 'some other value');
 // TODO:
 // IMMUTABLE STATE
 // LOGGER
+// FEATURE CONTROL
+// FORM VALIDATION
+// UNIT TESTING
+
+// Look at this for immutable state example that is typed for compile time checking
+// con" have to maintain the interfaces for both, might be worth it
+/*interface ImmutableState {
+    readonly value: number;
+}
+
+interface State extends ImmutableState {
+    value: number;
+}*/
+
 
 let api: IAPIService = null;
 if (Config.ENVIRONMENT === EnvironmentType.LOCAL) {
