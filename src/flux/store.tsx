@@ -3,13 +3,17 @@ import * as events from 'events';
 import {reducer} from '../flux/reducer';
 import * as _ from 'lodash';
 import * as Immutable from 'immutable';
+import * as Model from '../api/models';
+
 
 export interface IImmutableAppState {
   readonly exampleValue: number;
+  readonly features: Model.IFeature[];
 }
 
 export interface IAppState extends IImmutableAppState {
   exampleValue: number;
+  features: Model.IFeature[];
 }
 
 export interface IStore {
@@ -42,7 +46,8 @@ export class Store
   constructor(initialState?: IAppState) {
 
     let defaultState: IAppState = {
-      exampleValue: 1
+      exampleValue: 1,
+      features: []
     };
 
     this.updateState(initialState || defaultState);
