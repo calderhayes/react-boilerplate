@@ -22,7 +22,7 @@ export class App extends React.Component<IAppProps, IAppState> {
   constructor(props: IAppProps) {
     super(props);
 
-    let appState = store.getState();
+    const appState = store.getState();
     this.state = {
       value: appState.exampleValue
     };

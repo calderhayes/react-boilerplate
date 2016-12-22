@@ -60,11 +60,24 @@ let skipped = 0;
 results.filter(r => r.failureCount !== 0)
 	.forEach((r, i) => {
 
+    write("--------------");
+    write(r.file);
+    r.failures.forEach(f => {
 
-		if (toFile || i === 0) {
-			/*let outVal = {};
-			outVal.file = r.file;
-			outVal.failures = r.failures;*/
+      write(f.failure);
+      write(f.ruleName);
+      write(f.fix);
+      write(f.startPosition.lineAndCharacter);
+
+    });
+    write("--------------");
+    write("");
+
+
+
+
+		/*if (toFile || i === 0) {
+
 
 			write(r.file);
 
@@ -76,11 +89,12 @@ results.filter(r => r.failureCount !== 0)
 				f.endLineAndCharacter.line++;
 				return f;
 			});
+
 			write(failures);
 		}
 		else {
 			skipped++;
-		}
+		}*/
 
 	});
 

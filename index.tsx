@@ -45,8 +45,7 @@ const AppEmitter = new EventEmitter();
 
 AppDispatcher.register((actionType: string, payload: any) => {
 
-  // TODO: reducer(Immutable(Store), payoad);
-  let retVal = reducer(AppStore.getMutableState(), actionType, payload);
+  const retVal = reducer(AppStore.getMutableState(), actionType, payload);
 
   AppStore.updateState(retVal.state);
 

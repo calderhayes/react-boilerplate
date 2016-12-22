@@ -66,6 +66,7 @@
       "no-trailing-whitespace": true,
       "object-literal-sort-keys": true,
       "prefer-const": true,
+      "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
 
 
 
