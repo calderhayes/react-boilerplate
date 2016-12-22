@@ -49,10 +49,6 @@
       "use-isnan": true,
 
 
-
-
-
-
       "cyclomatic-complexity": true,
       "eofline": true,
       "indent": [true, "spaces"],
@@ -88,12 +84,6 @@
       "quotemark": [true, "single"],
       "semicolon": true,
       "variable-name": [true, "ban-keywords", "check-format", "allow-pascal-case", "allow-leading-underscore"],
-
-
-
-
-
-
       "whitespace": [true,
           "check-branch",
           "check-decl",
