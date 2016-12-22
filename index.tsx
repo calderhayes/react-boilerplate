@@ -21,7 +21,7 @@ Log.info('Bootstrapping...');
 
 // TODO:
 // FORM VALIDATION
-// UNIT TESTING
+// CSS
 
 
 let api: IAPIService = null;

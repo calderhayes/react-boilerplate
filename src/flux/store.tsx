@@ -33,15 +33,19 @@ export class Store extends BaseStore
   // Always use getState()
   private state: IAppState;
 
-  constructor(initialState?: IAppState) {
-    super();
-
+  public static get defaultAppState() {
     const defaultState: IAppState = {
       exampleValue: 1,
       features: new Array<Model.IFeature>()
     };
 
-    this.updateState(initialState || defaultState);
+    return defaultState;
+  }
+
+  constructor(initialState?: IAppState) {
+    super();
+
+    this.updateState(initialState || Store.defaultAppState);
 
   }
 
