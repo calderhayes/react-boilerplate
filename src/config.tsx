@@ -1,5 +1,6 @@
 
 import * as logging from 'loglevel';
+import * as Immutable from 'immutable';
 
 // Provided by webpack
 declare const ENVIRONMENT: string;
@@ -39,5 +40,4 @@ else {
   throw 'Not implemented';
 }
 
-// TODO: Make this immutable
-export const Config = config;
+export const Config: IConfig = new (Immutable.Record(config) as any);

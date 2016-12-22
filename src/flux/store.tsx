@@ -2,7 +2,7 @@
 import * as events from 'events';
 import {reducer} from '../flux/reducer';
 import * as _ from 'lodash';
-
+import * as Immutable from 'immutable';
 
 export interface IAppState {
   exampleValue: number;
@@ -20,25 +20,27 @@ export class Store
 
 
   private state: IAppState;
+
   public getState(): IAppState {
-    // TODO: Immutable
+    return Immutable.Record(this.state) as any;
+  }
+
+  public getMutableState(): IAppState {
     return this.state;
   }
 
   public updateState(newState: IAppState): void {
-    // TODO: Immutable
     this.state = newState;
   }
 
   constructor(initialState?: IAppState) {
-    if (initialState) {
-      this.state = initialState;
-    }
-    else {
-      this.state = {
-        exampleValue: 1
-      };
-    }
+
+    let defaultState: IAppState = {
+      exampleValue: 1
+    };
+
+    this.updateState(initialState || defaultState);
+
   }
 
 }

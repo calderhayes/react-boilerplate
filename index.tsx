@@ -17,7 +17,7 @@ import {Log, ApiLog} from './src/logging';
 
 
 Log.info('hello!', {}, [], 'some other value');
-Log.error('error hello!', {}, [], 'some other value');
+// Log.error('error hello!', {}, [], 'some other value');
 
 
 // TODO:
