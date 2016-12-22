@@ -20,7 +20,6 @@ Log.info('Bootstrapping...');
 
 
 // TODO:
-// FEATURE CONTROL
 // FORM VALIDATION
 // UNIT TESTING
 

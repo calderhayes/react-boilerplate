@@ -1,6 +1,7 @@
 
 import * as React from 'react';
 import {StateControl} from '../flux/control';
+import {Hello} from './example';
 
 const {
   eventEmitter,
@@ -52,6 +53,8 @@ export class App extends React.Component<IAppProps, IAppState> {
 
         <span className='bold'>{this.state.value}</span>
 
+
+        <Hello name='John Doe' />
       </div>);
 
   }
