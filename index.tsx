@@ -16,8 +16,7 @@ import {LocalAPIService} from './src/api/local-api-service';
 import {Log, ApiLog} from './src/logging';
 
 
-Log.info('hello!', {}, [], 'some other value');
-// Log.error('error hello!', {}, [], 'some other value');
+Log.info('bootstrapping...');
 
 
 // TODO:
@@ -58,7 +57,7 @@ const AppEmitter = new EventEmitter();
 AppDispatcher.register((actionType: string, payload: any) => {
 
   // TODO: reducer(Immutable(Store), payoad);
-  let retVal = reducer(AppStore.getState(), actionType, payload);
+  let retVal = reducer(AppStore.getMutableState(), actionType, payload);
 
   AppStore.updateState(retVal.state);
 

@@ -4,13 +4,18 @@ import {reducer} from '../flux/reducer';
 import * as _ from 'lodash';
 import * as Immutable from 'immutable';
 
-export interface IAppState {
+export interface IImmutableAppState {
+  readonly exampleValue: number;
+}
+
+export interface IAppState extends IImmutableAppState {
   exampleValue: number;
 }
 
 export interface IStore {
 
-  getState(): IAppState;
+  getState(): IImmutableAppState;
+  getMutableState(): IAppState;
   updateState(state: IAppState): void;
 
 }
@@ -21,8 +26,9 @@ export class Store
 
   private state: IAppState;
 
-  public getState(): IAppState {
-    return Immutable.Record(this.state) as any;
+  public getState(): IImmutableAppState {
+    let record = new (Immutable.Record(this.state) as any) as IImmutableAppState;
+    return record;
   }
 
   public getMutableState(): IAppState {

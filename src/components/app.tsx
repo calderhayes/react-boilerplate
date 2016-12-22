@@ -22,7 +22,7 @@ export class App extends React.Component<IAppProps, IAppState> {
   constructor(props: IAppProps) {
     super(props);
 
-    let appState = StateControl.store.getState();
+    let appState = store.getState();
     this.state = {
       value: appState.exampleValue
     };
@@ -61,7 +61,7 @@ export class App extends React.Component<IAppProps, IAppState> {
   }
 
   private exampleActionInvoked() {
-    this.state.value = StateControl.store.getState().exampleValue;
+    this.state.value = store.getState().exampleValue;
     this.setState(this.state);
   }
 
