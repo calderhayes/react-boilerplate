@@ -1,5 +1,4 @@
 
-import * as logging from 'loglevel';
 import * as Immutable from 'immutable';
 
 // Provided by webpack
