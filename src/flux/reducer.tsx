@@ -16,7 +16,7 @@ export interface IReducerResult {
 
 const reducer = (currentState: IAppState, actionType: string, payload: any) => {
 
-  let eventData: IEventData[] = [];
+  const eventData: IEventData[] = [];
 
   switch (actionType) {
 
@@ -24,7 +24,7 @@ const reducer = (currentState: IAppState, actionType: string, payload: any) => {
 
       // Scoping brackets
       {
-        let value: number = payload.value;
+        const value: number = payload.value;
 
         currentState.exampleValue = value;
 
@@ -44,7 +44,7 @@ const reducer = (currentState: IAppState, actionType: string, payload: any) => {
 
   }
 
-  let res: IReducerResult = {
+  const res: IReducerResult = {
     eventData: eventData,
     state: currentState
   };

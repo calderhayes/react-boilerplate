@@ -32,7 +32,7 @@ export class Store
 
   constructor(initialState?: IAppState) {
 
-    let defaultState: IAppState = {
+    const defaultState: IAppState = {
       exampleValue: 1,
       features: []
     };
@@ -42,7 +42,7 @@ export class Store
   }
 
   public getState(): IImmutableAppState {
-    let record = new (Immutable.Record(this.state) as any) as IImmutableAppState;
+    const record = new (Immutable.Record(this.state) as any) as IImmutableAppState;
     return record;
   }
 
