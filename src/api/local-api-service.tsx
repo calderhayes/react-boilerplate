@@ -11,17 +11,17 @@ export class LocalAPIService implements IAPIService {
     this.logger = logger || NullLogger;
   }
 
-  get type() {
+  public get type() {
     return APIServiceType.LocalAPIService;
   }
 
-  login(username: string, password: string) {
+  public login(username: string, password: string) {
     return Promise.resolve({
       value: ''
     });
   }
 
-  getFeatures() {
+  public getFeatures() {
     return Promise.resolve({
       value: []
     });

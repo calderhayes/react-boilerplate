@@ -1,5 +1,9 @@
 {
   "rules": {
+      "adjacent-overload-signatures": true,
+      "member-access": true,
+
+
       "class-name": true,
       "comment-format": [true, "check-space"],
       "indent": [true, "spaces"],

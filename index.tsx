@@ -56,9 +56,6 @@ AppDispatcher.register((actionType: string, payload: any) => {
 
 });
 
-
-
-
 // const API
 const AppActions = new ActionControl(AppDispatcher, API);
 
@@ -72,7 +69,7 @@ StateControl.setActionControl(AppActions);
 // move this out
 import {App} from './src/components/app';
 class MyReactDOM {
-  static render(rootDOMElement: HTMLElement) {
+  public static render(rootDOMElement: HTMLElement) {
 
     ReactDOM.render((
       <div>

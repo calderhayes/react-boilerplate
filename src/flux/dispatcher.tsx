@@ -18,7 +18,7 @@ export class Dispatcher implements IDispatcher {
         this.inDispatch = false;
     }
 
-    dispatch(actionType: string, payload: any) {
+    public dispatch(actionType: string, payload: any) {
         if (this.inDispatch) {
             // WARN, ASSERT, WHATEVER
         }
@@ -29,7 +29,7 @@ export class Dispatcher implements IDispatcher {
         this.inDispatch = false;
     }
 
-    register(method: (actionType: string, payload: any) => void) {
+    public register(method: (actionType: string, payload: any) => void) {
         this.registeredMethods.push(method);
     }
 }

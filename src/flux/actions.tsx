@@ -22,7 +22,7 @@ export class ActionControl {
     this.api = service;
   }
 
-  doExample() {
+  public doExample() {
 
     this.dispatcher.dispatch(this.CONSTANTS.EXAMPLE, {
       value: (new Date()).getTime()

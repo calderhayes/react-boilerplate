@@ -12,7 +12,7 @@ export class EventEmitter
       super();
   }
 
-  off(action: string, func: Function) {
+  public off(action: string, func: Function) {
       return this.removeListener(action, func);
   }
 

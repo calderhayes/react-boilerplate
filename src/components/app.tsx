@@ -30,15 +30,15 @@ export class App extends React.Component<IAppProps, IAppState> {
     this.exampleActionInvoked = this.exampleActionInvoked.bind(this);
   }
 
-  componentWillMount() {
+  public componentWillMount() {
     eventEmitter.on(actionControl.CONSTANTS.EXAMPLE, this.exampleActionInvoked);
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     eventEmitter.off(actionControl.CONSTANTS.EXAMPLE, this.exampleActionInvoked);
   }
 
-  render() {
+  public render() {
 
     return (
       <div>

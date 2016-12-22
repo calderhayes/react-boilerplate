@@ -20,8 +20,8 @@ export interface IConfig {
 
 class ConfigurationConstants {
 
-  static LOCAL: string = 'LOCAL'; // self contained
-  static LOCAL_DEV: string = 'LOCAL_DEV';
+  public static LOCAL: string = 'LOCAL'; // self contained
+  public static LOCAL_DEV: string = 'LOCAL_DEV';
 
 }
 
