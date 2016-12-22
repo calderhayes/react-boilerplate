@@ -64,6 +64,8 @@
       "no-mergeable-namespace": true,
       "no-require-imports": true,
       "no-trailing-whitespace": true,
+      "object-literal-sort-keys": true,
+
 
 
 

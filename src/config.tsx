@@ -28,11 +28,11 @@ let config: IConfig = null;
 
 if (ENVIRONMENT === ConfigurationConstants.LOCAL) {
   config = {
-    ENVIRONMENT: EnvironmentType.LOCAL,
+    API_LOG_LEVEL: LogLevel.DEBUG,
     API_URL: '',
-    USE_ASSERTIONS: true,
+    ENVIRONMENT: EnvironmentType.LOCAL,
     GENERAL_LOG_LEVEL: LogLevel.DEBUG,
-    API_LOG_LEVEL: LogLevel.DEBUG
+    USE_ASSERTIONS: true
   };
 }
 else {
