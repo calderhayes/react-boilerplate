@@ -10,13 +10,13 @@ export interface IEventData {
 };
 
 export interface IReducerResult {
-  eventData: IEventData[],
+  eventData: Array<IEventData>,
   state: IAppState
 }
 
 const reducer = (currentState: IAppState, actionType: string, payload: any) => {
 
-  const eventData: IEventData[] = [];
+  const eventData: Array<IEventData> = new Array<IEventData>();
 
   switch (actionType) {
 

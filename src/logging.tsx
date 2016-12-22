@@ -3,11 +3,11 @@ import {Config} from './config';
 
 export interface ILogger {
 
-  trace: (...args: any[]) => void;
-  debug: (...args: any[]) => void;
-  info: (...args: any[]) => void;
-  warn: (...args: any[]) => void;
-  error: (...args: any[]) => void;
+  trace: (...args: Array<any>) => void;
+  debug: (...args: Array<any>) => void;
+  info: (...args: Array<any>) => void;
+  warn: (...args: Array<any>) => void;
+  error: (...args: Array<any>) => void;
 
 }
 
@@ -23,7 +23,7 @@ const ApiLog: ILogger = logging.getLogger('ApiLog');
 
 // create other logs as needed
 
-const assert = (value: any, message?: string, ...optionalParams: any[]) => {
+const assert = (value: any, message?: string, ...optionalParams: Array<any>) => {
 
   if (Config.USE_ASSERTIONS) {
     console.assert(value, message, ...optionalParams);

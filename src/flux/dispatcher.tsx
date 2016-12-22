@@ -10,7 +10,7 @@ export interface IDispatcher {
 
 export class Dispatcher implements IDispatcher {
 
-    private registeredMethods: ((actionType: string, payload: any) => void)[];
+    private registeredMethods: Array<((actionType: string, payload: any) => void)>;
     private inDispatch: boolean;
 
     constructor() {

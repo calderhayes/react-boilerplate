@@ -8,12 +8,12 @@ import * as Model from '../api/models';
 
 export interface IImmutableAppState {
   readonly exampleValue: number;
-  readonly features: Model.IFeature[];
+  readonly features: Array<Model.IFeature>;
 }
 
 export interface IAppState extends IImmutableAppState {
   exampleValue: number;
-  features: Model.IFeature[];
+  features: Array<Model.IFeature>;
 }
 
 export interface IStore {
@@ -34,7 +34,7 @@ export class Store
 
     const defaultState: IAppState = {
       exampleValue: 1,
-      features: []
+      features: new Array<Model.IFeature>()
     };
 
     this.updateState(initialState || defaultState);

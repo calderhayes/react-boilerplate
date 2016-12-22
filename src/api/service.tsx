@@ -17,6 +17,6 @@ export interface IAPIService {
 
   type: APIServiceType;
   login(username: string, password: string): Promise<IAPIResult<string>>;
-  getFeatures(): Promise<IAPIResult<Model.IFeature[]>>;
+  getFeatures(): Promise<IAPIResult<Array<Model.IFeature>>>;
 
 }

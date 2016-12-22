@@ -67,6 +67,8 @@
       "object-literal-sort-keys": true,
       "prefer-const": true,
       "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
+      "align": [true, "parameters", "statements"],
+      "array-type": [true, "generic"],
 
 
 
@@ -74,7 +76,7 @@
       "class-name": true,
       "comment-format": [true, "check-space"],
 
-      
+
 
       "one-line": [true, "check-open-brace", "check-whitespace"],
       "quotemark": [true, "single"],
