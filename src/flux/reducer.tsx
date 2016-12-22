@@ -10,8 +10,8 @@ export interface IEventData {
 };
 
 export interface IReducerResult {
-  eventData: Array<IEventData>,
-  state: IAppState
+  eventData: Array<IEventData>;
+  state: IAppState;
 }
 
 const reducer = (currentState: IAppState, actionType: string, payload: any) => {
@@ -30,7 +30,7 @@ const reducer = (currentState: IAppState, actionType: string, payload: any) => {
 
         eventData.push({
           parameters: {
-            value: value
+            value
           },
           type: CONSTANTS.EXAMPLE
         });
@@ -45,7 +45,7 @@ const reducer = (currentState: IAppState, actionType: string, payload: any) => {
   }
 
   const res: IReducerResult = {
-    eventData: eventData,
+    eventData,
     state: currentState
   };
 

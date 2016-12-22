@@ -39,4 +39,4 @@ else {
   throw 'Not implemented';
 }
 
-export const Config: IConfig = new (Immutable.Record(config) as any);
+export const Config: IConfig = new (Immutable.Record(config) as any)();

@@ -42,7 +42,7 @@ export class Store
   }
 
   public getState(): IImmutableAppState {
-    const record = new (Immutable.Record(this.state) as any) as IImmutableAppState;
+    const record = new (Immutable.Record(this.state) as any)() as IImmutableAppState;
     return record;
   }
 

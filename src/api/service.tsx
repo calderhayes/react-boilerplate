@@ -9,7 +9,7 @@ export enum APIServiceType {
 
 
 export interface IAPIResult<T> {
-  value: T
+  value: T;
   // other stuff
 }
 

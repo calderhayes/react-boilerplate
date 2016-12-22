@@ -25,7 +25,6 @@ Log.info('Bootstrapping...');
 // UNIT TESTING
 
 
-
 let api: IAPIService = null;
 if (Config.ENVIRONMENT === EnvironmentType.LOCAL) {
   api = new LocalAPIService(ApiLog);
@@ -35,7 +34,6 @@ else {
 }
 
 const API = api;
-
 
 
 // Or eventually initial state
