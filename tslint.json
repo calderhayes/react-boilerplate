@@ -57,14 +57,20 @@
       "eofline": true,
       "indent": [true, "spaces"],
       "linebreak-style": [true, "LF"],
-
+      "max-classes-per-file": [true, 1],
+      "max-file-line-count": [true, 300],
+      "max-line-length": [true, 120],
+      "no-default-export": true,
+      "no-mergeable-namespace": true,
+      "no-require-imports": true,
+      "no-trailing-whitespace": true,
 
 
 
       "class-name": true,
       "comment-format": [true, "check-space"],
 
-      "no-trailing-whitespace": true,
+      
 
       "one-line": [true, "check-open-brace", "check-whitespace"],
       "quotemark": [true, "single"],
