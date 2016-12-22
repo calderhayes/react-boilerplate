@@ -5,7 +5,7 @@ const Linter = require("tslint").Linter;
 const fs = require('fs');
 const util = require('util');
 
-const program = Linter.createProgram("tsconfig.json");
+const program = Linter.createProgram("tsconfig.json", './');
 const files = Linter.getFileNames(program);
 
 const configuration = require('./tslint.json')
