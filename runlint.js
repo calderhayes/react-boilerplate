@@ -1,6 +1,7 @@
 'use strict';
 
-const Linter = require("tslint");
+const Linter = require("tslint").Linter;
+
 const fs = require('fs');
 const util = require('util');
 
@@ -10,15 +11,19 @@ const files = Linter.getFileNames(program);
 const configuration = require('./tslint.json')
 
 const options = {
-    //formatter: "json",
-    configuration: configuration
+    formatter: "json"
 };
 
 
 const results = files.map(file => {
-    const fileContents = program.getSourceFile(file).getFullText();
-    const linter = new Linter(file, fileContents, options, program);
-    let result = linter.lint();
+    //const fileContents = program.getSourceFile(file).getFullText();
+    const fileContents = fs.readFileSync(file, 'utf8');
+
+    const linter = new Linter(options, program);
+
+    linter.lint(file, fileContents, configuration);
+
+    let result = linter.getResult();
     result.file = file;
 
     return result;
