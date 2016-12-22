@@ -49,7 +49,7 @@ AppDispatcher.register((actionType: string, payload: any) => {
 
   AppStore.updateState(retVal.state);
 
-  _.each(retVal.eventData, ev => {
+  _.each(retVal.eventData, (ev) => {
     AppEmitter.emit(ev.type, ev.parameters);
   });
 

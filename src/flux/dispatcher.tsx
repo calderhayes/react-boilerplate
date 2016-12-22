@@ -25,7 +25,7 @@ export class Dispatcher implements IDispatcher {
 
 
         this.inDispatch = true;
-        _.each(this.registeredMethods, r => r(actionType, payload));
+        _.each(this.registeredMethods, (r) => r(actionType, payload));
         this.inDispatch = false;
     }
 
