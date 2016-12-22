@@ -4,7 +4,7 @@ import {reducer} from '../flux/reducer';
 import * as _ from 'lodash';
 import * as Immutable from 'immutable';
 import * as Model from '../api/models';
-
+import {BaseStore} from './base-store';
 
 export interface IImmutableAppState {
   readonly exampleValue: number;
@@ -24,13 +24,17 @@ export interface IStore {
 
 }
 
-export class Store
+
+// Do not add accessors / helpers for the state data. Add them to BaseStore
+export class Store extends BaseStore
   implements IStore {
 
-
+  // Do not use this directly
+  // Always use getState()
   private state: IAppState;
 
   constructor(initialState?: IAppState) {
+    super();
 
     const defaultState: IAppState = {
       exampleValue: 1,
@@ -46,6 +50,8 @@ export class Store
     return record;
   }
 
+  // Be careful when using this, only have use it
+  // when passing into the reducer
   public getMutableState(): IAppState {
     return this.state;
   }

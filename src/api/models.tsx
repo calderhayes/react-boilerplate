@@ -1,5 +1,5 @@
 
 export interface IFeature {
   featureType: string;
-  activated: boolean;
+  isActivated: boolean;
 }
