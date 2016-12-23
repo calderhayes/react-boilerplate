@@ -3,7 +3,7 @@ import * as React from 'react';
 import {
   Router,
   Route,
-  hashHistory,
+  browserHistory,
   IndexRoute,
   RouterState,
   RedirectFunction
@@ -40,7 +40,7 @@ export class AppRouter {
 
     render(
       (
-        <Router history={hashHistory}>
+        <Router history={browserHistory}>
           <Route path='/' component={App}>
             <IndexRoute component={Login} />
             <Route path='login' component={Login} />
