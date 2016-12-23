@@ -50,12 +50,7 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
                 <input ref='password' type='password' className='form-control' placeholder='Password' required />
                 <button onClick={this.loginClicked} className='btn btn-lg btn-primary btn-block' type='button'>
                     Sign in
-                  </button>
-                <label className='checkbox pull-left'>
-                    <input type='checkbox' value='remember-me' />
-                    Remember me
-                </label>
-                <a href='#' className='pull-right need-help'>Need help? </a><span className='clearfix'></span>
+                </button>
                 </form>
             </div>
             <a href='#' className='text-center new-account'>Create an account </a>
