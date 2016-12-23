@@ -1,8 +1,7 @@
 
 import * as React from 'react';
 import {BaseComponent} from '../base-component';
-import {FluxExample} from '../components/flux-example';
-import {Hello} from '../components/example';
+import {NavBar} from '../components/nav-bar';
 
 export interface IAppProps {
 
@@ -23,10 +22,25 @@ export class App extends BaseComponent<IAppProps, IAppState> {
 
     return (
       <div>
+        <NavBar />
+        <div className='container'>
+          <div className='row'>
+            <div className='col-xs-12'>
+              {this.props.children}
+            </div>
+          </div>
+        </div>
+        <div className='container'>
+            <hr />
+            <footer>
+                <div className='row'>
+                    <div className='col-lg-12'>
+                        <p>Copyright &copy; Your Website 2014</p>
+                    </div>
+                </div>
+            </footer>
+        </div>
 
-        <Hello name='John Doe' />
-
-        <FluxExample />
       </div>);
 
   }
