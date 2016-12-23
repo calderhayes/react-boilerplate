@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 import {BaseComponent} from '../base-component';
-import {Link} from 'react-router';
+import {Link, IndexLink} from 'react-router';
 
 export interface INavBarProps {
 
@@ -30,9 +30,9 @@ export class NavBar extends BaseComponent<INavBarProps, INavBarState> {
               <span className='icon-bar'></span>
               <span className='icon-bar'></span>
             </button>
-            <Link className='navbar-brand' to='/'>
+            <IndexLink className='navbar-brand' to='/'>
               Home (brand here)
-            </Link>
+            </IndexLink>
           </div>
           <div
             className='collapse navbar-collapse'
