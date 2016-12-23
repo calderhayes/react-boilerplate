@@ -14,6 +14,23 @@ export interface ILoginState {
 
 export class Login extends BaseComponent<ILoginProps, ILoginState> {
 
+  public refs: {
+    [key: string]: Element;
+    username: HTMLInputElement;
+    password: HTMLInputElement;
+  };
+
+  private loginClicked = (() => {
+
+    const username = this.refs.username.value;
+    const password = this.refs.password.value;
+
+    this.actions.login(username, password);
+
+    this.log.debug('Logging in with ' + username);
+
+  }).bind(this);
+
   public render() {
 
     const imgUrl = 'https://lh5.googleusercontent.com' +
@@ -29,9 +46,9 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
                   src={imgUrl}
                   alt='Temp Image' />
                 <form className='form-signin'>
-                <input type='text' className='form-control' placeholder='Email' required />
-                <input type='password' className='form-control' placeholder='Password' required />
-                <button className='btn btn-lg btn-primary btn-block' type='button'>
+                <input ref='username' type='text' className='form-control' placeholder='Email' required />
+                <input ref='password' type='password' className='form-control' placeholder='Password' required />
+                <button onClick={this.loginClicked} className='btn btn-lg btn-primary btn-block' type='button'>
                     Sign in
                   </button>
                 <label className='checkbox pull-left'>

@@ -32,5 +32,9 @@ export class ActionControl {
 
   }
 
+  public login(username: string, password: string) {
+    return Promise.resolve(username + password);
+  }
+
 }
 
