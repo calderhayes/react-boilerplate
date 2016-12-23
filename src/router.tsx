@@ -4,28 +4,35 @@ import {
   Router,
   Route,
   hashHistory,
-  IndexRoute
+  IndexRoute,
+  RouterState,
+  RedirectFunction
 } from 'react-router';
+
 import {render} from 'react-dom';
+import {DIControl} from './di';
+import {ReactLog} from './logging';
 
 import {App} from './view/routes/app';
 import {Login} from './view/routes/login';
 import {About} from './view/routes/about';
 import {Example} from './view/routes/example';
 import {Contact} from './view/routes/contact';
+import {Dashboard} from './view/routes/dashboard';
 
-/*export const authenticate = (
+export const authenticate = (
   nextState: RouterState,
   replace: RedirectFunction) => {
 
-  if (!auth.loggedIn()) {
+  if (!DIControl.store.isLoggedIn) {
+    ReactLog.info('User is not logged in, redirecting');
     replace({
       pathname: '/login',
       state: { nextPathname: nextState.location.pathname }
-    })
+    });
   }
 
-};*/
+};
 
 export class AppRouter {
 
@@ -40,6 +47,11 @@ export class AppRouter {
             <Route path='about' component={About} />
             <Route path='contact' component={Contact} />
             <Route path='example' component={Example} />
+            <Route
+              path='dashboard'
+              component={Dashboard}
+              onEnter={authenticate}
+            />
           </Route>
         </Router>
       ), roomDOMElement);

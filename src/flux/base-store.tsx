@@ -22,4 +22,8 @@ export abstract class BaseStore {
     return false;
   }
 
+  public get isLoggedIn() {
+    return false;
+  }
+
 }

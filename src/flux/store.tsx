@@ -13,7 +13,7 @@ export interface IAppState extends IImmutableAppState {
   features: Array<Model.IFeature>;
 }
 
-export interface IStore {
+export interface IStore extends BaseStore {
 
   getState(): IImmutableAppState;
   getMutableState(): IAppState;
