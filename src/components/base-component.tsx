@@ -6,6 +6,7 @@ import {ActionControl} from '../flux/actions';
 import {IEventEmitter} from '../flux/event-emitter';
 import {ReactLog, ILogger} from '../logging';
 
+// Handles the dependency injection
 class BaseComponent<P, S> extends React.Component<P, S> {
 
   public store: IStore;
