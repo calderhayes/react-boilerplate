@@ -24,6 +24,9 @@ const ApiLog: ILogger = logging.getLogger('ApiLog');
 const DispatcherLog: ILogger = logging.getLogger('DispatcherLog');
 (DispatcherLog as Log).setLevel(Config.DISPATCHER_LOG_LEVEL);
 
+const ReactLog: ILogger = logging.getLogger('ReactLog');
+(ReactLog as Log).setLevel(Config.REACT_LOG_LEVEL);
+
 // create other logs as needed
 
 const assert = (value: any, message?: string, ...optionalParams: Array<any>) => {
@@ -38,5 +41,7 @@ export {
   NullLogger,
   Log,
   ApiLog,
-  assert
+  assert,
+  DispatcherLog,
+  ReactLog
 };

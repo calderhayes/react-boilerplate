@@ -8,7 +8,7 @@ import {EventEmitter} from './src/flux/event-emitter';
 import {Dispatcher} from './src/flux/dispatcher';
 import {reducer} from './src/flux/reducer';
 import {Store} from './src/flux/store';
-import {StateControl} from './src/flux/control';
+import {DIControl} from './src/di';
 import {ActionControl} from './src/flux/actions';
 import {Config, EnvironmentType} from './src/config';
 import {IAPIService} from './src/api/service';
@@ -56,10 +56,10 @@ AppDispatcher.register((actionType: string, payload: any) => {
 const AppActions = new ActionControl(AppDispatcher, API);
 
 // Allows for some level of dependency injection
-StateControl.setEventEmitter(AppEmitter);
-StateControl.setStore(AppStore);
-StateControl.setDispatcher(AppDispatcher);
-StateControl.setActionControl(AppActions);
+DIControl.setEventEmitter(AppEmitter);
+DIControl.setStore(AppStore);
+DIControl.setDispatcher(AppDispatcher);
+DIControl.setActionControl(AppActions);
 
 
 // move this out

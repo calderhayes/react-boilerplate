@@ -16,6 +16,7 @@ export interface IConfig {
   GENERAL_LOG_LEVEL: LogLevel;
   API_LOG_LEVEL: LogLevel;
   DISPATCHER_LOG_LEVEL: LogLevel;
+  REACT_LOG_LEVEL: LogLevel;
 }
 
 class ConfigurationConstants {
@@ -34,6 +35,7 @@ if (ENVIRONMENT === ConfigurationConstants.LOCAL) {
     DISPATCHER_LOG_LEVEL: LogLevel.WARN,
     ENVIRONMENT: EnvironmentType.LOCAL,
     GENERAL_LOG_LEVEL: LogLevel.DEBUG,
+    REACT_LOG_LEVEL: LogLevel.DEBUG,
     USE_ASSERTIONS: true
   };
 }

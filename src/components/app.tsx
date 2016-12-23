@@ -1,14 +1,8 @@
 
 import * as React from 'react';
-import {StateControl} from '../flux/control';
+import {BaseComponent} from './base-component';
+import {DIControl} from '../di';
 import {Hello} from './example';
-
-const {
-  eventEmitter,
-  store,
-  actionControl
-} = StateControl;
-
 
 export interface IAppProps {
 
@@ -18,12 +12,12 @@ export interface IAppState {
   value: number;
 }
 
-export class App extends React.Component<IAppProps, IAppState> {
+export class App extends BaseComponent<IAppProps, IAppState> {
 
   constructor(props: IAppProps) {
     super(props);
 
-    const appState = store.getState();
+    const appState = this.store.getState();
     this.state = {
       value: appState.exampleValue
     };
@@ -32,11 +26,11 @@ export class App extends React.Component<IAppProps, IAppState> {
   }
 
   public componentWillMount() {
-    eventEmitter.on(actionControl.CONSTANTS.EXAMPLE, this.exampleActionInvoked);
+    this.eventEmitter.on(this.actions.CONSTANTS.EXAMPLE, this.exampleActionInvoked);
   }
 
   public componentWillUnmount() {
-    eventEmitter.off(actionControl.CONSTANTS.EXAMPLE, this.exampleActionInvoked);
+    this.eventEmitter.off(this.actions.CONSTANTS.EXAMPLE, this.exampleActionInvoked);
   }
 
   public render() {
@@ -60,11 +54,11 @@ export class App extends React.Component<IAppProps, IAppState> {
   }
 
   private invokeExampleAction() {
-    actionControl.doExample();
+    this.actions.doExample();
   }
 
   private exampleActionInvoked() {
-    this.state.value = store.getState().exampleValue;
+    this.state.value = this.store.getState().exampleValue;
     this.setState(this.state);
   }
 

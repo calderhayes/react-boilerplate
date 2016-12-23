@@ -1,5 +1,6 @@
 
 import * as _ from 'lodash';
+import {DispatcherLog} from '../logging';
 
 export interface IDispatcher {
 
@@ -21,6 +22,7 @@ export class Dispatcher implements IDispatcher {
   public dispatch(actionType: string, payload: any) {
     if (this.inDispatch) {
       const message = 'Cannot dispatch while in a dispatch!';
+      DispatcherLog.error(message);
       throw new Error(message);
     }
 

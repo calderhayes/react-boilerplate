@@ -1,11 +1,11 @@
 
-import {IEventEmitter} from './event-emitter';
-import {IStore} from './store';
-import {IDispatcher} from './dispatcher';
-import {ActionControl} from './actions';
-import {assert} from '../logging';
+import {IEventEmitter} from './flux/event-emitter';
+import {IStore} from './flux/store';
+import {IDispatcher} from './flux/dispatcher';
+import {ActionControl} from './flux/actions';
+import {assert} from './logging';
 
-export class FluxControl {
+export class DIControlClass {
 
   private _eventEmitter: IEventEmitter = null;
   private _store: IStore = null;
@@ -70,6 +70,6 @@ export class FluxControl {
 
 }
 
-const StateControl = new FluxControl();
+const DIControl = new DIControlClass();
 
-export {StateControl};
+export {DIControl};
