@@ -1,6 +1,4 @@
 
-import {Config} from '../config';
-import {LocalAPIService} from './local-api-service';
 import * as Model from './models';
 
 export enum APIServiceType {

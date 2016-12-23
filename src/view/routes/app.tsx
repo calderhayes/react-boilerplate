@@ -1,9 +1,8 @@
 
 import * as React from 'react';
-import {BaseComponent} from './base-component';
-import {DIControl} from '../di';
-import {FluxExample} from './flux-example';
-import {Hello} from './example';
+import {BaseComponent} from '../base-component';
+import {FluxExample} from '../components/flux-example';
+import {Hello} from '../components/example';
 
 export interface IAppProps {
 

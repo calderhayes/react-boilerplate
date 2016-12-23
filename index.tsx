@@ -1,8 +1,6 @@
 
 // Requires React to be loaded despite not being used directly
 /* tslint:disable-next-line:no-unused-variable */
-import * as React from 'react';
-import {render} from 'react-dom';
 import * as _ from 'lodash';
 import {EventEmitter} from './src/flux/event-emitter';
 import {Dispatcher} from './src/flux/dispatcher';
@@ -62,9 +60,6 @@ DIControl.setStore(AppStore);
 DIControl.setDispatcher(AppDispatcher);
 DIControl.setActionControl(AppActions);
 
-
-// move this out
-import {App} from './src/components/app';
 
 AppRouter.render(document.getElementById('app'));
 

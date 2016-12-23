@@ -15,9 +15,11 @@ export class LocalAPIService implements IAPIService {
     return APIServiceType.LocalAPIService;
   }
 
-  public login(username: string, password: string) {
+  public login(username: string, password: string)
+    : Promise<IAPIResult<string>> {
+
     return Promise.resolve({
-      value: ''
+      value: username + password
     });
   }
 

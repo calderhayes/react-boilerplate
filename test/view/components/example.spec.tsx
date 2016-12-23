@@ -1,7 +1,6 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import * as TestUtils from 'react-addons-test-utils';
-import {Hello} from '../../src/components/example';
+import {Hello} from '../../../src/view/components/example';
 import * as chai from 'chai';
 
 describe('Hello', () => {

@@ -1,7 +1,4 @@
 
-import * as events from 'events';
-import {reducer} from '../flux/reducer';
-import * as _ from 'lodash';
 import * as Immutable from 'immutable';
 import * as Model from '../api/models';
 import {BaseStore} from './base-store';

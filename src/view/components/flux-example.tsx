@@ -1,7 +1,6 @@
 
 import * as React from 'react';
-import {BaseComponent} from './base-component';
-import {DIControl} from '../di';
+import {BaseComponent} from '../base-component';
 
 export interface IFluxExampleProps {
 

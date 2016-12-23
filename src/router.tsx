@@ -3,27 +3,25 @@ import * as React from 'react';
 import {
   Router,
   Route,
-  hashHistory,
-  RouterState,
-  RedirectFunction
+  hashHistory
 } from 'react-router';
 import {render} from 'react-dom';
 
-import {App} from './components/app';
+import {App} from './view/routes/app';
 
 
-export const authenticate = (
+/*export const authenticate = (
   nextState: RouterState,
   replace: RedirectFunction) => {
 
-  /*if (!auth.loggedIn()) {
+  if (!auth.loggedIn()) {
     replace({
       pathname: '/login',
       state: { nextPathname: nextState.location.pathname }
     })
-  }*/
+  }
 
-};
+};*/
 
 export class AppRouter {
 
