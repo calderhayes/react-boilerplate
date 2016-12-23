@@ -1,4 +1,5 @@
 
+import {Promise} from 'ts-promise';
 import {IAPIService, APIServiceType, IAPIResult} from './service';
 import {ILogger, NullLogger} from '../logging';
 // import * as Model from './models';

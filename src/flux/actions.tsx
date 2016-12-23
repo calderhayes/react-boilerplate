@@ -1,4 +1,5 @@
 
+import {Promise} from 'ts-promise';
 import {IDispatcher} from './dispatcher';
 import {IAPIService} from '../api/service';
 

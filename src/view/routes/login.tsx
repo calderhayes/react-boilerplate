@@ -28,7 +28,12 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
     const username = this.refs.username.value;
     const password = this.refs.password.value;
 
-    this.actions.login(username, password);
+    this.actions.login(username, password)
+      .finally(() => {
+        this.log.debug('Re-enabling');
+        this.state.saving = false;
+        this.setState(this.state);
+      });
 
     this.log.debug('Logging in with ' + username);
 
@@ -59,7 +64,11 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
                 <form className='form-signin'>
                 <input ref='username' type='text' className='form-control' placeholder='Email' required />
                 <input ref='password' type='password' className='form-control' placeholder='Password' required />
-                <button onClick={this.loginClicked} className='btn btn-lg btn-primary btn-block' type='button'>
+                <button
+                  onClick={this.loginClicked}
+                  className='btn btn-lg btn-primary btn-block'
+                  type='button'
+                  disabled={this.state.saving}>
                     Sign in
                 </button>
                 </form>

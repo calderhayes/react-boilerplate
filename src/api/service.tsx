@@ -1,4 +1,5 @@
 
+import {Promise} from 'ts-promise';
 import * as Model from './models';
 
 export enum APIServiceType {
