@@ -2,7 +2,7 @@
 // Requires React to be loaded despite not being used directly
 /* tslint:disable-next-line:no-unused-variable */
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import {render} from 'react-dom';
 import * as _ from 'lodash';
 import {EventEmitter} from './src/flux/event-emitter';
 import {Dispatcher} from './src/flux/dispatcher';
@@ -14,6 +14,7 @@ import {Config, EnvironmentType} from './src/config';
 import {IAPIService} from './src/api/service';
 import {LocalAPIService} from './src/api/local-api-service';
 import {Log, ApiLog} from './src/logging';
+import {AppRouter} from './src/router';
 
 
 Log.info('Bootstrapping...');
@@ -64,18 +65,7 @@ DIControl.setActionControl(AppActions);
 
 // move this out
 import {App} from './src/components/app';
-class MyReactDOM {
-  public static render(rootDOMElement: HTMLElement) {
 
-    ReactDOM.render((
-      <div>
-        <App />
-      </div>),
-      rootDOMElement
-    );
-  }
-}
-
-MyReactDOM.render(document.getElementById('app'));
+AppRouter.render(document.getElementById('app'));
 
 Log.info('Bootstrapping complete');
