@@ -9,7 +9,7 @@ export interface ILoginProps {
 }
 
 export interface ILoginState {
-
+  saving: boolean;
 }
 
 export class Login extends BaseComponent<ILoginProps, ILoginState> {
@@ -22,6 +22,9 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
 
   private loginClicked = (() => {
 
+    this.state.saving = true;
+    this.setState(this.state);
+
     const username = this.refs.username.value;
     const password = this.refs.password.value;
 
@@ -30,6 +33,14 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
     this.log.debug('Logging in with ' + username);
 
   }).bind(this);
+
+  constructor(props: ILoginProps) {
+    super(props);
+
+    this.state = {
+      saving: false
+    };
+  }
 
   public render() {
 
