@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var config = require('./webpack.config');
 var address = 'localhost';
+var port = 8080;
 
 
 var server = new WebpackDevServer(webpack(config),
@@ -15,9 +16,11 @@ server.use('/', function(req, res) {
   res.sendFile(path.join(__dirname+'/index.html'));
 });
 
-server.listen(8080, address, function (err) {
+server.listen(port, address, function (err) {
     if (err) {
         console.log(err);
     }
-    console.log('Listening at '+ address);
+    else {
+      console.log('Listening at ' + address + ':' + port);
+    }
 });
