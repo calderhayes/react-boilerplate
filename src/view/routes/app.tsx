@@ -3,6 +3,8 @@ import * as React from 'react';
 import {BaseComponent} from '../base-component';
 import {NavBar} from '../components/nav-bar';
 
+import '../style/app.css';
+
 export interface IAppProps {
 
 }

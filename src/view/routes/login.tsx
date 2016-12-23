@@ -2,6 +2,8 @@
 import * as React from 'react';
 import {BaseComponent} from '../base-component';
 
+import '../style/login.css';
+
 export interface ILoginProps {
 
 }
