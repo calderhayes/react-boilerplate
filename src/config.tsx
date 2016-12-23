@@ -15,6 +15,7 @@ export interface IConfig {
   USE_ASSERTIONS: boolean;
   GENERAL_LOG_LEVEL: LogLevel;
   API_LOG_LEVEL: LogLevel;
+  DISPATCHER_LOG_LEVEL: LogLevel;
 }
 
 class ConfigurationConstants {
@@ -30,6 +31,7 @@ if (ENVIRONMENT === ConfigurationConstants.LOCAL) {
   config = {
     API_LOG_LEVEL: LogLevel.DEBUG,
     API_URL: '',
+    DISPATCHER_LOG_LEVEL: LogLevel.WARN,
     ENVIRONMENT: EnvironmentType.LOCAL,
     GENERAL_LOG_LEVEL: LogLevel.DEBUG,
     USE_ASSERTIONS: true

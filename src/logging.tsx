@@ -21,6 +21,9 @@ const Log: ILogger = logging.getLogger('GeneralLog');
 const ApiLog: ILogger = logging.getLogger('ApiLog');
 (ApiLog as Log).setLevel(Config.API_LOG_LEVEL);
 
+const DispatcherLog: ILogger = logging.getLogger('DispatcherLog');
+(DispatcherLog as Log).setLevel(Config.DISPATCHER_LOG_LEVEL);
+
 // create other logs as needed
 
 const assert = (value: any, message?: string, ...optionalParams: Array<any>) => {
