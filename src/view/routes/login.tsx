@@ -2,6 +2,7 @@
 import * as React from 'react';
 import {BaseComponent} from '../base-component';
 
+
 import '../style/login.css';
 
 export interface ILoginProps {
@@ -28,12 +29,7 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
     const username = this.refs.username.value;
     const password = this.refs.password.value;
 
-    this.actions.login(username, password)
-      .finally(() => {
-        this.log.debug('Re-enabling');
-        this.state.saving = false;
-        this.setState(this.state);
-      });
+    this.actions.login(username, password);
 
     this.log.debug('Logging in with ' + username);
 
@@ -42,9 +38,13 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
   private loginCompleted = ((result: {success: boolean}) => {
     if (result.success) {
       this.log.debug('Login success!');
+      this.history.push('dashboard');
     }
     else {
       this.log.debug('Login failure!');
+      this.log.debug('Re-enabling');
+      this.state.saving = false;
+      this.setState(this.state);
     }
   }).bind(this);
 

@@ -20,6 +20,7 @@ export class FluxExample extends BaseComponent<IFluxExampleProps, IFluxExampleSt
       value: appState.exampleValue
     };
 
+    this.invokeExampleAction = this.invokeExampleAction.bind(this);
     this.exampleActionInvoked = this.exampleActionInvoked.bind(this);
   }
 
@@ -41,7 +42,7 @@ export class FluxExample extends BaseComponent<IFluxExampleProps, IFluxExampleSt
         <button
           className='btn btn-primary'
           type='button'
-          onClick={this.invokeExampleAction.bind(this)}>Example Action</button>
+          onClick={this.invokeExampleAction}>Example Action</button>
 
         <span className='bold'>{this.state.value}</span>
 
