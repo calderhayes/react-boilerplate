@@ -18,6 +18,8 @@ export class Dashboard extends BaseComponent<IDashboardProps, IDashboardState> {
       <div className='row'>
         <div className='col-xs-12'>
           This is an Dashboard page
+          <br />
+          this is translated text: {this.translate('colour')}
         </div>
       </div>
     );

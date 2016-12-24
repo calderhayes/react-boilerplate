@@ -13,6 +13,7 @@ import {LocalAPIService} from './src/api/local-api-service';
 import {Log, ApiLog} from './src/logging';
 import {AppRouter} from './src/router';
 import {Promise} from 'ts-promise';
+import {initialize} from './src/util/i18n';
 
 
 Log.info('Bootstrapping...');
@@ -58,11 +59,12 @@ DIControl.setDispatcher(AppDispatcher);
 DIControl.setActionControl(AppActions);
 
 // Here we can initialize our data etc
-new Promise((resolve) => {
-  resolve(null);
-})
-// Promise.resolve()
+Promise.resolve()
 .then(() => {
+  return initialize('en-CA');
+})
+.then((translationMethod) => {
+  DIControl.setTranslationFunction(translationMethod);
   AppRouter.render(document.getElementById('app'));
 });
 

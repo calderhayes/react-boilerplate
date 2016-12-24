@@ -4,6 +4,7 @@ import {IStore} from './flux/store';
 import {IDispatcher} from './flux/dispatcher';
 import {ActionControl} from './flux/actions';
 import {assert} from './logging';
+import {TranslationFunction} from 'i18next';
 
 export class DIControlClass {
 
@@ -11,6 +12,7 @@ export class DIControlClass {
   private _store: IStore = null;
   private _dispatcher: IDispatcher = null;
   private _actionControl: ActionControl = null;
+  private _translate: TranslationFunction = null;
 
   public get eventEmitter() {
     assert(this._eventEmitter !== null,
@@ -40,6 +42,13 @@ export class DIControlClass {
     return this._actionControl;
   }
 
+  public get translate() {
+    assert(this._translate !== null,
+      'Translation Function has not been set and is being accessed');
+
+    return this._translate;
+  }
+
   public setEventEmitter(emitter: IEventEmitter) {
     assert(this._eventEmitter === null,
       'Event Emitter has already been set, attempting to override!');
@@ -66,6 +75,13 @@ export class DIControlClass {
       'Action Control has already been set, attempting to override!');
 
     this._actionControl = actionControl;
+  }
+
+  public setTranslationFunction(translate: TranslationFunction) {
+    assert(this._translate === null,
+      'TranslationFunction has already been set, attempting to override!');
+
+    this._translate = translate;
   }
 
 }
