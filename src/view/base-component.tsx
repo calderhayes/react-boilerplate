@@ -7,6 +7,7 @@ import {IEventEmitter} from '../flux/event-emitter';
 import {ILogger} from '../logging';
 import {getReactLog} from '../logging';
 import {browserHistory} from 'react-router';
+import {IHistory} from '../router';
 
 // Handles the dependency injection
 class BaseComponent<P, S> extends React.Component<P, S> {
@@ -15,7 +16,7 @@ class BaseComponent<P, S> extends React.Component<P, S> {
   public readonly actions: ActionControl;
   public readonly eventEmitter: IEventEmitter;
   // Stubbing the type, had some issues referencing History
-  public readonly history: {push(path: string): void};
+  public readonly history: IHistory;
 
   protected get log() {
     if (!this._log) {

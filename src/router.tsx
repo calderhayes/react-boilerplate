@@ -20,6 +20,11 @@ import {Example} from './view/routes/example';
 import {Contact} from './view/routes/contact';
 import {Dashboard} from './view/routes/dashboard';
 
+// Stubbing the type, had some issues referencing History
+export interface IHistory {
+  push(path: string): void;
+}
+
 export const authenticate = (
   nextState: RouterState,
   replace: RedirectFunction) => {
