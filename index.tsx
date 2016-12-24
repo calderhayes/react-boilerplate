@@ -12,7 +12,6 @@ import {IAPIService} from './src/api/service';
 import {LocalAPIService} from './src/api/local-api-service';
 import {Log, ApiLog} from './src/logging';
 import {AppRouter} from './src/router';
-import {Promise} from 'ts-promise';
 import {initialize} from './src/util/i18n';
 
 

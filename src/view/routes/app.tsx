@@ -4,6 +4,7 @@ import {BaseComponent} from '../base-component';
 import {NavBar} from '../components/nav-bar';
 import {Loader} from '../components/loader';
 
+import 'es6-shim';
 import '../style/app.css';
 
 export interface IAppProps {

@@ -1,6 +1,5 @@
 
 import {init, TranslationFunction} from 'i18next';
-import {Promise} from 'ts-promise';
 
 export const initialize = (language: string) => {
 

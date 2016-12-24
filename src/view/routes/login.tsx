@@ -1,6 +1,7 @@
 
 import * as React from 'react';
 import {BaseComponent} from '../base-component';
+import {LoginForm} from '../forms/login';
 
 import '../style/login.css';
 
@@ -21,18 +22,13 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
     password: HTMLInputElement;
   };
 
-  private loginClicked = (() => {
-
+  private loginClicked = ((username: string, password: string) => {
     this.state.saving = true;
     this.setState(this.state);
-
-    const username = this.refs.username.value;
-    const password = this.refs.password.value;
 
     this.actions.login(username, password);
 
     this.log.debug('Logging in with ' + username);
-
   }).bind(this);
 
   private loginCompleted = ((result: {success: boolean, error: string}) => {
@@ -91,17 +87,7 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
                   src={imgUrl}
                   alt='Temp Image' />
                 {error}
-                <form className='form-signin'>
-                <input ref='username' type='text' className='form-control' placeholder='Email' required />
-                <input ref='password' type='password' className='form-control' placeholder='Password' required />
-                <button
-                  onClick={this.loginClicked}
-                  className='btn btn-lg btn-primary btn-block'
-                  type='button'
-                  disabled={this.state.saving}>
-                    Sign in
-                </button>
-                </form>
+                <LoginForm onSubmit={this.loginClicked} isLoading={this.state.saving} />
             </div>
             <a href='#' className='text-center new-account'>Create an account </a>
           </div>
