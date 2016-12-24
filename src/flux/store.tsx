@@ -6,11 +6,13 @@ import {BaseStore} from './base-store';
 export interface IImmutableAppState {
   readonly exampleValue: number;
   readonly features: Array<Model.IFeature>;
+  readonly authInfo: Model.IOauth2TokenResult;
 }
 
 export interface IAppState extends IImmutableAppState {
   exampleValue: number;
   features: Array<Model.IFeature>;
+  authInfo: Model.IOauth2TokenResult;
 }
 
 export interface IStore extends BaseStore {
@@ -33,7 +35,8 @@ export class Store extends BaseStore
   public static get defaultAppState() {
     const defaultState: IAppState = {
       exampleValue: 1,
-      features: new Array<Model.IFeature>()
+      features: new Array<Model.IFeature>(),
+      authInfo: null
     };
 
     return defaultState;

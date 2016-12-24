@@ -7,4 +7,5 @@ export interface IFeature {
 export interface IOauth2TokenResult {
   accessToken: string;
   refreshToken: string;
+  // expiry?
 }

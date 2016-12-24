@@ -39,12 +39,29 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
 
   }).bind(this);
 
+  private loginCompleted = ((result: {success: boolean}) => {
+    if (result.success) {
+      this.log.debug('Login success!');
+    }
+    else {
+      this.log.debug('Login failure!');
+    }
+  }).bind(this);
+
   constructor(props: ILoginProps) {
     super(props);
 
     this.state = {
       saving: false
     };
+  }
+
+  public componentWillMount() {
+    this.eventEmitter.on(this.actions.CONSTANTS.LOGIN, this.loginCompleted);
+  }
+
+  public componentWillUnmount() {
+    this.eventEmitter.off(this.actions.CONSTANTS.LOGIN, this.loginCompleted);
   }
 
   public render() {

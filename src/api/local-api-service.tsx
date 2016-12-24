@@ -39,7 +39,7 @@ export class LocalAPIService implements IAPIService {
     }
 
     const result: Model.IOauth2TokenResult = {
-      accessToken: 'fakeaccess' + (new Date()).getTime().toString(),
+      accessToken: 'faketoken' + (new Date()).getTime().toString(),
       refreshToken: 'fakerefresh' + (new Date()).getTime().toString()
     };
 

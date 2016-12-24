@@ -2,13 +2,14 @@
 import {Promise} from 'ts-promise';
 import {IDispatcher} from './dispatcher';
 import {IAPIService} from '../api/service';
-import {ActionLog} from '../logging';
+import {ActionLog, ILogger} from '../logging';
 
 export class ActionControl {
 
   public static get CONSTANTS() {
     return {
-      EXAMPLE: 'EXAMPLE'
+      EXAMPLE: 'EXAMPLE',
+      LOGIN: 'LOGIN'
     };
   }
 
@@ -18,14 +19,16 @@ export class ActionControl {
 
   private readonly dispatcher: IDispatcher;
   private readonly api: IAPIService;
+  private readonly log: ILogger;
 
   constructor(dispatcher: IDispatcher, service: IAPIService) {
     this.dispatcher = dispatcher;
     this.api = service;
+    this.log = ActionLog;
   }
 
   public doExample() {
-    ActionLog.info('Doing example...');
+    this.log.info('Doing example...');
 
     this.dispatcher.dispatch(this.CONSTANTS.EXAMPLE, {
       value: (new Date()).getTime()
@@ -36,12 +39,12 @@ export class ActionControl {
   }
 
   public login(username: string, password: string): Promise<void> {
+    this.log.info('Logging in ', username);
 
     return this.api.login(username, password)
-      .then(() => {
+      .then((result) => {
 
-        // apiResult.value.accessToken;
-        return null;
+        this.dispatcher.dispatch(this.CONSTANTS.LOGIN, result);
       });
   }
 
