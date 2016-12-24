@@ -10,6 +10,7 @@ export enum EnvironmentType {
 }
 
 export interface IConfig {
+  ACTION_LOG_LEVEL: LogLevel;
   ENVIRONMENT: EnvironmentType;
   API_URL: string;
   USE_ASSERTIONS: boolean;
@@ -30,9 +31,10 @@ let config: IConfig = null;
 
 if (ENVIRONMENT === ConfigurationConstants.LOCAL) {
   config = {
+    ACTION_LOG_LEVEL: LogLevel.DEBUG,
     API_LOG_LEVEL: LogLevel.DEBUG,
     API_URL: '',
-    DISPATCHER_LOG_LEVEL: LogLevel.WARN,
+    DISPATCHER_LOG_LEVEL: LogLevel.DEBUG,
     ENVIRONMENT: EnvironmentType.LOCAL,
     GENERAL_LOG_LEVEL: LogLevel.DEBUG,
     REACT_LOG_LEVEL: LogLevel.DEBUG,

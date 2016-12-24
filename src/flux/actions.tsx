@@ -2,6 +2,7 @@
 import {Promise} from 'ts-promise';
 import {IDispatcher} from './dispatcher';
 import {IAPIService} from '../api/service';
+import {ActionLog} from '../logging';
 
 export class ActionControl {
 
@@ -24,6 +25,7 @@ export class ActionControl {
   }
 
   public doExample() {
+    ActionLog.info('Doing example...');
 
     this.dispatcher.dispatch(this.CONSTANTS.EXAMPLE, {
       value: (new Date()).getTime()
@@ -34,7 +36,10 @@ export class ActionControl {
   }
 
   public login(username: string, password: string) {
-    return Promise.resolve(username + password);
+    return new Promise((resolve) => {
+      const tempTimeout = 2000;
+      setTimeout(() => resolve(username + password), tempTimeout);
+    });
   }
 
 }

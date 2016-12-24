@@ -17,7 +17,7 @@ export class App extends BaseComponent<IAppProps, IAppState> {
 
   constructor(props: IAppProps) {
     super(props);
-    this.log.info('Constructing to level react component');
+    this.log.info('Constructing top level react component');
   }
 
   public render() {

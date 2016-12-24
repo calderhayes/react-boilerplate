@@ -11,7 +11,7 @@ import {
 
 import {render} from 'react-dom';
 import {DIControl} from './di';
-import {ReactLog} from './logging';
+import {Log} from './logging';
 
 import {App} from './view/routes/app';
 import {Login} from './view/routes/login';
@@ -25,7 +25,7 @@ export const authenticate = (
   replace: RedirectFunction) => {
 
   if (!DIControl.store.isLoggedIn) {
-    ReactLog.info('User is not logged in, redirecting');
+    Log.info('User is not logged in, redirecting');
     replace({
       pathname: '/login',
       state: { nextPathname: nextState.location.pathname }
