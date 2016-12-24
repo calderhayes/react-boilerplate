@@ -20,6 +20,7 @@ export enum APIResultStatus {
 export interface IAPIResult<T> {
   value: T;
   status: APIResultStatus;
+  error?: string;
   // other stuff
 }
 
@@ -30,7 +31,7 @@ export interface IInputAPIResult<T> extends IAPIResult<T> {
 export interface IAPIService {
 
   type: APIServiceType;
-  login(username: string, password: string): Promise<IAPIResult<string>>;
+  login(username: string, password: string): Promise<IAPIResult<Model.IOauth2TokenResult>>;
   getFeatures(): Promise<IAPIResult<Array<Model.IFeature>>>;
 
 }

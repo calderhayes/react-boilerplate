@@ -19,6 +19,7 @@ Log.info('Bootstrapping...');
 
 
 // TODO:
+// TRANSLATION
 // FORM VALIDATION
 // CSS
 

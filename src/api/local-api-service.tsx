@@ -8,6 +8,8 @@ import {
 } from './service';
 import {ILogger, NullLogger} from '../logging';
 import * as Model from './models';
+import {find} from 'lodash';
+import {InMemoryDatabase} from './in-memory-database';
 
 export class LocalAPIService implements IAPIService {
 
@@ -22,11 +24,28 @@ export class LocalAPIService implements IAPIService {
   }
 
   public login(username: string, password: string)
-    : Promise<IAPIResult<string>> {
+    : Promise<IAPIResult<Model.IOauth2TokenResult>> {
+
+    const match = find(InMemoryDatabase.users, (u) => {
+      return u.username === username && u.password === password;
+    });
+
+    if (!match) {
+      return Promise.resolve({
+        status: APIResultStatus.ERROR,
+        value: null,
+        error: 'invalid_grant'
+      });
+    }
+
+    const result: Model.IOauth2TokenResult = {
+      accessToken: 'fakeaccess' + (new Date()).getTime().toString(),
+      refreshToken: 'fakerefresh' + (new Date()).getTime().toString()
+    };
 
     return Promise.resolve({
       status: APIResultStatus.SUCCESS,
-      value: username + password
+      value: result
     });
   }
 

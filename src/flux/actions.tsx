@@ -1,7 +1,7 @@
 
 import {Promise} from 'ts-promise';
 import {IDispatcher} from './dispatcher';
-import {IAPIService, IAPIResult} from '../api/service';
+import {IAPIService} from '../api/service';
 import {ActionLog} from '../logging';
 
 export class ActionControl {
@@ -16,8 +16,8 @@ export class ActionControl {
     return ActionControl.CONSTANTS;
   }
 
-  private dispatcher: IDispatcher;
-  private api: IAPIService;
+  private readonly dispatcher: IDispatcher;
+  private readonly api: IAPIService;
 
   constructor(dispatcher: IDispatcher, service: IAPIService) {
     this.dispatcher = dispatcher;
@@ -35,13 +35,13 @@ export class ActionControl {
 
   }
 
-  public login(username: string, password: string): Promise<IAPIResult<string>> {
+  public login(username: string, password: string): Promise<void> {
 
     return this.api.login(username, password)
-      .then((apiResult) => {
+      .then(() => {
 
-        apiResult.value = '1' + apiResult.value;
-        return apiResult;
+        // apiResult.value.accessToken;
+        return null;
       });
   }
 
