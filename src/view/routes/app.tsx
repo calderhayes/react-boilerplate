@@ -18,6 +18,12 @@ export interface IAppState {
 
 export class App extends BaseComponent<IAppProps, IAppState> {
 
+  private initializationComplete = (() => {
+    this.log.info('App route initialized');
+    this.state.loaded = true;
+    this.setState(this.state);
+  }).bind(this);
+
   constructor(props: IAppProps) {
     super(props);
     this.log.info('Constructing top level react component');
@@ -26,17 +32,16 @@ export class App extends BaseComponent<IAppProps, IAppState> {
       loaded: false
     };
 
-    this.log.warn('test code');
-    const timeout = 2000;
-    setTimeout(() => {
-      this.state.loaded = true;
-      this.setState(this.state);
-    }, timeout);
   }
 
-  /*public componentDidMount() {
+  public componentDidMount() {
+    this.eventEmitter.on(this.actions.CONSTANTS.APP_ROUTE_INITIALIZED, this.initializationComplete);
+    this.actions.initializeAppRoute();
+  }
 
-  }*/
+  public componentWillUnmount() {
+    this.eventEmitter.off(this.actions.CONSTANTS.APP_ROUTE_INITIALIZED, this.initializationComplete);
+  }
 
   public render() {
 
