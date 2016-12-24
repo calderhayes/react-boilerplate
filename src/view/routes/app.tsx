@@ -2,7 +2,9 @@
 import * as React from 'react';
 import {BaseComponent} from '../base-component';
 import {NavBar} from '../components/nav-bar';
-const Loader: any = require( 'react-loader');
+
+// tslint:disable-next-line:no-var-requires no-require-imports
+const Loader = require('react-loader');
 
 import '../style/app.css';
 
@@ -24,10 +26,12 @@ export class App extends BaseComponent<IAppProps, IAppState> {
       loaded: false
     };
 
+    this.log.warn('test code');
+    const timeout = 2000;
     setTimeout(() => {
       this.state.loaded = true;
       this.setState(this.state);
-    }, 2000);
+    }, timeout);
   }
 
   /*public componentDidMount() {

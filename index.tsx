@@ -59,6 +59,7 @@ DIControl.setActionControl(AppActions);
 
 // Here we can initialize our data etc
 new Promise((resolve) => {
+  Log.warn('test code');
   setTimeout(resolve, 1);
 })
 // Promise.resolve()
