@@ -3,6 +3,7 @@ import * as React from 'react';
 import {Form, Input, Button} from './base';
 import {VALIDATION_RULES} from './rules';
 import {ValidationError} from './validation-error';
+import {BaseComponent} from '../base-component';
 
 export interface ILoginFormProps {
   onSubmit: (username: string, password: string) => void;
@@ -11,20 +12,36 @@ export interface ILoginFormProps {
 }
 
 export interface ILoginFormState {
-
+  username: string;
+  password: string;
 }
 
-export class LoginForm extends React.Component<ILoginFormProps, ILoginFormState> {
-
-  public refs: {
-    [key: string]: Element;
-    username: HTMLInputElement;
-    password: HTMLInputElement;
-  };
+export class LoginForm extends BaseComponent<ILoginFormProps, ILoginFormState> {
 
   private onClick = (() => {
-    this.props.onSubmit(this.refs.username.value, this.refs.password.value);
+    this.props.onSubmit(this.state.username, this.state.password);
   }).bind(this);
+
+  // TODO: Better strategy for this?
+  // TODO: Get proper type?
+  private onUsernameChanged = ((e: any) => {
+    this.state.username = e.target.value;
+    this.setState(this.state);
+  }).bind(this);
+
+  private onPasswordChanged = ((e: any) => {
+    this.state.password = e.target.value;
+    this.setState(this.state);
+  }).bind(this);
+
+  constructor(props: ILoginFormProps) {
+    super(props);
+
+    this.state = {
+      username: '',
+      password: ''
+    };
+  }
 
   public render() {
 
@@ -39,7 +56,7 @@ export class LoginForm extends React.Component<ILoginFormProps, ILoginFormState>
       <Form className='form-signin'>
         {serverError}
         <Input
-          ref='username'
+          onChange={this.onUsernameChanged}
           className='form-control'
           errorClassName='has-error'
           value=''
@@ -48,7 +65,7 @@ export class LoginForm extends React.Component<ILoginFormProps, ILoginFormState>
           validations={[VALIDATION_RULES.REQUIRED]}/>
 
         <Input
-          ref='password'
+          onChange={this.onPasswordChanged}
           className='form-control'
           errorClassName='has-error'
           placeholder='Password'

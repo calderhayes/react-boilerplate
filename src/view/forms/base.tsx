@@ -13,6 +13,7 @@ export interface IForm extends React.ComponentClass<IFormProps> {
 }
 
 export interface IInputProps {
+  onChange?: Function;
   disabled?: boolean;
   errorClassName?: string;
   className?: string;

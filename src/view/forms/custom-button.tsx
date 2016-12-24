@@ -1,6 +1,7 @@
 
 import * as React from 'react';
 import * as cx from 'classnames';
+import {BaseComponent} from '../base-component';
 
 export interface IButtonProps {
   errorClassName?: string;
@@ -14,7 +15,7 @@ export interface IButtonState {
 
 }
 
-export class Button extends React.Component<IButtonProps, IButtonState> {
+export class Button extends BaseComponent<IButtonProps, IButtonState> {
 
     public static propTypes = {
         children: React.PropTypes.node,
