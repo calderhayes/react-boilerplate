@@ -11,7 +11,7 @@ export interface ILogger {
 
 }
 
-const assert = (value: any, message?: string, ...optionalParams: Array<any>) => {
+export const assert = (value: any, message?: string, ...optionalParams: Array<any>) => {
 
   if (Config.USE_ASSERTIONS) {
     console.assert(value, message, ...optionalParams);
@@ -20,7 +20,7 @@ const assert = (value: any, message?: string, ...optionalParams: Array<any>) => 
 };
 
 // Simple log prefixing factory
-export const addLogPrefix = (logger: ILogger, prefix?: string) => {
+const addLogPrefix = (logger: ILogger, prefix?: string) => {
 
   const log: Log = logger as any;
   const original = log.methodFactory;
@@ -52,28 +52,19 @@ export const getReactLog = (componentName: string) => {
 
 
 // For when a logger is not provided
-const NullLogger: ILogger = logging.getLogger('NullLogger');
+export const NullLogger: ILogger = logging.getLogger('NullLogger');
 (NullLogger as any).setLevel(LogLevel.SILENT);
 
-const Log: ILogger = addLogPrefix(logging.getLogger('GeneralLog'));
+export const Log: ILogger = addLogPrefix(logging.getLogger('GeneralLog'));
 (Log as Log).setLevel(Config.GENERAL_LOG_LEVEL);
 
-const ApiLog: ILogger = addLogPrefix(logging.getLogger('ApiLog'));
+export const ApiLog: ILogger = addLogPrefix(logging.getLogger('ApiLog'));
 (ApiLog as Log).setLevel(Config.API_LOG_LEVEL);
 
-const DispatcherLog: ILogger = addLogPrefix(logging.getLogger('DispatcherLog'));
+export const DispatcherLog: ILogger = addLogPrefix(logging.getLogger('DispatcherLog'));
 (DispatcherLog as Log).setLevel(Config.DISPATCHER_LOG_LEVEL);
 
-const ActionLog: ILogger = addLogPrefix(logging.getLogger('ActionLog'));
+export const ActionLog: ILogger = addLogPrefix(logging.getLogger('ActionLog'));
 (ActionLog as Log).setLevel(Config.ACTION_LOG_LEVEL);
 
 // create other logs as needed
-
-export {
-  NullLogger,
-  Log,
-  ApiLog,
-  assert,
-  DispatcherLog,
-  ActionLog
-};
