@@ -2,9 +2,7 @@
 import * as React from 'react';
 import {BaseComponent} from '../base-component';
 import {NavBar} from '../components/nav-bar';
-
-// tslint:disable-next-line:no-var-requires no-require-imports
-const Loader = require('react-loader');
+import {Loader} from '../components/loader';
 
 import '../style/app.css';
 
