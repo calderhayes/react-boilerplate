@@ -5,7 +5,7 @@
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {
-    "test": "mocha dist/test/*",
+    "test": "NODE_ENV=LOCAL mocha dist/test/*",
     "lint": "node runlint.js",
     "serve": "tsc && node devserver.js"
   },

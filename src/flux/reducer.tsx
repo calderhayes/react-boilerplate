@@ -11,14 +11,7 @@ export interface IEventData {
   parameters: any;
 };
 
-export interface IReducerResult {
-  eventData: Array<IEventData>;
-  state: IAppState;
-}
-
 const reducer = (currentState: IAppState, actionType: string, payload: any) => {
-
-  const eventData: Array<IEventData> = new Array<IEventData>();
 
   switch (actionType) {
 
@@ -30,13 +23,6 @@ const reducer = (currentState: IAppState, actionType: string, payload: any) => {
 
         currentState.exampleValue = value;
 
-        eventData.push({
-          parameters: {
-            value
-          },
-          type: CONSTANTS.EXAMPLE
-        });
-
       }
 
       break;
@@ -45,12 +31,6 @@ const reducer = (currentState: IAppState, actionType: string, payload: any) => {
 
       {
         // No state stuff as of yet
-        eventData.push({
-          parameters: {
-            success: true
-          },
-          type: CONSTANTS.APP_ROUTE_INITIALIZED
-        });
       }
 
       break;
@@ -69,13 +49,6 @@ const reducer = (currentState: IAppState, actionType: string, payload: any) => {
           currentState.authInfo = null;
         }
 
-        eventData.push({
-          parameters: {
-            success
-          },
-          type: CONSTANTS.LOGIN
-        });
-
       }
 
       break;
@@ -85,12 +58,7 @@ const reducer = (currentState: IAppState, actionType: string, payload: any) => {
 
   }
 
-  const res: IReducerResult = {
-    eventData,
-    state: currentState
-  };
-
-  return res;
+  return currentState;
 
 };
 

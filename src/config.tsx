@@ -29,7 +29,7 @@ class ConfigurationConstants {
 
 let config: IConfig = null;
 
-if (ENVIRONMENT === ConfigurationConstants.LOCAL) {
+if (typeof ENVIRONMENT === 'undefined' || !ENVIRONMENT || ENVIRONMENT === ConfigurationConstants.LOCAL) {
   config = {
     ACTION_LOG_LEVEL: LogLevel.DEBUG,
     API_LOG_LEVEL: LogLevel.DEBUG,

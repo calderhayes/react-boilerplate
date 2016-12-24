@@ -3,6 +3,8 @@ import {Promise} from 'ts-promise';
 import {IDispatcher} from './dispatcher';
 import {IAPIService} from '../api/service';
 import {ActionLog, ILogger} from '../logging';
+import {IEventEmitter} from './event-emitter';
+import {IStore} from './store';
 
 export class ActionControl {
 
@@ -20,11 +22,20 @@ export class ActionControl {
 
   private readonly dispatcher: IDispatcher;
   private readonly api: IAPIService;
+  private readonly eventEmitter: IEventEmitter;
+  private readonly store: IStore;
   private readonly log: ILogger;
 
-  constructor(dispatcher: IDispatcher, service: IAPIService) {
+  constructor(
+    dispatcher: IDispatcher,
+    service: IAPIService,
+    eventEmitter: IEventEmitter,
+    store: IStore) {
+
     this.dispatcher = dispatcher;
     this.api = service;
+    this.eventEmitter = eventEmitter;
+    this.store = store;
     this.log = ActionLog;
   }
 
@@ -33,6 +44,11 @@ export class ActionControl {
 
     this.dispatcher.dispatch(this.CONSTANTS.EXAMPLE, {
       value: (new Date()).getTime()
+    });
+
+    const updatedState = this.store.getState();
+    this.eventEmitter.emit(this.CONSTANTS.EXAMPLE, {
+      value: updatedState.exampleValue
     });
 
     return Promise.resolve();
@@ -53,6 +69,11 @@ export class ActionControl {
       this.dispatcher.dispatch(this.CONSTANTS.APP_ROUTE_INITIALIZED, {
         success: true
       });
+
+      // const updatedState = this.store.getState();
+      this.eventEmitter.emit(this.CONSTANTS.APP_ROUTE_INITIALIZED, {
+        success: true
+      });
     });
   }
 
@@ -63,6 +84,11 @@ export class ActionControl {
       .then((result) => {
 
         this.dispatcher.dispatch(this.CONSTANTS.LOGIN, result);
+
+        this.eventEmitter.emit(this.CONSTANTS.LOGIN, {
+          success: this.store.isLoggedIn,
+          error: result.error
+        });
       });
   }
 

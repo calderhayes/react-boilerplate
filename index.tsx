@@ -1,7 +1,6 @@
 
 // Requires React to be loaded despite not being used directly
 /* tslint:disable-next-line:no-unused-variable */
-import * as _ from 'lodash';
 import {EventEmitter} from './src/flux/event-emitter';
 import {Dispatcher} from './src/flux/dispatcher';
 import {reducer} from './src/flux/reducer';
@@ -43,18 +42,14 @@ const AppEmitter = new EventEmitter();
 
 AppDispatcher.register((actionType: string, payload: any) => {
 
-  const retVal = reducer(AppStore.getMutableState(), actionType, payload);
+  const newState = reducer(AppStore.getMutableState(), actionType, payload);
 
-  AppStore.updateState(retVal.state);
-
-  _.each(retVal.eventData, (ev) => {
-    AppEmitter.emit(ev.type, ev.parameters);
-  });
+  AppStore.updateState(newState);
 
 });
 
 // const API
-const AppActions = new ActionControl(AppDispatcher, API);
+const AppActions = new ActionControl(AppDispatcher, API, AppEmitter, AppStore);
 
 // Allows for some level of dependency injection
 DIControl.setEventEmitter(AppEmitter);

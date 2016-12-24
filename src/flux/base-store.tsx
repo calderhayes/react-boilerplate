@@ -23,7 +23,8 @@ export abstract class BaseStore {
   }
 
   public get isLoggedIn() {
-    return false;
+    // This may need an expiry check
+    return !!this._state.authInfo;
   }
 
 }
