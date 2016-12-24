@@ -7,7 +7,7 @@ import {
   APIResultStatus
 } from './service';
 import {ILogger, NullLogger} from '../logging';
-// import * as Model from './models';
+import * as Model from './models';
 
 export class LocalAPIService implements IAPIService {
 
@@ -26,14 +26,14 @@ export class LocalAPIService implements IAPIService {
 
     return Promise.resolve({
       status: APIResultStatus.SUCCESS,
-      value: username + password,
+      value: username + password
     });
   }
 
-  public getFeatures() {
+  public getFeatures(): Promise<IAPIResult<Array<Model.IFeature>>> {
     return Promise.resolve({
-      status: APIResultStatus.SUCCESS
-      value: []
+      status: APIResultStatus.SUCCESS,
+      value: new Array<Model.IFeature>()
     });
   }
 

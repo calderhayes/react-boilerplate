@@ -2,7 +2,6 @@
 import * as React from 'react';
 import {BaseComponent} from '../base-component';
 import {NavBar} from '../components/nav-bar';
-import 'whatwg-fetch';
 
 import '../style/app.css';
 
