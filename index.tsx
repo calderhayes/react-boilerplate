@@ -1,6 +1,4 @@
 
-// Requires React to be loaded despite not being used directly
-/* tslint:disable-next-line:no-unused-variable */
 import {EventEmitter} from './src/flux/event-emitter';
 import {Dispatcher} from './src/flux/dispatcher';
 import {reducer} from './src/flux/reducer';
