@@ -63,9 +63,9 @@ new Promise((resolve) => {
   setTimeout(resolve, 1);
 })
 // Promise.resolve()
-  .then(() => {
-    AppRouter.render(document.getElementById('app'));
-  });
+.then(() => {
+  AppRouter.render(document.getElementById('app'));
+});
 
 
 Log.info('Bootstrapping complete');
