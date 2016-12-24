@@ -20,9 +20,7 @@ Log.info('Bootstrapping...');
 
 
 // TODO:
-// TRANSLATION
 // FORM VALIDATION
-// CSS
 
 
 let api: IAPIService = null;
