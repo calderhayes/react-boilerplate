@@ -25,15 +25,15 @@ export class LocalAPIService implements IAPIService {
     : Promise<IAPIResult<string>> {
 
     return Promise.resolve({
+      status: APIResultStatus.SUCCESS,
       value: username + password,
-      status: APIResultStatus.SUCCESS
     });
   }
 
   public getFeatures() {
     return Promise.resolve({
-      value: [],
       status: APIResultStatus.SUCCESS
+      value: []
     });
   }
 
