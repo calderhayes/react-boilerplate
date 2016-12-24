@@ -13,6 +13,7 @@ import {IAPIService} from './src/api/service';
 import {LocalAPIService} from './src/api/local-api-service';
 import {Log, ApiLog} from './src/logging';
 import {AppRouter} from './src/router';
+import {Promise} from 'ts-promise';
 
 
 Log.info('Bootstrapping...');
@@ -61,7 +62,14 @@ DIControl.setStore(AppStore);
 DIControl.setDispatcher(AppDispatcher);
 DIControl.setActionControl(AppActions);
 
+// Here we can initialize our data etc
+new Promise((resolve) => {
+  setTimeout(resolve, 1);
+})
+// Promise.resolve()
+  .then(() => {
+    AppRouter.render(document.getElementById('app'));
+  });
 
-AppRouter.render(document.getElementById('app'));
 
 Log.info('Bootstrapping complete');

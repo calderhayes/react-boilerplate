@@ -10,7 +10,7 @@ export interface IAppProps {
 }
 
 export interface IAppState {
-  value: number;
+  loaded: boolean;
 }
 
 export class App extends BaseComponent<IAppProps, IAppState> {
@@ -18,7 +18,15 @@ export class App extends BaseComponent<IAppProps, IAppState> {
   constructor(props: IAppProps) {
     super(props);
     this.log.info('Constructing top level react component');
+
+    this.state = {
+      loaded: false
+    };
   }
+
+  /*public componentDidMount() {
+
+  }*/
 
   public render() {
 
