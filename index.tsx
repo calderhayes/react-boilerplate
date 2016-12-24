@@ -18,10 +18,6 @@ import {initialize} from './src/util/i18n';
 Log.info('Bootstrapping...');
 
 
-// TODO:
-// FORM VALIDATION
-
-
 let api: IAPIService = null;
 if (Config.ENVIRONMENT === EnvironmentType.LOCAL) {
   api = new LocalAPIService(ApiLog);
