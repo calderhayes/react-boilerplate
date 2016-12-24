@@ -2,6 +2,8 @@
 import * as React from 'react';
 import {Button} from './custom-button';
 
+import '../style/forms/base.css';
+
 export interface IFormProps {
   className?: string;
 }
@@ -12,6 +14,7 @@ export interface IForm extends React.ComponentClass<IFormProps> {
 
 export interface IInputProps {
   disabled?: boolean;
+  errorClassName?: string;
   className?: string;
   placeholder?: string;
   type?: string;

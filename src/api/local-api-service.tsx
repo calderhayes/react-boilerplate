@@ -33,7 +33,7 @@ export class LocalAPIService implements IAPIService {
 
       const tempTimeout = 2000;
       setTimeout(() => resolve(!!match), tempTimeout);
-      //resolve(!!match);
+      // resolve(!!match);
 
     })
     .then((match: boolean) => {

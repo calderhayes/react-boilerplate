@@ -66,17 +66,6 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
     const imgUrl = 'https://lh5.googleusercontent.com' +
       '/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120';
 
-    let error: JSX.Element = null;
-    if (!!this.state.error) {
-      error = (
-        <div className='alert alert-danger' role='alert'>
-          <span className='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
-          <span className='sr-only'>Error:</span>
-          &nbsp;{this.state.error}
-        </div>
-      );
-    }
-
     return (
       <div className='row'>
         <div className='col-sm-6 col-md-4 col-md-offset-4'>
@@ -86,8 +75,10 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
                   className='profile-img'
                   src={imgUrl}
                   alt='Temp Image' />
-                {error}
-                <LoginForm onSubmit={this.loginClicked} isLoading={this.state.saving} />
+                <LoginForm
+                  onSubmit={this.loginClicked}
+                  isLoading={this.state.saving}
+                  serverErrorMessage={this.state.error} />
             </div>
             <a href='#' className='text-center new-account'>Create an account </a>
           </div>
