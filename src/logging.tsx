@@ -44,7 +44,7 @@ export const getReactLog = (componentName: string) => {
   assert(!!componentName, 'A component name must be provided');
   assert(typeof componentName === 'string', 'The component must be of type string');
 
-  const reactLog: ILogger = addLogPrefix(logging.getLogger('ReactLog|' + componentName));
+  const reactLog: ILogger = addLogPrefix(logging.getLogger('React|' + componentName));
   (reactLog as Log).setLevel(Config.REACT_LOG_LEVEL);
 
   return reactLog;
@@ -55,16 +55,16 @@ export const getReactLog = (componentName: string) => {
 export const NullLogger: ILogger = logging.getLogger('NullLogger');
 (NullLogger as any).setLevel(LogLevel.SILENT);
 
-export const Log: ILogger = addLogPrefix(logging.getLogger('GeneralLog'));
+export const Log: ILogger = addLogPrefix(logging.getLogger('General'));
 (Log as Log).setLevel(Config.GENERAL_LOG_LEVEL);
 
-export const ApiLog: ILogger = addLogPrefix(logging.getLogger('ApiLog'));
+export const ApiLog: ILogger = addLogPrefix(logging.getLogger('Api'));
 (ApiLog as Log).setLevel(Config.API_LOG_LEVEL);
 
-export const DispatcherLog: ILogger = addLogPrefix(logging.getLogger('DispatcherLog'));
+export const DispatcherLog: ILogger = addLogPrefix(logging.getLogger('Dispatcher'));
 (DispatcherLog as Log).setLevel(Config.DISPATCHER_LOG_LEVEL);
 
-export const ActionLog: ILogger = addLogPrefix(logging.getLogger('ActionLog'));
+export const ActionLog: ILogger = addLogPrefix(logging.getLogger('Action'));
 (ActionLog as Log).setLevel(Config.ACTION_LOG_LEVEL);
 
 // create other logs as needed
