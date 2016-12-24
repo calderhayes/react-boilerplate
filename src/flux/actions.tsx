@@ -9,7 +9,8 @@ export class ActionControl {
   public static get CONSTANTS() {
     return {
       EXAMPLE: 'EXAMPLE',
-      LOGIN: 'LOGIN'
+      LOGIN: 'LOGIN',
+      APP_ROUTE_INITIALIZED: 'APP_ROUTE_INITIALIZED'
     };
   }
 
@@ -36,6 +37,23 @@ export class ActionControl {
 
     return Promise.resolve();
 
+  }
+
+  public initializeAppRoute() {
+    this.log.info('Initializing the App Route');
+
+    // This will likely be a batched set of API calls
+    // Or a special call to a single point which provides all
+    // the data
+    return new Promise((resolve) => {
+      const dummyTimeout = 1000;
+      setTimeout(resolve, dummyTimeout);
+    })
+    .then(() => {
+      this.dispatcher.dispatch(this.CONSTANTS.APP_ROUTE_INITIALIZED, {
+        success: true
+      });
+    });
   }
 
   public login(username: string, password: string): Promise<void> {

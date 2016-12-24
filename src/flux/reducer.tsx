@@ -41,6 +41,20 @@ const reducer = (currentState: IAppState, actionType: string, payload: any) => {
 
       break;
 
+    case CONSTANTS.APP_ROUTE_INITIALIZED:
+
+      {
+        // No state stuff as of yet
+        eventData.push({
+          parameters: {
+            success: true
+          },
+          type: CONSTANTS.APP_ROUTE_INITIALIZED
+        });
+      }
+
+      break;
+
     case CONSTANTS.LOGIN:
 
       {

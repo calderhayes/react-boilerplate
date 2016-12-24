@@ -61,6 +61,7 @@
     "loglevel": "^1.4.1",
     "react": "^0.14.8",
     "react-dom": "^0.14.8",
+    "react-loader": "^2.4.0",
     "react-router": "^2.8.1",
     "ts-promise": "^0.3.4"
   }

@@ -2,6 +2,7 @@
 import * as React from 'react';
 import {BaseComponent} from '../base-component';
 import {NavBar} from '../components/nav-bar';
+const Loader: any = require( 'react-loader');
 
 import '../style/app.css';
 
@@ -22,6 +23,11 @@ export class App extends BaseComponent<IAppProps, IAppState> {
     this.state = {
       loaded: false
     };
+
+    setTimeout(() => {
+      this.state.loaded = true;
+      this.setState(this.state);
+    }, 2000);
   }
 
   /*public componentDidMount() {
@@ -35,8 +41,10 @@ export class App extends BaseComponent<IAppProps, IAppState> {
         <NavBar />
         <div className='container'>
           <div className='row'>
-            <div className='col-xs-12'>
-              {this.props.children}
+            <div className='col-xs-12' style={{minHeight: '300px'}}>
+              <Loader loaded={this.state.loaded}>
+                {this.props.children}
+              </Loader>
             </div>
           </div>
         </div>
