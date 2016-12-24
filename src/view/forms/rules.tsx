@@ -1,5 +1,6 @@
 
 import * as React from 'react';
+import {ValidationError} from './validation-error';
 
 // tslint:disable-next-line:no-var-requires no-require-imports
 import {rules} from './base';
@@ -13,11 +14,11 @@ Object.assign(rules, {
   [VALIDATION_RULES.REQUIRED]: {
 
     rule: (value: any) => {
-      return !!value.toString().trim();
+      return !!value && !!value.toString().trim();
     },
 
     hint: (/* value: any */) => {
-      return <span className='form-error is-visible'>Required</span>;
+      return <ValidationError message='Required' isSmall={true} />;
     }
 
   }

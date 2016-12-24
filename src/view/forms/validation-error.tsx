@@ -21,7 +21,6 @@ export class ValidationError extends React.Component<IValidationErrorProps, IVal
       'alert-small': this.props.isSmall || false
     });
 
-
     return (
       <div className={className} role='alert'>
         <span className='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
