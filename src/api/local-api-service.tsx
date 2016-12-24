@@ -1,6 +1,11 @@
 
 import {Promise} from 'ts-promise';
-import {IAPIService, APIServiceType, IAPIResult} from './service';
+import {
+  IAPIService,
+  APIServiceType,
+  IAPIResult,
+  APIResultStatus
+} from './service';
 import {ILogger, NullLogger} from '../logging';
 // import * as Model from './models';
 
@@ -19,16 +24,16 @@ export class LocalAPIService implements IAPIService {
   public login(username: string, password: string)
     : Promise<IAPIResult<string>> {
 
-    //window.fetch()
-
     return Promise.resolve({
-      value: username + password
+      value: username + password,
+      status: APIResultStatus.SUCCESS
     });
   }
 
   public getFeatures() {
     return Promise.resolve({
-      value: []
+      value: [],
+      status: APIResultStatus.SUCCESS
     });
   }
 

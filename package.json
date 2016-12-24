@@ -52,7 +52,6 @@
     "@types/react": "^0.14.41",
     "@types/react-dom": "^0.14.18",
     "@types/react-router": "^2.0.38",
-    "@types/whatwg-fetch": "0.0.33",
     "debounce": "^1.0.0",
     "font-awesome": "^4.5.0",
     "font-awesome-webpack": "0.0.4",
@@ -63,7 +62,6 @@
     "react": "^0.14.8",
     "react-dom": "^0.14.8",
     "react-router": "^2.8.1",
-    "ts-promise": "^0.3.4",
-    "whatwg-fetch": "^2.0.1"
+    "ts-promise": "^0.3.4"
   }
 }
