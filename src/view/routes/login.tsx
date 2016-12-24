@@ -10,6 +10,7 @@ export interface ILoginProps {
 
 export interface ILoginState {
   saving: boolean;
+  error?: string;
 }
 
 export class Login extends BaseComponent<ILoginProps, ILoginState> {
@@ -34,7 +35,7 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
 
   }).bind(this);
 
-  private loginCompleted = ((result: {success: boolean}) => {
+  private loginCompleted = ((result: {success: boolean, error: string}) => {
     if (result.success) {
       this.log.debug('Login success!');
       this.history.push('dashboard');
@@ -43,6 +44,7 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
       this.log.debug('Login failure!');
       this.log.debug('Re-enabling');
       this.state.saving = false;
+      this.state.error = this.translate('login_page.error.' + result.error);
       this.setState(this.state);
     }
   }).bind(this);
@@ -68,6 +70,17 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
     const imgUrl = 'https://lh5.googleusercontent.com' +
       '/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120';
 
+    let error: JSX.Element = null;
+    if (!!this.state.error) {
+      error = (
+        <div className='alert alert-danger' role='alert'>
+          <span className='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
+          <span className='sr-only'>Error:</span>
+          &nbsp;{this.state.error}
+        </div>
+      );
+    }
+
     return (
       <div className='row'>
         <div className='col-sm-6 col-md-4 col-md-offset-4'>
@@ -77,6 +90,7 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
                   className='profile-img'
                   src={imgUrl}
                   alt='Temp Image' />
+                {error}
                 <form className='form-signin'>
                 <input ref='username' type='text' className='form-control' placeholder='Email' required />
                 <input ref='password' type='password' className='form-control' placeholder='Password' required />

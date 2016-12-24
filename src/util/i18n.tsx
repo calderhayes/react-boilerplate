@@ -10,7 +10,14 @@ export const initialize = (language: string) => {
       resources: {
         en: {
           translation: {
-            hello: 'Hello'
+            hello: 'Hello',
+            unknown_error: 'An unknown error has occured',
+            login_page: {
+              error: {
+                invalid_credentials: 'The username or password is incorrect',
+                unknown_error: 'An unknown error has occured'
+              }
+            }
           }
         },
         'en-CA': {

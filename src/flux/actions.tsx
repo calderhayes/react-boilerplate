@@ -85,9 +85,19 @@ export class ActionControl {
 
         this.dispatcher.dispatch(this.CONSTANTS.LOGIN, result);
 
+        // Need to allocate error from the API to translation keys
+        // the login page will append this to login_page.error. for the
+        // proper translation key
+
+        const success = this.store.isLoggedIn;
+        let errorKey: string = null;
+        if (!success) {
+          errorKey = result.error === 'invalid_grant' ? 'invalid_credentials' : 'unknown_error';
+        }
+
         this.eventEmitter.emit(this.CONSTANTS.LOGIN, {
-          success: this.store.isLoggedIn,
-          error: result.error
+          success,
+          error: errorKey
         });
       });
   }
