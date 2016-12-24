@@ -1,8 +1,12 @@
 
 import * as React from 'react';
+import * as cx from 'classnames';
+
+import '../style/forms/validation-error.css';
 
 export interface IValidationErrorProps {
   message: string;
+  isSmall?: boolean;
 }
 
 export interface IValidationErrorState {
@@ -13,8 +17,13 @@ export class ValidationError extends React.Component<IValidationErrorProps, IVal
 
   public render() {
 
+    const className = cx('alert', 'alert-danger', {
+      'alert-small': this.props.isSmall || false
+    });
+
+
     return (
-      <div className='alert alert-danger' role='alert'>
+      <div className={className} role='alert'>
         <span className='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
         <span className='sr-only'>Error:</span>
         &nbsp;{this.props.message}
