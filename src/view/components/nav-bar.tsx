@@ -2,6 +2,7 @@
 import * as React from 'react';
 import {BaseComponent} from '../base-component';
 // import {Link, IndexLink} from 'react-router';
+ // tslint:disable-next-line:no-var-requires no-require-imports
 const { Link, IndexLink } = require('react-router');
 
 export interface INavBarProps {

@@ -7,7 +7,8 @@ import {IEventEmitter} from '../flux/event-emitter';
 import {ILogger} from '../logging';
 import {getReactLog} from '../logging';
 // import {browserHistory} from 'react-router';
-let {browserHistory} = require('react-router');
+// tslint:disable-next-line:no-var-requires no-require-imports
+const {browserHistory} = require('react-router');
 import {IHistory} from '../router';
 import {TranslationFunction} from 'i18next';
 

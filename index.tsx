@@ -20,7 +20,8 @@ Log.info('Bootstrapping...');
 // TODO: Solidify authentication strategy
 // TODO: Solidify what actions are doing vs reducers in terms of error handling
 // TODO: Solidify error message handling, what provides the keys, what creates the keys (this may just be documentation)
-// TODO: Create an automated front end task handler (refresh token), have a centralized control that handles this in a generalized way
+// TODO: Create an automated front end task handler (refresh token), have a centralized 
+//   control that handles this in a generalized way
 // TODO: Take a look at tsfmt
 
 

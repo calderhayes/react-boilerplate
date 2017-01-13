@@ -12,11 +12,13 @@ import * as React from 'react';
   RedirectFunction
 } from 'react-router';*/
 
+// tslint:disable-next-line:no-var-requires no-require-imports
 const {
   Router,
   Route,
   browserHistory,
   IndexRoute
+// tslint:disable-next-line:no-var-requires no-require-imports
 } = require('react-router');
 
 import {render} from 'react-dom';

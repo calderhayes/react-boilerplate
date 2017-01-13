@@ -52,7 +52,7 @@
       "cyclomatic-complexity": true,
       "eofline": true,
       "indent": [true, "spaces"],
-      "linebreak-style": [true, "LF"],
+      "linebreak-style": [false],
       "max-classes-per-file": [true, 1],
       "max-file-line-count": [true, 300],
       "max-line-length": [true, 120],
