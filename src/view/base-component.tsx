@@ -6,7 +6,8 @@ import {ActionControl} from '../flux/actions';
 import {IEventEmitter} from '../flux/event-emitter';
 import {ILogger} from '../logging';
 import {getReactLog} from '../logging';
-import {browserHistory} from 'react-router';
+// import {browserHistory} from 'react-router';
+let {browserHistory} = require('react-router');
 import {IHistory} from '../router';
 import {TranslationFunction} from 'i18next';
 

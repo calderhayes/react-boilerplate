@@ -30,8 +30,8 @@ export class Button extends BaseComponent<IButtonProps, IButtonState> {
 
     public render() {
 
-        const { errorClassName, className, ...rest } = this.props;
-        const isDisabled = this.props.forceDisabled || !!Object.keys(this.context.errors).length;
+        const { errorClassName, className } = this.props;
+        const isDisabled = this.props.forceDisabled || !!Object.keys((this.context as any).errors).length;
 
         const c = cx({
                   [className]: !!className,
@@ -42,7 +42,7 @@ export class Button extends BaseComponent<IButtonProps, IButtonState> {
             <button
               className={c}
               disabled={isDisabled}
-              {...rest}
+              {...this.props}
             >{this.props.children}</button>
         );
     }

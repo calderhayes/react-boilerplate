@@ -1,13 +1,23 @@
 
 import * as React from 'react';
-import {
+
+// react-router definition file is erroneous
+// https://github.com/Microsoft/TypeScript/issues/9488
+/*import {
   Router,
   Route,
   browserHistory,
   IndexRoute,
   RouterState,
   RedirectFunction
-} from 'react-router';
+} from 'react-router';*/
+
+const {
+  Router,
+  Route,
+  browserHistory,
+  IndexRoute
+} = require('react-router');
 
 import {render} from 'react-dom';
 import {DIControl} from './di';
@@ -26,8 +36,8 @@ export interface IHistory {
 }
 
 export const authenticate = (
-  nextState: RouterState,
-  replace: RedirectFunction) => {
+  nextState: any /*RouterState*/,
+  replace: any /*RedirectFunction*/) => {
 
   if (!DIControl.store.isLoggedIn) {
     Log.info('User is not logged in, redirecting');

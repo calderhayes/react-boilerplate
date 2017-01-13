@@ -1,7 +1,8 @@
 
 import * as React from 'react';
 import {BaseComponent} from '../base-component';
-import {Link, IndexLink} from 'react-router';
+// import {Link, IndexLink} from 'react-router';
+const { Link, IndexLink } = require('react-router');
 
 export interface INavBarProps {
 
