@@ -5,33 +5,39 @@ import {VALIDATION_RULES} from './rules';
 import {ValidationError} from './validation-error';
 import {BaseComponent} from '../base-component';
 
-export interface ILoginFormProps {
-  onSubmit: (username: string, password: string) => void;
-  isLoading: boolean;
-  serverErrorMessage?: string;
-}
-
-export interface ILoginFormState {
+export interface ILoginFormData {
   username: string;
   password: string;
 }
 
-export class LoginForm extends BaseComponent<ILoginFormProps, ILoginFormState> {
+export interface ILoginFormProps {
+  formData: ILoginFormData;
+  onChange: (formData: ILoginFormData) => void;
+  onSubmit: (formData: ILoginFormData) => void;
+  isLoading: boolean;
+  serverErrorMessage?: string;
+}
+
+export class LoginForm extends BaseComponent<ILoginFormProps, {}> {
 
   private onClick = (() => {
-    this.props.onSubmit(this.state.username, this.state.password);
+    this.props.onSubmit(this.props.formData);
   }).bind(this);
 
   // TODO: Better strategy for this?
   // TODO: Get proper type?
   private onUsernameChanged = ((e: any) => {
-    this.state.username = e.target.value;
-    this.setState(this.state);
+    const username = e.target.value;
+    const data: ILoginFormData = Object.assign({}, this.props.formData);
+    data.username = username;
+    this.props.onChange(data);
   }).bind(this);
 
   private onPasswordChanged = ((e: any) => {
-    this.state.password = e.target.value;
-    this.setState(this.state);
+    const password = e.target.value;
+    const data: ILoginFormData = Object.assign({}, this.props.formData);
+    data.password = password;
+    this.props.onChange(data);
   }).bind(this);
 
   constructor(props: ILoginFormProps) {
@@ -59,7 +65,7 @@ export class LoginForm extends BaseComponent<ILoginFormProps, ILoginFormState> {
           onChange={this.onUsernameChanged}
           className='form-control'
           errorClassName='has-error'
-          value=''
+          value={this.props.formData.username}
           name='username'
           placeholder='Username'
           validations={[VALIDATION_RULES.REQUIRED]}/>
@@ -70,7 +76,7 @@ export class LoginForm extends BaseComponent<ILoginFormProps, ILoginFormState> {
           errorClassName='has-error'
           placeholder='Password'
           type='password'
-          value=''
+          value={this.props.formData.password}
           name='password'
           validations={[VALIDATION_RULES.REQUIRED]}/>
 

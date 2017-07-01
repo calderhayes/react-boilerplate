@@ -46,7 +46,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-        'ENVIRONMENT': JSON.stringify(process.env.NODE_ENV || 'LOCAL')
+        'ENVIRONMENT': JSON.stringify(process.env.NODE_ENV || 'LOCAL_DEV')
     })
   ]
 };

@@ -1,6 +1,6 @@
 
 import {IDispatcher} from './dispatcher';
-import {IAPIService} from '../api/service';
+import {IAPIService, APIError, APIErrorType} from '../api/service';
 import {ActionLog, ILogger} from '../logging';
 import {IEventEmitter} from './event-emitter';
 import {IStore} from './store';
@@ -11,7 +11,9 @@ export class ActionControl {
     return {
       EXAMPLE: 'EXAMPLE',
       LOGIN: 'LOGIN',
-      APP_ROUTE_INITIALIZED: 'APP_ROUTE_INITIALIZED'
+      LOGOUT: 'LOGOUT',
+      APP_ROUTE_INITIALIZED: 'APP_ROUTE_INITIALIZED',
+      UNKNOWN_ERROR: 'UNKNOWN_ERROR'
     };
   }
 
@@ -38,7 +40,7 @@ export class ActionControl {
     this.log = ActionLog;
   }
 
-  public doExample() {
+  public async doExample() {
     this.log.info('Doing example...');
 
     this.dispatcher.dispatch(this.CONSTANTS.EXAMPLE, {
@@ -50,55 +52,68 @@ export class ActionControl {
       value: updatedState.exampleValue
     });
 
-    return Promise.resolve();
+    return await Promise.resolve();
 
   }
 
-  public initializeAppRoute() {
+  public async initializeAppRoute() {
     this.log.info('Initializing the App Route');
 
     // This will likely be a batched set of API calls
     // Or a special call to a single point which provides all
     // the data
-    return new Promise((resolve) => {
+    await new Promise((resolve) => {
       const dummyTimeout = 1000;
       setTimeout(resolve, dummyTimeout);
-    })
-    .then(() => {
-      this.dispatcher.dispatch(this.CONSTANTS.APP_ROUTE_INITIALIZED, {
-        success: true
-      });
+    });
 
-      // const updatedState = this.store.getState();
-      this.eventEmitter.emit(this.CONSTANTS.APP_ROUTE_INITIALIZED, {
-        success: true
-      });
+    this.dispatcher.dispatch(this.CONSTANTS.APP_ROUTE_INITIALIZED, {
+      success: true
+    });
+
+    // const updatedState = this.store.getState();
+    this.eventEmitter.emit(this.CONSTANTS.APP_ROUTE_INITIALIZED, {
+      success: true
     });
   }
 
-  public login(username: string, password: string): Promise<void> {
+  public async login(username: string, password: string): Promise<void> {
     this.log.info('Logging in ', username);
 
-    return this.api.login(username, password)
-      .then((result) => {
+    try {
+      const result = await this.api.login(username, password);
+      this.dispatcher.dispatch(this.CONSTANTS.LOGIN, result);
 
-        this.dispatcher.dispatch(this.CONSTANTS.LOGIN, result);
+      // Need to allocate error from the API to translation keys
+      // the login page will append this to login_page.error. for the
+      // proper translation key
 
-        // Need to allocate error from the API to translation keys
-        // the login page will append this to login_page.error. for the
-        // proper translation key
-
-        const success = this.store.isLoggedIn;
-        let errorKey: string = null;
-        if (!success) {
-          errorKey = result.error === 'invalid_grant' ? 'invalid_credentials' : 'unknown_error';
-        }
-
-        this.eventEmitter.emit(this.CONSTANTS.LOGIN, {
-          success,
-          error: errorKey
-        });
+      this.eventEmitter.emit(this.CONSTANTS.LOGIN, {
+        success: true
       });
+    }
+    catch (error) {
+      if (error.isAPIError) {
+        const e: APIError = error;
+
+        if (e.apiErrorType === APIErrorType.UNAUTHENTICATED) {
+          this.dispatcher.dispatch(this.CONSTANTS.LOGOUT);
+          this.eventEmitter.emit(this.CONSTANTS.LOGIN, {
+            success: false,
+            error: 'invalid_credentials'
+          });
+          return;
+        }
+      }
+      this.unknownErrorHandler(error);
+    }
+  }
+
+  private unknownErrorHandler(error?: any) {
+    this.log.error('An unknown error occured', error);
+    this.eventEmitter.emit(this.CONSTANTS.UNKNOWN_ERROR, {
+      error
+    });
   }
 
 }

@@ -4,7 +4,7 @@ export interface IFeature {
   isActivated: boolean;
 }
 
-export interface IOauth2TokenResult {
+export interface IOAuth2TokenResult {
   accessToken: string;
   refreshToken: string;
   // expiry?
