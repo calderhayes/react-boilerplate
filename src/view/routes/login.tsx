@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 import {BaseComponent} from '../base-component';
-import {LoginForm} from '../forms/login';
+import {LoginForm, ILoginFormData} from '../forms/login';
 
 import '../style/login.css';
 
@@ -12,23 +12,23 @@ export interface ILoginProps {
 export interface ILoginState {
   saving: boolean;
   error?: string;
+  formData: ILoginFormData;
 }
 
 export class Login extends BaseComponent<ILoginProps, ILoginState> {
 
-  public refs: {
-    [key: string]: Element;
-    username: HTMLInputElement;
-    password: HTMLInputElement;
-  };
-
-  private loginClicked = ((username: string, password: string) => {
+  private loginClicked = ((data: ILoginFormData) => {
     this.state.saving = true;
     this.setState(this.state);
 
-    this.actions.login(username, password);
+    this.actions.login(data.username, data.password);
 
-    this.log.debug('Logging in with ' + username);
+    this.log.debug('Logging in with ' + data.username);
+  }).bind(this);
+
+  private onChange = ((data: ILoginFormData) => {
+    this.state.formData = data;
+    this.setState(this.state);
   }).bind(this);
 
   private loginCompleted = ((result: {success: boolean, error: string}) => {
@@ -41,6 +41,7 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
       this.log.debug('Re-enabling');
       this.state.saving = false;
       this.state.error = this.translate('login_page.error.' + result.error);
+      this.state.formData.password = '';
       this.setState(this.state);
     }
   }).bind(this);
@@ -49,7 +50,11 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
     super(props);
 
     this.state = {
-      saving: false
+      saving: false,
+      formData: {
+        username: '',
+        password: ''
+      }
     };
   }
 
@@ -76,7 +81,9 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
                   src={imgUrl}
                   alt='Temp Image' />
                 <LoginForm
+                  formData={this.state.formData}
                   onSubmit={this.loginClicked}
+                  onChange={this.onChange}
                   isLoading={this.state.saving}
                   serverErrorMessage={this.state.error} />
             </div>

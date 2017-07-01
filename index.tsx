@@ -8,7 +8,7 @@ import {ActionControl} from './src/flux/actions';
 import {Config, EnvironmentType} from './src/config';
 import {IAPIService} from './src/api/service';
 import {LocalAPIService} from './src/api/local-api-service';
-import {LocalDevAPIService} from './src/api/local-dev-api-service';
+import {APIService} from './src/api/api-service';
 import {Log, ApiLog} from './src/logging';
 import {AppRouter} from './src/router';
 import {initialize} from './src/util/i18n';
@@ -32,7 +32,7 @@ if (Config.ENVIRONMENT === EnvironmentType.LOCAL) {
   api = new LocalAPIService(ApiLog);
 }
 else if (Config.ENVIRONMENT === EnvironmentType.LOCAL_DEV) {
-  api = new LocalDevAPIService(ApiLog, Config.API_URL, Config.AUTH_URL);
+  api = new APIService(ApiLog, Config.API_URL, Config.AUTH_URL);
 }
 else {
   throw 'Not yet implemented';
