@@ -13,6 +13,7 @@ export interface IConfig {
   ACTION_LOG_LEVEL: LogLevel;
   ENVIRONMENT: EnvironmentType;
   API_URL: string;
+  AUTH_URL: string;
   USE_ASSERTIONS: boolean;
   GENERAL_LOG_LEVEL: LogLevel;
   API_LOG_LEVEL: LogLevel;
@@ -34,8 +35,22 @@ if (typeof ENVIRONMENT === 'undefined' || !ENVIRONMENT || ENVIRONMENT === Config
     ACTION_LOG_LEVEL: LogLevel.DEBUG,
     API_LOG_LEVEL: LogLevel.DEBUG,
     API_URL: '',
+    AUTH_URL: '',
     DISPATCHER_LOG_LEVEL: LogLevel.DEBUG,
     ENVIRONMENT: EnvironmentType.LOCAL,
+    GENERAL_LOG_LEVEL: LogLevel.DEBUG,
+    REACT_LOG_LEVEL: LogLevel.DEBUG,
+    USE_ASSERTIONS: true
+  };
+}
+else if (ENVIRONMENT === ConfigurationConstants.LOCAL_DEV) {
+  config = {
+    ACTION_LOG_LEVEL: LogLevel.DEBUG,
+    API_LOG_LEVEL: LogLevel.DEBUG,
+    API_URL: '',
+    AUTH_URL: 'http://localhost:5050',
+    DISPATCHER_LOG_LEVEL: LogLevel.DEBUG,
+    ENVIRONMENT: EnvironmentType.LOCAL_DEV,
     GENERAL_LOG_LEVEL: LogLevel.DEBUG,
     REACT_LOG_LEVEL: LogLevel.DEBUG,
     USE_ASSERTIONS: true
@@ -44,5 +59,18 @@ if (typeof ENVIRONMENT === 'undefined' || !ENVIRONMENT || ENVIRONMENT === Config
 else {
   throw 'Not implemented';
 }
+
+// temp
+config = {
+  ACTION_LOG_LEVEL: LogLevel.DEBUG,
+  API_LOG_LEVEL: LogLevel.DEBUG,
+  API_URL: '',
+  AUTH_URL: 'http://localhost:5050',
+  DISPATCHER_LOG_LEVEL: LogLevel.DEBUG,
+  ENVIRONMENT: EnvironmentType.LOCAL_DEV,
+  GENERAL_LOG_LEVEL: LogLevel.DEBUG,
+  REACT_LOG_LEVEL: LogLevel.DEBUG,
+  USE_ASSERTIONS: true
+};
 
 export const Config: IConfig = new (Immutable.Record(config) as any)();

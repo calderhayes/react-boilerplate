@@ -8,7 +8,7 @@ var port = 8080;
 
 var server = new WebpackDevServer(webpack(config),
   {
-    https: true,
+    https: false,
     hot: true
   });
 

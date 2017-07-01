@@ -23,6 +23,11 @@ export class App extends BaseComponent<IAppProps, IAppState> {
     this.setState(this.state);
   }).bind(this);
 
+  private unknownError = ((error: any) => {
+    this.log.error('Unknown error occured', error);
+    // Do something visual
+  }).bind(this);
+
   constructor(props: IAppProps) {
     super(props);
     this.log.info('Constructing top level react component');
@@ -35,11 +40,13 @@ export class App extends BaseComponent<IAppProps, IAppState> {
 
   public componentDidMount() {
     this.eventEmitter.on(this.actions.CONSTANTS.APP_ROUTE_INITIALIZED, this.initializationComplete);
+    this.eventEmitter.on(this.actions.CONSTANTS.UNKNOWN_ERROR, this.unknownError);
     this.actions.initializeAppRoute();
   }
 
   public componentWillUnmount() {
     this.eventEmitter.off(this.actions.CONSTANTS.APP_ROUTE_INITIALIZED, this.initializationComplete);
+    this.eventEmitter.off(this.actions.CONSTANTS.UNKNOWN_ERROR, this.unknownError);
   }
 
   public render() {

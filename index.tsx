@@ -8,26 +8,31 @@ import {ActionControl} from './src/flux/actions';
 import {Config, EnvironmentType} from './src/config';
 import {IAPIService} from './src/api/service';
 import {LocalAPIService} from './src/api/local-api-service';
+import {LocalDevAPIService} from './src/api/local-dev-api-service';
 import {Log, ApiLog} from './src/logging';
 import {AppRouter} from './src/router';
 import {initialize} from './src/util/i18n';
 
-
 Log.info('Bootstrapping...');
+Log.info('Bootstrapping under environment: ' + Config.ENVIRONMENT);
 
 // TODO: Split up UI into Smart (stateful components / Containers) and Dumb (functional components / Presentation)
 
 // TODO: Solidify authentication strategy
 // TODO: Solidify what actions are doing vs reducers in terms of error handling
 // TODO: Solidify error message handling, what provides the keys, what creates the keys (this may just be documentation)
-// TODO: Create an automated front end task handler (refresh token), have a centralized 
+// TODO: Create an automated front end task handler (refresh token), have a centralized
 //   control that handles this in a generalized way
 // TODO: Take a look at tsfmt
 
 
+// TODO: Replace with factory?
 let api: IAPIService = null;
 if (Config.ENVIRONMENT === EnvironmentType.LOCAL) {
   api = new LocalAPIService(ApiLog);
+}
+else if (Config.ENVIRONMENT === EnvironmentType.LOCAL_DEV) {
+  api = new LocalDevAPIService(ApiLog, Config.API_URL, Config.AUTH_URL);
 }
 else {
   throw 'Not yet implemented';
@@ -68,5 +73,24 @@ Promise.resolve()
   AppRouter.render(document.getElementById('app'));
 });
 
+window.onerror = (message, file, line, column, errorObject) => {
+  column = column || (window.event && (window.event as any).errorCharacter);
+  const stack = errorObject ? errorObject.stack : null;
+
+  const data: any = {
+    message,
+    file,
+    line,
+    column,
+    errorStack: stack
+  };
+
+  Log.error('Uncaught error occurred', data);
+
+  // here I make a call to the server to log the error
+
+  // the error can still be triggered as usual, we just wanted to know what's happening on the client side
+  return false;
+};
 
 Log.info('Bootstrapping complete');

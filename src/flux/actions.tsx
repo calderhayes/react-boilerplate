@@ -12,7 +12,8 @@ export class ActionControl {
       EXAMPLE: 'EXAMPLE',
       LOGIN: 'LOGIN',
       LOGOUT: 'LOGOUT',
-      APP_ROUTE_INITIALIZED: 'APP_ROUTE_INITIALIZED'
+      APP_ROUTE_INITIALIZED: 'APP_ROUTE_INITIALIZED',
+      UNKNOWN_ERROR: 'UNKNOWN_ERROR'
     };
   }
 
@@ -95,16 +96,24 @@ export class ActionControl {
       if (error.isAPIError) {
         const e: APIError = error;
 
-        if (e.APIErrorType === APIErrorType.UNAUTHENTICATED) {
+        if (e.apiErrorType === APIErrorType.UNAUTHENTICATED) {
           this.dispatcher.dispatch(this.CONSTANTS.LOGOUT);
           this.eventEmitter.emit(this.CONSTANTS.LOGIN, {
             success: false,
-            error: e.message
+            error: 'invalid_credentials'
           });
+          return;
         }
       }
-      throw APIError.unknownError();
+      this.unknownErrorHandler(error);
     }
+  }
+
+  private unknownErrorHandler(error?: any) {
+    this.log.error('An unknown error occured', error);
+    this.eventEmitter.emit(this.CONSTANTS.UNKNOWN_ERROR, {
+      error
+    });
   }
 
 }

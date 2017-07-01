@@ -2,17 +2,28 @@
 import * as Model from './models';
 
 export enum APIServiceType {
-  LocalAPIService
+  LocalAPIService,
+  DevAPIService
 }
 
 export enum APIErrorType {
-  ERROR,
-  VALIDATION_ERROR,
-  UNAUTHENTICATED,
-  UNAUTHORIZED
+  ERROR = 0,
+  VALIDATION_ERROR = 1,
+  UNAUTHENTICATED = 2,
+  UNAUTHORIZED = 3
 }
 
-export class APIError extends Error {
+export enum HTTPStatusCode {
+  OK = 200,
+  INTERNAL_SERVER_ERROR = 500,
+  BAD_REQUEST = 400,
+  UNAUTHORIZED = 401,
+  FORBIDDEN = 403,
+  NOT_FOUND = 404,
+  UNPROCESSABLE_ENTITY = 422
+}
+
+export class APIError {
 
   public readonly isAPIError: boolean = true;
 
@@ -20,15 +31,15 @@ export class APIError extends Error {
   private _message: string;
   private _data: any;
 
-  get APIErrorType() {
+  public get apiErrorType() {
     return this._apiErrorType;
   }
 
-  get message() {
+  public get message() {
     return this._message;
   }
 
-  get data() {
+  public get data() {
     return this._data;
   }
 
@@ -36,7 +47,6 @@ export class APIError extends Error {
     apiErrorType: APIErrorType,
     message = '',
     data: any = {}) {
-    super(message);
     this._apiErrorType = apiErrorType;
     this._message = message;
     this._data = data;
@@ -46,6 +56,19 @@ export class APIError extends Error {
     return new APIError(
       APIErrorType.ERROR,
       'unknown_error');
+  }
+
+  public static handleResponseError(r: Response) {
+    switch (r.status) {
+      case HTTPStatusCode.UNAUTHORIZED:
+      case HTTPStatusCode.NOT_FOUND:
+      case HTTPStatusCode.FORBIDDEN:
+      case HTTPStatusCode.BAD_REQUEST:
+      case HTTPStatusCode.UNPROCESSABLE_ENTITY:
+        return APIError.unknownError();
+      default:
+        return APIError.unknownError();
+    }
   }
 }
 

@@ -52,8 +52,10 @@
     "@types/lodash": "4.14.38",
     "@types/loglevel": "1.4.29",
     "@types/node": "6.0.46",
+    "@types/qs": "6.4.0",
     "@types/react": "0.14.57",
     "@types/react-dom": "0.14.18",
+    "@types/url-join": "0.8.2",
     "classnames": "2.2.5",
     "debounce": "1.0.0",
     "es6-shim": "0.35.2",
@@ -64,10 +66,12 @@
     "immutable": "3.8.1",
     "lodash": "4.16.4",
     "loglevel": "1.4.1",
+    "qs": "6.5.0",
     "react": "0.14.8",
     "react-dom": "0.14.8",
     "react-loader": "2.4.0",
     "react-router": "2.8.1",
-    "react-validation": "2.10.9"
+    "react-validation": "2.10.9",
+    "url-join": "2.0.2"
   }
 }
