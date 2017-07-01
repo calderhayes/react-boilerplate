@@ -1,6 +1,6 @@
 
 import {IDispatcher} from './dispatcher';
-import {IAPIService} from '../api/service';
+import {IAPIService, APIError, APIErrorType} from '../api/service';
 import {ActionLog, ILogger} from '../logging';
 import {IEventEmitter} from './event-emitter';
 import {IStore} from './store';
@@ -11,6 +11,7 @@ export class ActionControl {
     return {
       EXAMPLE: 'EXAMPLE',
       LOGIN: 'LOGIN',
+      LOGOUT: 'LOGOUT',
       APP_ROUTE_INITIALIZED: 'APP_ROUTE_INITIALIZED'
     };
   }
@@ -88,16 +89,23 @@ export class ActionControl {
         // the login page will append this to login_page.error. for the
         // proper translation key
 
-        const success = this.store.isLoggedIn;
-        let errorKey: string = null;
-        if (!success) {
-          errorKey = result.error === 'invalid_grant' ? 'invalid_credentials' : 'unknown_error';
-        }
-
         this.eventEmitter.emit(this.CONSTANTS.LOGIN, {
-          success,
-          error: errorKey
+          success: true
         });
+      })
+      .catch((error: any) => {
+        if (error.isAPIError) {
+          const e: APIError = error;
+
+          if (e.APIErrorType === APIErrorType.UNAUTHENTICATED) {
+            this.dispatcher.dispatch(this.CONSTANTS.LOGOUT);
+            this.eventEmitter.emit(this.CONSTANTS.LOGIN, {
+              success: false,
+              error: e.message
+            });
+          }
+        }
+        throw APIError.unknownError();
       });
   }
 

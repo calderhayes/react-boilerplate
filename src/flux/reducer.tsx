@@ -1,7 +1,7 @@
 
 import {ActionControl} from '../flux/actions';
 import {IAppState} from '../flux/store';
-import {IAPIResult, APIResultStatus} from '../api/service';
+import {} from '../api/service';
 import * as Model from '../api/models';
 
 const {CONSTANTS} = ActionControl;
@@ -38,17 +38,16 @@ const reducer = (currentState: IAppState, actionType: string, payload: any) => {
     case CONSTANTS.LOGIN:
 
       {
-        const result: IAPIResult<Model.IOauth2TokenResult> = payload;
-        let success = false;
+        const result: Model.IOAuth2TokenResult = payload;
+        currentState.authInfo = result;
+      }
 
-        if (result.status === APIResultStatus.SUCCESS) {
-          success = true;
-          currentState.authInfo = result.value;
-        }
-        else {
-          currentState.authInfo = null;
-        }
+      break;
 
+    case CONSTANTS.LOGOUT:
+
+      {
+        currentState.authInfo = null;
       }
 
       break;

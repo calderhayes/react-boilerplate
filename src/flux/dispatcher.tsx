@@ -4,7 +4,7 @@ import {DispatcherLog} from '../logging';
 
 export interface IDispatcher {
 
-  dispatch(actionType: string, payload: any): void;
+  dispatch(actionType: string, payload?: any): void;
   register(method: (actionType: string, payload: any) => void): void;
 
 }
@@ -19,7 +19,7 @@ export class Dispatcher implements IDispatcher {
     this.inDispatch = false;
   }
 
-  public dispatch(actionType: string, payload: any) {
+  public dispatch(actionType: string, payload?: any) {
     if (this.inDispatch) {
       const message = 'Cannot dispatch while in a dispatch!';
       DispatcherLog.error(message);
