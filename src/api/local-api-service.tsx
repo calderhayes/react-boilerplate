@@ -22,10 +22,10 @@ export class LocalAPIService implements IAPIService {
     return APIServiceType.LocalAPIService;
   }
 
-  public login(username: string, password: string)
+  public async login(username: string, password: string)
     : Promise<Model.IOAuth2TokenResult> {
 
-    return new Promise<Model.IOAuth2TokenResult>((resolve, reject) => {
+    return await new Promise<Model.IOAuth2TokenResult>((resolve, reject) => {
 
       const match = find(InMemoryDatabase.users, (u) => {
         return u.username === username && u.password === password;
@@ -49,8 +49,8 @@ export class LocalAPIService implements IAPIService {
     });
   }
 
-  public getFeatures(): Promise<Array<Model.IFeature>> {
-    return Promise.resolve(new Array<Model.IFeature>());
+  public async getFeatures(): Promise<Array<Model.IFeature>> {
+    return await Promise.resolve(new Array<Model.IFeature>());
   }
 
 }

@@ -39,7 +39,7 @@ export class ActionControl {
     this.log = ActionLog;
   }
 
-  public doExample() {
+  public async doExample() {
     this.log.info('Doing example...');
 
     this.dispatcher.dispatch(this.CONSTANTS.EXAMPLE, {
@@ -51,62 +51,60 @@ export class ActionControl {
       value: updatedState.exampleValue
     });
 
-    return Promise.resolve();
+    return await Promise.resolve();
 
   }
 
-  public initializeAppRoute() {
+  public async initializeAppRoute() {
     this.log.info('Initializing the App Route');
 
     // This will likely be a batched set of API calls
     // Or a special call to a single point which provides all
     // the data
-    return new Promise((resolve) => {
+    await new Promise((resolve) => {
       const dummyTimeout = 1000;
       setTimeout(resolve, dummyTimeout);
-    })
-    .then(() => {
-      this.dispatcher.dispatch(this.CONSTANTS.APP_ROUTE_INITIALIZED, {
-        success: true
-      });
+    });
 
-      // const updatedState = this.store.getState();
-      this.eventEmitter.emit(this.CONSTANTS.APP_ROUTE_INITIALIZED, {
-        success: true
-      });
+    this.dispatcher.dispatch(this.CONSTANTS.APP_ROUTE_INITIALIZED, {
+      success: true
+    });
+
+    // const updatedState = this.store.getState();
+    this.eventEmitter.emit(this.CONSTANTS.APP_ROUTE_INITIALIZED, {
+      success: true
     });
   }
 
-  public login(username: string, password: string): Promise<void> {
+  public async login(username: string, password: string): Promise<void> {
     this.log.info('Logging in ', username);
 
-    return this.api.login(username, password)
-      .then((result) => {
+    try {
+      const result = await this.api.login(username, password);
+      this.dispatcher.dispatch(this.CONSTANTS.LOGIN, result);
 
-        this.dispatcher.dispatch(this.CONSTANTS.LOGIN, result);
+      // Need to allocate error from the API to translation keys
+      // the login page will append this to login_page.error. for the
+      // proper translation key
 
-        // Need to allocate error from the API to translation keys
-        // the login page will append this to login_page.error. for the
-        // proper translation key
-
-        this.eventEmitter.emit(this.CONSTANTS.LOGIN, {
-          success: true
-        });
-      })
-      .catch((error: any) => {
-        if (error.isAPIError) {
-          const e: APIError = error;
-
-          if (e.APIErrorType === APIErrorType.UNAUTHENTICATED) {
-            this.dispatcher.dispatch(this.CONSTANTS.LOGOUT);
-            this.eventEmitter.emit(this.CONSTANTS.LOGIN, {
-              success: false,
-              error: e.message
-            });
-          }
-        }
-        throw APIError.unknownError();
+      this.eventEmitter.emit(this.CONSTANTS.LOGIN, {
+        success: true
       });
+    }
+    catch (error) {
+      if (error.isAPIError) {
+        const e: APIError = error;
+
+        if (e.APIErrorType === APIErrorType.UNAUTHENTICATED) {
+          this.dispatcher.dispatch(this.CONSTANTS.LOGOUT);
+          this.eventEmitter.emit(this.CONSTANTS.LOGIN, {
+            success: false,
+            error: e.message
+          });
+        }
+      }
+      throw APIError.unknownError();
+    }
   }
 
 }
