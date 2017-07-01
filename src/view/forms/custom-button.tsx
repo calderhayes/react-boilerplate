@@ -42,7 +42,7 @@ export class Button extends BaseComponent<IButtonProps, IButtonState> {
             <button
               className={c}
               disabled={isDisabled}
-              {...this.props}
+              {...(this.props as any)}
             >{this.props.children}</button>
         );
     }
