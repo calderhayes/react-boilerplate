@@ -19,7 +19,6 @@ Log.info('Bootstrapping under environment: ' + Config.ENVIRONMENT);
 // TODO: Create an automated front end task handler (refresh token), have a centralized
 //   control that handles this in a generalized way
 
-
 const API: IAPIService = APIServiceFactory.Create(ApiLog);
 
 // Or eventually initial state
@@ -35,7 +34,6 @@ AppDispatcher.register((actionType: string, payload: any) => {
 
 });
 
-// const API
 const AppActions = new ActionControl(AppDispatcher, API, AppEmitter, AppStore);
 
 // Allows for some level of dependency injection
