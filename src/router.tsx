@@ -24,13 +24,7 @@ const {
 import {render} from 'react-dom';
 import {DIControl} from './di';
 import {Log} from './logging';
-
-import {App} from './view/routes/app';
-import {Login} from './view/routes/login';
-import {About} from './view/routes/about';
-import {Example} from './view/routes/example';
-import {Contact} from './view/routes/contact';
-import {Dashboard} from './view/routes/dashboard';
+import {App, Login, About, Example, Contact, Dashboard} from './view';
 
 // Stubbing the type, had some issues referencing History
 export interface IHistory {
