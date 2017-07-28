@@ -1,9 +1,7 @@
 
 import * as React from 'react';
 import {DIControl} from '../di';
-import {IStore} from '../flux/store';
-import {ActionControl} from '../flux/actions';
-import {IEventEmitter} from '../flux/event-emitter';
+import {IStore, ActionControl, IEventEmitter} from '../flux';
 import {ILogger} from '../logging';
 import {getReactLog} from '../logging';
 // import {browserHistory} from 'react-router';

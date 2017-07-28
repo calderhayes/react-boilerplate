@@ -1,6 +1,5 @@
 
-import {ActionControl} from '../flux/actions';
-import {IAppState} from '../flux/store';
+import {ActionControl, IAppState} from '../flux';
 import {Models} from '../api';
 
 const {CONSTANTS} = ActionControl;

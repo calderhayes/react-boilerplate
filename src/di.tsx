@@ -1,8 +1,5 @@
 
-import {IEventEmitter} from './flux/event-emitter';
-import {IStore} from './flux/store';
-import {IDispatcher} from './flux/dispatcher';
-import {ActionControl} from './flux/actions';
+import {IStore, IDispatcher, ActionControl, IEventEmitter} from './flux';
 import {assert} from './logging';
 import {TranslationFunction} from 'i18next';
 
