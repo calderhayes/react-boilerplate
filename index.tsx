@@ -5,10 +5,9 @@ import {reducer} from './src/flux/reducer';
 import {Store} from './src/flux/store';
 import {DIControl} from './src/di';
 import {ActionControl} from './src/flux/actions';
-import {Config, EnvironmentType} from './src/config';
+import {Config} from './src/config';
 import {IAPIService} from './src/api/service';
-import {LocalAPIService} from './src/api/local-api-service';
-import {APIService} from './src/api/api-service';
+import {APIServiceFactory} from './src/api/api-service-factory';
 import {Log, ApiLog} from './src/logging';
 import {AppRouter} from './src/router';
 import {initialize} from './src/util/i18n';
@@ -26,20 +25,7 @@ Log.info('Bootstrapping under environment: ' + Config.ENVIRONMENT);
 // TODO: Take a look at tsfmt
 
 
-// TODO: Replace with factory?
-let api: IAPIService = null;
-if (Config.ENVIRONMENT === EnvironmentType.LOCAL) {
-  api = new LocalAPIService(ApiLog);
-}
-else if (Config.ENVIRONMENT === EnvironmentType.LOCAL_DEV) {
-  api = new APIService(ApiLog, Config.API_URL, Config.AUTH_URL);
-}
-else {
-  throw 'Not yet implemented';
-}
-
-const API = api;
-
+const API: IAPIService = APIServiceFactory.Create(ApiLog);
 
 // Or eventually initial state
 const AppStore = new Store();
