@@ -1,6 +1,6 @@
 
 import {IDispatcher} from './dispatcher';
-import {IAPIService, APIError, APIErrorType} from '../api/service';
+import {IAPIService, APIError, APIErrorType} from '../api';
 import {ActionLog, ILogger} from '../logging';
 import {IEventEmitter} from './event-emitter';
 import {IStore} from './store';

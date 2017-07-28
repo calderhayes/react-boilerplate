@@ -1,18 +1,18 @@
 
 import * as Immutable from 'immutable';
-import * as Model from '../api/models';
+import {Models} from '../api';
 import {BaseStore} from './base-store';
 
 export interface IImmutableAppState {
   readonly exampleValue: number;
-  readonly features: Array<Model.IFeature>;
-  readonly authInfo: Model.IOAuth2TokenResult;
+  readonly features: Array<Models.IFeature>;
+  readonly authInfo: Models.IOAuth2TokenResult;
 }
 
 export interface IAppState extends IImmutableAppState {
   exampleValue: number;
-  features: Array<Model.IFeature>;
-  authInfo: Model.IOAuth2TokenResult;
+  features: Array<Models.IFeature>;
+  authInfo: Models.IOAuth2TokenResult;
 }
 
 export interface IStore extends BaseStore {
@@ -35,7 +35,7 @@ export class Store extends BaseStore
   public static get defaultAppState() {
     const defaultState: IAppState = {
       exampleValue: 1,
-      features: new Array<Model.IFeature>(),
+      features: new Array<Models.IFeature>(),
       authInfo: null
     };
 

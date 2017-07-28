@@ -7,7 +7,7 @@ import {DIControl} from './src/di';
 import {ActionControl} from './src/flux/actions';
 import {Config} from './src/config';
 import {IAPIService} from './src/api/service';
-import {APIServiceFactory} from './src/api/api-service-factory';
+import {APIServiceFactory} from './src/api';
 import {Log, ApiLog} from './src/logging';
 import {AppRouter} from './src/router';
 import {initialize} from './src/util/i18n';

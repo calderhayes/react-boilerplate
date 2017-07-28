@@ -1,8 +1,7 @@
 
 import {ActionControl} from '../flux/actions';
 import {IAppState} from '../flux/store';
-import {} from '../api/service';
-import * as Model from '../api/models';
+import {Models} from '../api';
 
 const {CONSTANTS} = ActionControl;
 
@@ -38,7 +37,7 @@ const reducer = (currentState: IAppState, actionType: string, payload: any) => {
     case CONSTANTS.LOGIN:
 
       {
-        const result: Model.IOAuth2TokenResult = payload;
+        const result: Models.IOAuth2TokenResult = payload;
         currentState.authInfo = result;
       }
 
