@@ -5,9 +5,12 @@
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {
-    "test": "NODE_ENV=LOCAL mocha dist/test/*",
-    "lint": "node runlint.js",
-    "serve": "tsc && node devserver.js"
+    "_lint": "node ./node_modules/tslint/bin/tslint --config tslint.json --project tsconfig.json",
+    "lint": "npm run _lint || true",
+    "build": "npm run _lint && node ./node_modules/typescript/bin/tsc",
+    "test": "npm run build && NODE_ENV=LOCAL node ./node_modules/mocha/bin/mocha --recursive ./dist/test",
+    "clean": "rm -rf ./dist/*",
+    "serve": "npm run build && node devserver.js"
   },
   "repository": {
     "type": "git",
