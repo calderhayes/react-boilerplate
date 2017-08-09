@@ -1,4 +1,4 @@
-import * as logging from 'loglevel';
+import {ILogger, LoggerLevel, ConsoleLoggerFactory} from 'articulog';
 import {Config} from './config';
 
 export interface ILogger {
@@ -22,18 +22,19 @@ export const assert = (value: any, message?: string, ...optionalParams: Array<an
 // Simple log prefixing factory
 const addLogPrefix = (logger: ILogger, prefix?: string) => {
 
-  const log: Log = logger as any;
-  const original = log.methodFactory;
+  const log: ILogger = logger as any;
 
   const p = (prefix) ? `|${prefix}` : '';
-  log.methodFactory = (methodName: string, level: LogLevel, loggerName: string) => {
+  const methodFactory =
+    (rawMethod: (...msg : Array<any>) => void, methodName: string, _: LoggerLevel, loggerName: string) => {
 
-    const rawMethod = original(methodName, level, loggerName);
     return (...msg: Array<any>) => {
       rawMethod(`[${loggerName}|${methodName.toUpperCase()}${p}]`, ...msg);
     };
 
   };
+
+  log.setMethodFactory(methodFactory);
 
   return log;
 
@@ -41,30 +42,43 @@ const addLogPrefix = (logger: ILogger, prefix?: string) => {
 
 export const getReactLog = (componentName: string) => {
 
-  assert(!!componentName, 'A component name must be provided');
-  assert(typeof componentName === 'string', 'The component must be of type string');
+  const reactLog = ConsoleLoggerFactory.createLog({
+    name: 'React|' + componentName,
+    loggerLevel: Config.REACT_LOG_LEVEL
+  });
 
-  const reactLog: ILogger = addLogPrefix(logging.getLogger('React|' + componentName));
-  (reactLog as Log).setLevel(Config.REACT_LOG_LEVEL);
-
-  return reactLog;
+  return addLogPrefix(reactLog, 'React|' + componentName);
 };
 
 
 // For when a logger is not provided
-export const NullLogger: ILogger = logging.getLogger('NullLogger');
-(NullLogger as any).setLevel(LogLevel.SILENT);
+export const NullLogger: ILogger = ConsoleLoggerFactory.createLog({
+  name: 'NullLogger',
+  loggerLevel: LoggerLevel.SILENT
+});
 
-export const Log: ILogger = addLogPrefix(logging.getLogger('General'));
-(Log as Log).setLevel(Config.GENERAL_LOG_LEVEL);
+export const Log: ILogger = ConsoleLoggerFactory.createLog({
+  name: 'GeneralLogger',
+  loggerLevel: Config.GENERAL_LOG_LEVEL
+});
+addLogPrefix(Log, 'General');
 
-export const ApiLog: ILogger = addLogPrefix(logging.getLogger('Api'));
-(ApiLog as Log).setLevel(Config.API_LOG_LEVEL);
+export const ApiLog: ILogger = ConsoleLoggerFactory.createLog({
+  name: 'Api',
+  loggerLevel: Config.API_LOG_LEVEL
+});
+addLogPrefix(ApiLog, 'Api');
 
-export const DispatcherLog: ILogger = addLogPrefix(logging.getLogger('Dispatcher'));
-(DispatcherLog as Log).setLevel(Config.DISPATCHER_LOG_LEVEL);
+export const DispatcherLog: ILogger = ConsoleLoggerFactory.createLog({
+  name: 'Dispatcher',
+  loggerLevel: Config.DISPATCHER_LOG_LEVEL
+});
+addLogPrefix(Log, 'Dispatcher');
 
-export const ActionLog: ILogger = addLogPrefix(logging.getLogger('Action'));
-(ActionLog as Log).setLevel(Config.ACTION_LOG_LEVEL);
+export const ActionLog: ILogger = ConsoleLoggerFactory.createLog({
+  name: 'Action',
+  loggerLevel: Config.ACTION_LOG_LEVEL
+});
+addLogPrefix(Log, 'Action');
 
 // create other logs as needed
