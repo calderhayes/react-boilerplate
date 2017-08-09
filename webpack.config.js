@@ -1,7 +1,7 @@
 /* tslint:disable no-console */
-var webpack = require('webpack');
-path = require('path');
-//console.log('webpack relative root: ', path.join(__dirname, '/demo/'));
+var webpack = require("webpack");
+path = require("path");
+//console.log("webpack relative root: ", path.join(__dirname, "/demo/"));
 module.exports = {
   entry: ["./index.tsx"],
   output: {
@@ -12,13 +12,17 @@ module.exports = {
     preLoaders: [
       {
         test: /\.(tsx|ts)?$/,
-        loader: 'tslint'
+        loader: "tslint"
       }
     ],
     loaders: [
       {
         test: /\.(tsx|ts)(\?.*$|$)/,
-        loader: 'ts-loader'
+        loader: "ts-loader"
+      },
+      {
+        test: /\.(jsx)(\?.*$|$)/,
+        loader: "jsx-loader"
       },
       {
         test: /\.css$/,
@@ -34,19 +38,19 @@ module.exports = {
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+        loader: "url-loader?limit=10000&mimetype=application/font-woff"
       }
     ]
   },
   resolve: {
-     extensions: ['', '.js', '.jsx', '.tsx', '.ts'],
+     extensions: ["", ".js", ".jsx", ".tsx", ".ts"],
       alias: {
-        styles: path.join(__dirname, '/src/styles/')
+        styles: path.join(__dirname, "/src/styles/")
       }
   },
   plugins: [
     new webpack.DefinePlugin({
-        'ENVIRONMENT': JSON.stringify(process.env.NODE_ENV || 'LOCAL_DEV')
+        "ENVIRONMENT": JSON.stringify(process.env.NODE_ENV || "LOCAL_DEV")
     })
   ]
 };

@@ -3,7 +3,7 @@ import * as React from 'react';
 import {BaseComponent} from '../base-component';
 // import {Link, IndexLink} from 'react-router';
  // tslint:disable-next-line:no-var-requires no-require-imports
-const { Link, IndexLink } = require('react-router');
+import { Link } from 'react-router-dom';
 
 export interface INavBarProps {
 
@@ -32,9 +32,9 @@ export class NavBar extends BaseComponent<INavBarProps, INavBarState> {
               <span className='icon-bar'></span>
               <span className='icon-bar'></span>
             </button>
-            <IndexLink className='navbar-brand' to='/'>
+            <Link className='navbar-brand' to='/'>
               Home (brand here)
-            </IndexLink>
+            </Link>
           </div>
           <div
             className='collapse navbar-collapse'

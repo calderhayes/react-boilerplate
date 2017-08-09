@@ -1,7 +1,8 @@
 {
     "compilerOptions": {
         "target": "es5",
-        "declaration": true,
+        "allowJs": true,
+        "declaration": false,
         "lib": ["es2015", "dom"],
         "module": "CommonJS",
         "noImplicitAny": true,
@@ -16,9 +17,13 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true
     },
-    "filesGlob": [
+    "include": [
         "./src/**/*.ts",
-        "./src/**/*.tsx"
+        "./src/**/*.tsx",
+        "./src/**/*.jsx",
+        "./test/**/*.ts",
+        "./test/**/*.tsx",
+        "./test/**/*.jsx"
     ],
     "exclude": [
         "node_modules",
