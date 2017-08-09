@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as TestUtils from 'react-addons-test-utils';
+import * as TestUtils from 'react-dom/test-utils';
 import {Hello} from '../../../src/view/components/example';
 import * as chai from 'chai';
 

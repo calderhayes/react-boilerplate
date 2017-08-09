@@ -4,7 +4,6 @@ import {BaseComponent} from '../base-component';
 import {NavBar} from '../components/nav-bar';
 import {Loader} from '../components/loader';
 
-import 'es6-shim';
 import '../style/app.css';
 
 export interface IAppProps {
@@ -19,8 +18,10 @@ export class App extends BaseComponent<IAppProps, IAppState> {
 
   private initializationComplete = (() => {
     this.log.info('App route initialized');
-    this.state.loaded = true;
-    this.setState(this.state);
+    this.setState({
+      loaded: true,
+      ...this.state
+    });
   }).bind(this);
 
   private unknownError = ((error: any) => {

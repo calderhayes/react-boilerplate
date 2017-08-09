@@ -18,8 +18,10 @@ export interface ILoginState {
 export class Login extends BaseComponent<ILoginProps, ILoginState> {
 
   private loginClicked = ((data: ILoginFormData) => {
-    this.state.saving = true;
-    this.setState(this.state);
+    this.setState({
+      saving: true,
+      ...this.state
+    });
 
     this.actions.login(data.username, data.password);
 
@@ -27,8 +29,10 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
   }).bind(this);
 
   private onChange = ((data: ILoginFormData) => {
-    this.state.formData = data;
-    this.setState(this.state);
+    this.setState({
+      formData: data,
+      ...this.state
+    });
   }).bind(this);
 
   private loginCompleted = ((result: {success: boolean, error: string}) => {
@@ -39,10 +43,13 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
     else {
       this.log.debug('Login failure!');
       this.log.debug('Re-enabling');
-      this.state.saving = false;
-      this.state.error = this.translate('login_page.error.' + result.error);
       this.state.formData.password = '';
-      this.setState(this.state);
+      this.setState({
+        formData: this.state.formData,
+        error: this.translate('login_page.error.' + result.error),
+        saving: false,
+        ...this.state
+      });
     }
   }).bind(this);
 

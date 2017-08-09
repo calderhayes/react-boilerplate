@@ -55,8 +55,10 @@ export class FluxExample extends BaseComponent<IFluxExampleProps, IFluxExampleSt
   }
 
   private exampleActionInvoked() {
-    this.state.value = this.store.getState().exampleValue;
-    this.setState(this.state);
+    this.setState({
+      value: this.store.getState().exampleValue,
+      ...this.state
+    });
   }
 
 }
