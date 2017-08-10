@@ -1,2 +1,2 @@
 export * from './store-helpers';
-export {IStore, IAppState} from './store';
+export {IStore, IAppState, Store} from './store';

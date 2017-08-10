@@ -13,7 +13,7 @@ export class BaseStore<S> implements IStore<S> {
   private _state: S;
 
   constructor(initialState: S) {
-    this.updateState(initialState);
+    this.updateState(Object.freeze(initialState));
   }
 
   public updateState(newState: S): void {
