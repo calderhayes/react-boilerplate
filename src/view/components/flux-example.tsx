@@ -1,6 +1,7 @@
 
 import * as React from 'react';
-import {BaseComponent} from '../base-component';
+import {BaseComponent} from 'view/base-component';
+import {EventTypeKey} from 'flux/event';
 
 export interface IFluxExampleProps {
 
@@ -15,21 +16,18 @@ export class FluxExample extends BaseComponent<IFluxExampleProps, IFluxExampleSt
   constructor(props: IFluxExampleProps) {
     super(props);
 
-    const appState = this.store.getState();
+    const appState = this.store.state;
     this.state = {
       value: appState.exampleValue
     };
-
-    this.invokeExampleAction = this.invokeExampleAction.bind(this);
-    this.exampleActionInvoked = this.exampleActionInvoked.bind(this);
   }
 
   public componentWillMount() {
-    this.eventEmitter.on(this.actions.CONSTANTS.EXAMPLE, this.exampleActionInvoked);
+    this.eventEmitter.on(EventTypeKey.EXAMPLE, this.exampleActionInvoked);
   }
 
   public componentWillUnmount() {
-    this.eventEmitter.off(this.actions.CONSTANTS.EXAMPLE, this.exampleActionInvoked);
+    this.eventEmitter.off(EventTypeKey.EXAMPLE, this.exampleActionInvoked);
   }
 
   public render() {
@@ -50,14 +48,14 @@ export class FluxExample extends BaseComponent<IFluxExampleProps, IFluxExampleSt
 
   }
 
-  private invokeExampleAction() {
-    this.actions.doExample();
+  private invokeExampleAction = () => {
+    this.actionLogic.exampleActionLogic.doExample();
   }
 
-  private exampleActionInvoked() {
+  private exampleActionInvoked = () => {
     this.setState({
       ...this.state,
-      value: this.store.getState().exampleValue
+      value: this.store.state.exampleValue
     });
   }
 

@@ -1,9 +1,9 @@
 
 import * as React from 'react';
 import {Form, Input, SubmitButton} from './base';
-import {VALIDATION_RULES} from './rules';
-import {ValidationError} from './validation-error';
-import {BaseComponent} from '../base-component';
+import {VALIDATION_RULES} from 'view/forms/rules';
+import {ValidationError} from 'view/forms/validation-error';
+import {BaseComponent} from 'view/base-component';
 
 export interface ILoginFormData {
   username: string;
@@ -19,26 +19,6 @@ export interface ILoginFormProps {
 }
 
 export class LoginForm extends BaseComponent<ILoginFormProps, {}> {
-
-  private onClick = (() => {
-    this.props.onSubmit(this.props.formData);
-  }).bind(this);
-
-  // TODO: Better strategy for this?
-  // TODO: Get proper type?
-  private onUsernameChanged = ((e: any) => {
-    const username = e.target.value;
-    const data: ILoginFormData = Object.assign({}, this.props.formData);
-    data.username = username;
-    this.props.onChange(data);
-  }).bind(this);
-
-  private onPasswordChanged = ((e: any) => {
-    const password = e.target.value;
-    const data: ILoginFormData = Object.assign({}, this.props.formData);
-    data.password = password;
-    this.props.onChange(data);
-  }).bind(this);
 
   constructor(props: ILoginFormProps) {
     super(props);
@@ -89,6 +69,24 @@ export class LoginForm extends BaseComponent<ILoginFormProps, {}> {
       </Form>
     );
 
+  }
+
+  private onClick = () => {
+    this.props.onSubmit(this.props.formData);
+  }
+
+  private onUsernameChanged = (e: any) => {
+    const username = e.target.value;
+    const data: ILoginFormData = Object.assign({}, this.props.formData);
+    data.username = username;
+    this.props.onChange(data);
+  }
+
+  private onPasswordChanged = (e: any) => {
+    const password = e.target.value;
+    const data: ILoginFormData = Object.assign({}, this.props.formData);
+    data.password = password;
+    this.props.onChange(data);
   }
 
 }

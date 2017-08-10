@@ -3,7 +3,7 @@
         "target": "es5",
         "declaration": true,
         "lib": ["es2015", "dom"],
-        "module": "CommonJS",
+        "module": "commonjs",
         "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums": true,
@@ -14,7 +14,8 @@
         "emitDecoratorMetadata": true,
         "jsx": "react",
         "noUnusedLocals": true,
-        "noUnusedParameters": true
+        "noUnusedParameters": true,
+        "baseUrl": "./src"
     },
     "filesGlob": [
         "./src/**/*.ts",

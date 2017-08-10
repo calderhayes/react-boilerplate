@@ -1,5 +1,4 @@
 
-import * as Immutable from 'immutable';
 import {LoggerLevel} from 'articulog';
 
 // Provided by webpack
@@ -74,4 +73,5 @@ else {
   USE_ASSERTIONS: true
 };*/
 
-export const Config: IConfig = new (Immutable.Record(config) as any)();
+config = Object.freeze(config);
+export {config};

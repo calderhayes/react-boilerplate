@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import * as React from 'react';
 import * as TestUtils from 'react-dom/test-utils';
 import {Hello} from '../../../src/view/components/example';

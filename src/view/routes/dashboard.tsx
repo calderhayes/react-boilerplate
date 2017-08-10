@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import {BaseComponent} from '../base-component';
+import {BaseComponent} from 'view/base-component';
 
 export interface IDashboardProps {
 
@@ -13,7 +13,6 @@ export interface IDashboardState {
 export class Dashboard extends BaseComponent<IDashboardProps, IDashboardState> {
 
   public render() {
-
     return (
       <div className='row'>
         <div className='col-xs-12'>

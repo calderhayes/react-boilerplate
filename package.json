@@ -6,9 +6,9 @@
   "types": "dist/src/index.d.ts",
   "scripts": {
     "_lint": "node ./node_modules/tslint/bin/tslint --config tslint.json --project tsconfig.json",
-    "lint": "npm run _lint || true",
-    "build": "npm run _lint && node ./node_modules/typescript/bin/tsc",
-    "test": "npm run build && NODE_ENV=LOCAL node ./node_modules/mocha/bin/mocha --recursive ./dist/test",
+    "lint": "npm --silent run _lint",
+    "build": "npm run lint && node ./node_modules/typescript/bin/tsc",
+    "test": "npm run build && node ./node_modules/mocha/bin/mocha --recursive ./dist/test",
     "clean": "rm -rf ./dist/*",
     "serve": "npm run build && node devserver.js"
   },
@@ -67,6 +67,9 @@
     "history": "4.3.0",
     "i18next": "4.1.4",
     "immutable": "3.8.1",
+    "immutable-assign": "^1.0.36",
+    "inversify": "^4.3.0",
+    "inversify-inject-decorators": "^3.0.1",
     "lodash": "4.17.4",
     "prop-types": "15.5.10",
     "qs": "6.5.0",
@@ -75,6 +78,7 @@
     "react-loader": "2.4.2",
     "react-router": "^3.0.5",
     "react-validation-temp": "^2.10.11",
+    "reflect-metadata": "^0.1.10",
     "url-join": "2.0.2"
   }
 }

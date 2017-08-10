@@ -1,48 +1,63 @@
 
 import * as React from 'react';
-import {DIControl} from '../di';
-import {IStore} from '../flux/store';
-import {ActionControl} from '../flux/actions';
-import {IEventEmitter} from '../flux/event-emitter';
-import {ILogger} from '../logging';
-import {getReactLog} from '../logging';
+import {IStore} from 'flux/store';
+import {IOC_TYPE} from 'ioc/ioc-type';
+import {IEventEmitter} from 'flux/event';
+import {IActionLogic} from 'flux/logic';
+import {IHistory} from 'view/router';
+import {TranslationFunction} from 'i18next';
+import {lazyInject} from 'ioc';
+import {IConfig} from 'config';
+
 // import {browserHistory} from 'react-router';
 // tslint:disable-next-line:no-var-requires no-require-imports
 const {browserHistory} = require('react-router');
-import {IHistory} from '../router';
-import {TranslationFunction} from 'i18next';
+import {ILogger, ILoggerFactory} from 'articulog';
 
 // Handles the dependency injection
 class BaseComponent<P, S> extends React.Component<P, S> {
 
+  @lazyInject(IOC_TYPE.STORE)
   public readonly store: IStore;
-  public readonly actions: ActionControl;
+
+  @lazyInject(IOC_TYPE.ACTION_LOGIC)
+  public readonly actionLogic: IActionLogic;
+
+  @lazyInject(IOC_TYPE.EVENT_EMITTER)
   public readonly eventEmitter: IEventEmitter;
+
+  @lazyInject(IOC_TYPE.TRANSLATION_FUNCTION)
   public readonly translate: TranslationFunction;
+
   // Stubbing the type, had some issues referencing History
   public readonly history: IHistory;
 
-  protected get log() {
-    if (!this._log) {
-      const prefix = (this as any).constructor.name;
-      this._log = getReactLog(prefix);
-    }
+  @lazyInject(IOC_TYPE.CONFIG)
+  private config: IConfig;
 
-    return this._log;
-  };
+  @lazyInject(IOC_TYPE.LOGGER_FACTORY)
+  private loggerFactory: ILoggerFactory;
 
-  private _log: ILogger;
-
+  private _logger: ILogger;
 
   constructor(props: P) {
     super(props);
-
-    this.store = DIControl.store;
-    this.actions = DIControl.actionControl;
-    this.eventEmitter = DIControl.eventEmitter;
-    this.translate = DIControl.translate;
     this.history = browserHistory;
   }
+
+  protected get logger() {
+    if (this._logger) {
+      return this._logger;
+    }
+
+    const className = (this as any).constructor.name;
+    this._logger = this.loggerFactory.createLog({
+      name: 'React|' + className,
+      loggerLevel: this.config.REACT_LOG_LEVEL
+    });
+
+    return this._logger;
+  };
 
 }
 

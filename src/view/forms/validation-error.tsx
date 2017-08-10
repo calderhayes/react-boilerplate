@@ -2,7 +2,7 @@
 import * as React from 'react';
 import * as cx from 'classnames';
 
-import '../style/forms/validation-error.css';
+import 'view/style/forms/validation-error.css';
 
 export interface IValidationErrorProps {
   message: string;

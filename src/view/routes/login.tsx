@@ -1,9 +1,10 @@
 
 import * as React from 'react';
-import {BaseComponent} from '../base-component';
-import {LoginForm, ILoginFormData} from '../forms/login';
+import {BaseComponent} from 'view/base-component';
+import {LoginForm, ILoginFormData} from 'view/forms/login';
+import {EventTypeKey, ILoginEvent} from 'flux/event';
 
-import '../style/login.css';
+import 'view/style/login.css';
 
 export interface ILoginProps {
 
@@ -16,42 +17,6 @@ export interface ILoginState {
 }
 
 export class Login extends BaseComponent<ILoginProps, ILoginState> {
-
-  private loginClicked = ((data: ILoginFormData) => {
-    this.setState({
-      ...this.state,
-      saving: true
-    });
-
-    this.actions.login(data.username, data.password);
-
-    this.log.debug('Logging in with ' + data.username);
-  }).bind(this);
-
-  private onChange = ((data: ILoginFormData) => {
-    this.setState({
-      ...this.state,
-      formData: data
-    });
-  }).bind(this);
-
-  private loginCompleted = ((result: {success: boolean, error: string}) => {
-    if (result.success) {
-      this.log.debug('Login success!');
-      this.history.push('dashboard');
-    }
-    else {
-      this.log.debug('Login failure!');
-      this.log.debug('Re-enabling');
-      this.state.formData.password = '';
-      this.setState({
-        ...this.state,
-        formData: this.state.formData,
-        error: this.translate('login_page.error.' + result.error),
-        saving: false
-      });
-    }
-  }).bind(this);
 
   constructor(props: ILoginProps) {
     super(props);
@@ -66,11 +31,11 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
   }
 
   public componentWillMount() {
-    this.eventEmitter.on(this.actions.CONSTANTS.LOGIN, this.loginCompleted);
+    this.eventEmitter.on(EventTypeKey.LOGIN, this.loginCompleted);
   }
 
   public componentWillUnmount() {
-    this.eventEmitter.off(this.actions.CONSTANTS.LOGIN, this.loginCompleted);
+    this.eventEmitter.off(EventTypeKey.LOGIN, this.loginCompleted);
   }
 
   public render() {
@@ -99,6 +64,42 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
       </div>
     );
 
+  }
+
+  private loginClicked = (data: ILoginFormData) => {
+    this.setState({
+      ...this.state,
+      saving: true
+    });
+
+    this.actionLogic.authActionLogic.login(data.username, data.password);
+
+    this.logger.debug('Logging in with ' + data.username);
+  }
+
+  private onChange = (data: ILoginFormData) => {
+    this.setState({
+      ...this.state,
+      formData: data
+    });
+  }
+
+  private loginCompleted = (event: ILoginEvent) => {
+    if (event.result.success) {
+      this.logger.debug('Login success!');
+      this.history.push('dashboard');
+    }
+    else {
+      this.logger.debug('Login failure!');
+      this.logger.debug('Re-enabling');
+      this.state.formData.password = '';
+      this.setState({
+        ...this.state,
+        formData: this.state.formData,
+        error: this.translate('login_page.error.' + event.result.error),
+        saving: false
+      });
+    }
   }
 
 }

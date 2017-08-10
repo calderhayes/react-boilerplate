@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import {ValidationError} from './validation-error';
+import {ValidationError} from 'view/forms/validation-error';
 
 // tslint:disable-next-line:no-var-requires no-require-imports
 import {rules} from './base';

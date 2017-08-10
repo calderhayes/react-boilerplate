@@ -1,5 +1,5 @@
 
-import * as Model from './models';
+import * as Model from 'api/models';
 
 export enum APIServiceType {
   LocalAPIService,
@@ -7,10 +7,10 @@ export enum APIServiceType {
 }
 
 export enum APIErrorType {
-  ERROR = 0,
-  VALIDATION_ERROR = 1,
-  UNAUTHENTICATED = 2,
-  UNAUTHORIZED = 3
+  ERROR = 'ERROR',
+  VALIDATION_ERROR = 'VALIDATION_ERROR',
+  UNAUTHENTICATED = 'UNAUTHENTICATED',
+  UNAUTHORIZED = 'UNAUTHORIZED'
 }
 
 export enum HTTPStatusCode {

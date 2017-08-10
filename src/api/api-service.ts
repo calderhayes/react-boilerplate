@@ -5,11 +5,12 @@ import {
   APIError,
   APIErrorType,
   HTTPStatusCode
-} from './service';
-import {ILogger, NullLogger} from '../logging';
-import * as Model from './models';
+} from 'api/service';
+import * as Model from 'api/models';
+
 import * as urljoin from 'url-join';
 import {stringify} from 'qs';
+import {ILogger} from 'articulog';
 
 export class APIService implements IAPIService {
 
@@ -21,7 +22,7 @@ export class APIService implements IAPIService {
     logger: ILogger,
     apiUrl: string,
     authUrl: string) {
-    this.logger = logger || NullLogger;
+    this.logger = logger;
     this.apiUrl = apiUrl;
     this.authUrl = authUrl;
   }
