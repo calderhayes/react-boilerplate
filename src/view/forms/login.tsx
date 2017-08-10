@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import {Form, Input, Button} from './base';
+import {Form, Input, SubmitButton} from './base';
 import {VALIDATION_RULES} from './rules';
 import {ValidationError} from './validation-error';
 import {BaseComponent} from '../base-component';
@@ -80,11 +80,11 @@ export class LoginForm extends BaseComponent<ILoginFormProps, {}> {
           name='password'
           validations={[VALIDATION_RULES.REQUIRED]}/>
 
-        <Button
+        <SubmitButton
           forceDisabled={isDisabled}
           type='button'
           className='btn btn-lg btn-primary btn-block'
-          onClick={this.onClick}>Log In</Button>
+          onClick={this.onClick}>Log In</SubmitButton>
 
       </Form>
     );

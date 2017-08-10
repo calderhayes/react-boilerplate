@@ -19,8 +19,8 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
 
   private loginClicked = ((data: ILoginFormData) => {
     this.setState({
-      saving: true,
-      ...this.state
+      ...this.state,
+      saving: true
     });
 
     this.actions.login(data.username, data.password);
@@ -30,8 +30,8 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
 
   private onChange = ((data: ILoginFormData) => {
     this.setState({
-      formData: data,
-      ...this.state
+      ...this.state,
+      formData: data
     });
   }).bind(this);
 
@@ -45,10 +45,10 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
       this.log.debug('Re-enabling');
       this.state.formData.password = '';
       this.setState({
+        ...this.state,
         formData: this.state.formData,
         error: this.translate('login_page.error.' + result.error),
-        saving: false,
-        ...this.state
+        saving: false
       });
     }
   }).bind(this);

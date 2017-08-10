@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import {Button} from './custom-button';
+import {SubmitButton} from './submit-button';
 
 import '../style/forms/base.css';
 
@@ -42,7 +42,7 @@ export interface IButton extends React.ComponentClass<IButtonProps> {
 interface IReactValidation {
   components: {
     Input: IInput,
-    Button: Button,
+    Button: SubmitButton,
     Form: IForm
   };
   rules: any;
@@ -57,6 +57,6 @@ const {Input, Form} = Validation.components;
 export {
   rules,
   Input,
-  Button,
+  SubmitButton,
   Form
 }

@@ -19,8 +19,8 @@ export class App extends BaseComponent<IAppProps, IAppState> {
   private initializationComplete = (() => {
     this.log.info('App route initialized');
     this.setState({
-      loaded: true,
-      ...this.state
+      ...this.state,
+      loaded: true
     });
   }).bind(this);
 
