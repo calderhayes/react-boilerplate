@@ -42,6 +42,8 @@ export class SubmitButton extends BaseComponent<ISubmitButtonProps, ISubmitButto
       <button
         className={c}
         disabled={isDisabled}
+        type={this.props.type || 'button'}
+        onClick={this.props.onClick}
       >{this.props.children}</button>
     );
   }

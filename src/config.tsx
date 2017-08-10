@@ -6,8 +6,8 @@ import {LoggerLevel} from 'articulog';
 declare const ENVIRONMENT: string;
 
 export enum EnvironmentType {
-  LOCAL,
-  LOCAL_DEV
+  LOCAL = 'LOCAL',
+  LOCAL_DEV = 'LOCAL_DEV'
 }
 
 export interface IConfig {
@@ -62,7 +62,7 @@ else {
 }
 
 // temp
-config = {
+/*config = {
   ACTION_LOG_LEVEL: LoggerLevel.DEBUG,
   API_LOG_LEVEL: LoggerLevel.DEBUG,
   API_URL: '',
@@ -72,6 +72,6 @@ config = {
   GENERAL_LOG_LEVEL: LoggerLevel.DEBUG,
   REACT_LOG_LEVEL: LoggerLevel.DEBUG,
   USE_ASSERTIONS: true
-};
+};*/
 
 export const Config: IConfig = new (Immutable.Record(config) as any)();
