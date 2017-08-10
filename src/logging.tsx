@@ -47,7 +47,7 @@ export const getReactLog = (componentName: string) => {
     loggerLevel: Config.REACT_LOG_LEVEL
   });
 
-  return addLogPrefix(reactLog, 'React|' + componentName);
+  return addLogPrefix(reactLog, null);
 };
 
 

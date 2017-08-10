@@ -57,6 +57,7 @@
     "@types/react": "15.6.1",
     "@types/react-dom": "15.5.2",
     "@types/react-loader": "2.4.1",
+    "@types/react-router": "^3.0.5",
     "@types/url-join": "0.8.2",
     "articulog": "1.0.10",
     "classnames": "2.2.5",
@@ -72,8 +73,8 @@
     "react": "15.6.1",
     "react-dom": "15.6.1",
     "react-loader": "2.4.2",
-    "react-router": "2.8.1",
-    "react-validation": "2.10.9",
+    "react-router": "^3.0.5",
+    "react-validation-temp": "^2.10.11",
     "url-join": "2.0.2"
   }
 }

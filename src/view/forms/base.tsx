@@ -48,9 +48,10 @@ interface IReactValidation {
   rules: any;
 }
 
+// Here we are using react-validation-temp because of: https://github.com/Lesha-spr/react-validation/pull/100
+// not being pulled by the maintainer
 // tslint:disable-next-line:no-var-requires no-require-imports
-const Validation: IReactValidation = require('react-validation').default;
-
+const Validation: IReactValidation = require('react-validation-temp').default;
 const rules = Validation.rules;
 const {Input, Form} = Validation.components;
 
