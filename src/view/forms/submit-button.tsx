@@ -1,5 +1,6 @@
 
 import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import * as cx from 'classnames';
 import {BaseComponent} from '../base-component';
 
@@ -18,14 +19,14 @@ export interface ISubmitButtonState {
 export class SubmitButton extends BaseComponent<ISubmitButtonProps, ISubmitButtonState> {
 
   public static propTypes = {
-    children: React.PropTypes.node,
-    errorClassName: React.PropTypes.string,
-    className: React.PropTypes.string,
-    forceDisabled: React.PropTypes.bool
+    children: PropTypes.node,
+    errorClassName: PropTypes.string,
+    className: PropTypes.string,
+    forceDisabled: PropTypes.bool
   };
 
   public static contextTypes = {
-    errors: React.PropTypes.objectOf(React.PropTypes.array)
+    errors: PropTypes.objectOf(PropTypes.array)
   };
 
   public render() {
