@@ -4,6 +4,7 @@ import {Dispatcher} from './src/flux/dispatcher';
 // import {reducer} from './src/flux/reducer';
 // import {Store} from './src/flux/store';
 import {DIControl} from './src/di';
+import 'reflect-metadata';
 // import {ActionControl} from './src/flux/actions';
 import {Config, EnvironmentType} from './src/config';
 import {IAPIService} from './src/api/service';
@@ -12,6 +13,8 @@ import {APIService} from './src/api/api-service';
 import {Log, ApiLog} from './src/logging';
 import {AppRouter} from './src/router';
 import {initialize} from './src/util/i18n';
+
+import {Container} from 'inversify';
 
 Log.info('Bootstrapping...');
 Log.info('Bootstrapping under environment: ' + Config.ENVIRONMENT);
@@ -25,6 +28,13 @@ Log.info('Bootstrapping under environment: ' + Config.ENVIRONMENT);
 //   control that handles this in a generalized way
 // TODO: Take a look at tsfmt
 
+const SERVICE_IDENTIFIER = {
+  IAPIService: Symbol("IAPIService")
+};
+
+const container = new Container();
+
+container.bind<IAPIService>(SERVICE_IDENTIFIER.IAPIService).to(Store);
 
 // TODO: Replace with factory?
 let api: IAPIService = null;
@@ -37,6 +47,8 @@ else if (Config.ENVIRONMENT === EnvironmentType.LOCAL_DEV) {
 else {
   throw 'Not yet implemented';
 }
+
+
 
 // const API = api;
 
