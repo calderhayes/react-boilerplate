@@ -23,7 +23,7 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
       saving: true
     });
 
-    this.actions.login(data.username, data.password);
+    this.actionLogic.authActionLogic.login(data.username, data.password);
 
     this.log.debug('Logging in with ' + data.username);
   }).bind(this);
@@ -66,11 +66,11 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
   }
 
   public componentWillMount() {
-    this.eventEmitter.on(this.actions.CONSTANTS.LOGIN, this.loginCompleted);
+    this.eventEmitter.on('this.actions.CONSTANTS.LOGIN', this.loginCompleted);
   }
 
   public componentWillUnmount() {
-    this.eventEmitter.off(this.actions.CONSTANTS.LOGIN, this.loginCompleted);
+    this.eventEmitter.off('this.actions.CONSTANTS.LOGIN', this.loginCompleted);
   }
 
   public render() {

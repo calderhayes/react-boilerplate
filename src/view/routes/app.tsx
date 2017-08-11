@@ -40,14 +40,14 @@ export class App extends BaseComponent<IAppProps, IAppState> {
   }
 
   public componentDidMount() {
-    this.eventEmitter.on(this.actions.CONSTANTS.APP_ROUTE_INITIALIZED, this.initializationComplete);
-    this.eventEmitter.on(this.actions.CONSTANTS.UNKNOWN_ERROR, this.unknownError);
-    this.actions.initializeAppRoute();
+    this.eventEmitter.on('this.actions.CONSTANTS.APP_ROUTE_INITIALIZED', this.initializationComplete);
+    this.eventEmitter.on('this.actions.CONSTANTS.UNKNOWN_ERROR', this.unknownError);
+    this.actionLogic.initializerActionLogic.initializeAppRoute();
   }
 
   public componentWillUnmount() {
-    this.eventEmitter.off(this.actions.CONSTANTS.APP_ROUTE_INITIALIZED, this.initializationComplete);
-    this.eventEmitter.off(this.actions.CONSTANTS.UNKNOWN_ERROR, this.unknownError);
+    this.eventEmitter.off('this.actions.CONSTANTS.APP_ROUTE_INITIALIZED', this.initializationComplete);
+    this.eventEmitter.off('this.actions.CONSTANTS.UNKNOWN_ERROR', this.unknownError);
   }
 
   public render() {

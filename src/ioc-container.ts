@@ -17,9 +17,7 @@ export const IOC_TYPES = {
   REDUCER: Symbol('REDUCER'),
   DISPATCHER: Symbol('DISPATCHER'),
   EVENT_EMITTER: Symbol('EVENT_EMITTER'),
-  AUTH_ACTION_LOGIC: Symbol('AUTH_ACTION_LOGIC'),
-  EXAMPLE_ACTION_LOGIC: Symbol('EXAMPLE_ACTION_LOGIC'),
-  INITIALIZER_ACTION_LOGIC: Symbol('INITIALIZER_ACTION_LOGIC')
+  ACTION_LOGIC: Symbol('ACTION_LOGIC')
 };
 
 // This doesn't go here
@@ -54,14 +52,17 @@ export const bootstrapContainer = (translationMethod: TranslationFunction, initi
   iocContainer.bind<IEventEmitter>(IOC_TYPES.EVENT_EMITTER)
     .to(EventEmitter);
 
-  iocContainer.bind<Action.IAuthActionLogic>(IOC_TYPES.AUTH_ACTION_LOGIC)
+  /*iocContainer.bind<Action.IAuthActionLogic>(IOC_TYPES.AUTH_ACTION_LOGIC)
     .to(Action.AuthActionLogic);
 
   iocContainer.bind<Action.IInitializerActionLogic>(IOC_TYPES.INITIALIZER_ACTION_LOGIC)
     .to(Action.InitializerActionLogic);
 
   iocContainer.bind<Action.IExampleActionLogic>(IOC_TYPES.EXAMPLE_ACTION_LOGIC)
-    .to(Action.ExampleActionLogic);
+    .to(Action.ExampleActionLogic);*/
+
+  iocContainer.bind<Action.IActionLogic>(IOC_TYPES.ACTION_LOGIC)
+    .to(Action.ActionLogic);
 
   return iocContainer;
 };

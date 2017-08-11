@@ -15,7 +15,7 @@ export class FluxExample extends BaseComponent<IFluxExampleProps, IFluxExampleSt
   constructor(props: IFluxExampleProps) {
     super(props);
 
-    const appState = this.store.getState();
+    const appState = this.store.state;
     this.state = {
       value: appState.exampleValue
     };
@@ -25,11 +25,11 @@ export class FluxExample extends BaseComponent<IFluxExampleProps, IFluxExampleSt
   }
 
   public componentWillMount() {
-    this.eventEmitter.on(this.actions.CONSTANTS.EXAMPLE, this.exampleActionInvoked);
+    this.eventEmitter.on('temp!', this.exampleActionInvoked);
   }
 
   public componentWillUnmount() {
-    this.eventEmitter.off(this.actions.CONSTANTS.EXAMPLE, this.exampleActionInvoked);
+    this.eventEmitter.off('temp', this.exampleActionInvoked);
   }
 
   public render() {
@@ -51,13 +51,13 @@ export class FluxExample extends BaseComponent<IFluxExampleProps, IFluxExampleSt
   }
 
   private invokeExampleAction() {
-    this.actions.doExample();
+    this.actionLogic.exampleActionLogic.doExample();
   }
 
   private exampleActionInvoked() {
     this.setState({
       ...this.state,
-      value: this.store.getState().exampleValue
+      value: this.store.state.exampleValue
     });
   }
 

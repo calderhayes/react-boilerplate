@@ -1,11 +1,11 @@
 
 import * as React from 'react';
 import {IStore} from '../flux/store';
-import {ActionControl} from '../flux/actions';
 import {IOC_TYPES} from '../ioc-container';
 import getDecorators from 'inversify-inject-decorators';
 import {iocContainer} from '../../index';
-import {IEventEmitter} from '../flux/event-emitter';
+import {IEventEmitter} from '../flux/event';
+import * as Action from '../flux/action';
 import {ILogger} from '../logging';
 import {getReactLog} from '../logging';
 // import {browserHistory} from 'react-router';
@@ -21,9 +21,16 @@ class BaseComponent<P, S> extends React.Component<P, S> {
 
   @lazyInject(IOC_TYPES.STORE)
   public readonly store: IStore;
-  public readonly actions: ActionControl;
+
+  @lazyInject(IOC_TYPES.ACTION_LOGIC)
+  public readonly actionLogic: Action.ActionLogic;
+
+  @lazyInject(IOC_TYPES.EVENT_EMITTER)
   public readonly eventEmitter: IEventEmitter;
+
+  @lazyInject(IOC_TYPES.TRANSLATION_FUNCTION)
   public readonly translate: TranslationFunction;
+
   // Stubbing the type, had some issues referencing History
   public readonly history: IHistory;
 
@@ -41,11 +48,6 @@ class BaseComponent<P, S> extends React.Component<P, S> {
 
   constructor(props: P) {
     super(props);
-
-    /*this.store = DIControl.store;
-    this.actions = DIControl.actionControl;
-    this.eventEmitter = DIControl.eventEmitter;
-    this.translate = DIControl.translate;*/
     this.history = browserHistory;
   }
 

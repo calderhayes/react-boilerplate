@@ -46,7 +46,7 @@ window.onerror = (message, file, line, column, errorObject) => {
   return false;
 };
 
-let container: Container = null;
+let iocContainer: Container = null;
 
 // Here we can initialize our data etc
 // tslint:disable-next-line:only-arrow-functions
@@ -63,18 +63,18 @@ async function bootstrap() {
     authInfo: null
   };
 
-  container = await bootstrapContainer(translationFunction, defaultState);
+  iocContainer = await bootstrapContainer(translationFunction, defaultState);
 
-  const appRouter = new AppRouter(container.get<IStore>(IOC_TYPES.STORE));
+  const appRouter = new AppRouter(iocContainer.get<IStore>(IOC_TYPES.STORE));
   appRouter.render(document.getElementById('app'));
 
-  return container;
+  return iocContainer;
 };
 
 bootstrap();
 
 // Should be safe, as nothing happens until this is done
 // If that changes... then beware of this
-export {container};
+export {iocContainer};
 
 Log.info('Bootstrapping complete');

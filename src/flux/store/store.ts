@@ -8,6 +8,12 @@ export interface IAppState {
   readonly authInfo: Model.IOAuth2TokenResult;
 }
 
+export const defaultState: IAppState = {
+  exampleValue: 1,
+  features: new Array<Model.IFeature>(),
+  authInfo: null
+};
+
 export interface IStore extends BaseStore<IAppState> {
 
 }

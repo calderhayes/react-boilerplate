@@ -1,4 +1,3 @@
-import {IOC_TYPES} from '../../ioc-container';
 import {IDispatcher} from '../dispatcher';
 import {IAPIService} from '../../api';
 import {IEventEmitter} from '../event';
@@ -6,7 +5,6 @@ import {IStore} from '../store';
 
 
 import {ILogger} from 'articulog';
-import {inject} from 'inversify';
 
 // TODO: put into DI
 import {ActionLog} from '../../logging';
@@ -15,13 +13,10 @@ export abstract class BaseActionLogic {
 
   protected readonly dispatcher: IDispatcher;
 
-  @inject(IOC_TYPES.API_SERVICE)
   protected readonly api: IAPIService;
 
-  @inject(IOC_TYPES.EVENT_EMITTER)
   protected readonly eventEmitter: IEventEmitter;
 
-  @inject(IOC_TYPES.STORE)
   protected readonly store: IStore;
 
   protected readonly log: ILogger;
