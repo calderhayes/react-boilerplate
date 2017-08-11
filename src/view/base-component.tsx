@@ -5,7 +5,7 @@ import {IOC_TYPES} from '../ioc-container';
 import getDecorators from 'inversify-inject-decorators';
 import {iocContainer} from '../../index';
 import {IEventEmitter} from '../flux/event';
-import * as Action from '../flux/action';
+import {IActionLogic} from '../flux/logic';
 import {ILogger} from '../logging';
 import {getReactLog} from '../logging';
 // import {browserHistory} from 'react-router';
@@ -23,7 +23,7 @@ class BaseComponent<P, S> extends React.Component<P, S> {
   public readonly store: IStore;
 
   @lazyInject(IOC_TYPES.ACTION_LOGIC)
-  public readonly actionLogic: Action.ActionLogic;
+  public readonly actionLogic: IActionLogic;
 
   @lazyInject(IOC_TYPES.EVENT_EMITTER)
   public readonly eventEmitter: IEventEmitter;

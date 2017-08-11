@@ -3,7 +3,7 @@ import {IStore, Store, IAppState} from './flux/store';
 import {Reducer, reducer} from './flux/reducer';
 import {IDispatcher, Dispatcher} from './flux/dispatcher';
 import {IEventEmitter, EventEmitter} from './flux/event';
-import * as Action from './flux/action';
+import {ActionLogic, IActionLogic} from './flux/logic';
 import {TranslationFunction} from './util/i18n';
 
 import { config, IConfig } from './config';
@@ -19,7 +19,7 @@ export const IOC_TYPES = {
   EVENT_EMITTER: Symbol('EVENT_EMITTER'),
   ACTION_LOGIC: Symbol('ACTION_LOGIC')
 };
-
+console.error('HERE', IOC_TYPES);
 // This doesn't go here
 const defaultState: IAppState = {
   exampleValue: 1,
@@ -60,9 +60,9 @@ export const bootstrapContainer = (translationMethod: TranslationFunction, initi
 
   iocContainer.bind<Action.IExampleActionLogic>(IOC_TYPES.EXAMPLE_ACTION_LOGIC)
     .to(Action.ExampleActionLogic);*/
-
-  iocContainer.bind<Action.IActionLogic>(IOC_TYPES.ACTION_LOGIC)
-    .to(Action.ActionLogic);
-
+  console.error('preaction', IOC_TYPES);
+  iocContainer.bind<IActionLogic>(IOC_TYPES.ACTION_LOGIC)
+    .to(ActionLogic);
+  console.error('CONTAINER BUILT', iocContainer);
   return iocContainer;
 };

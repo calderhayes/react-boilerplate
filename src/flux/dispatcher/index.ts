@@ -7,8 +7,8 @@ import {ActionTypes} from '../action';
 import {Reducer} from '../reducer/index';
 import {IStore} from '../store/index';
 import {inject, injectable} from 'inversify';
-import {IOC_TYPES} from '../../ioc-container';
-
+import * as IOC from '../../ioc-container';
+console.warn(IOC);
 export interface IDispatcher {
   dispatch(action: ActionTypes): void;
 }
@@ -21,8 +21,8 @@ export class Dispatcher implements IDispatcher {
   private store: IStore;
 
   constructor(
-    @inject(IOC_TYPES.REDUCER) reducer: Reducer,
-    @inject(IOC_TYPES.STORE) store: IStore) {
+    @inject(IOC.IOC_TYPES.REDUCER) reducer: Reducer,
+    @inject(IOC.IOC_TYPES.STORE) store: IStore) {
       this.reducer = reducer;
       this.store = store;
   }

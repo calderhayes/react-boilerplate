@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import {reducer} from '../../src/flux/reducer';
 import {Store, defaultState} from '../../src/flux/store';
 import {makeExampleAction} from '../../src/flux/action';
