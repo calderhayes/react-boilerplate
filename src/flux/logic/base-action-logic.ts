@@ -1,8 +1,8 @@
-import {IDispatcher} from '../dispatcher';
-import {IAPIService} from '../../api';
-import {IEventEmitter, EventTypeKey} from '../event';
-import {IStore} from '../store';
-import {IConfig} from '../../config';
+import {IDispatcher} from 'flux/dispatcher';
+import {IAPIService} from 'api';
+import {IEventEmitter, EventTypeKey} from 'flux/event';
+import {IStore} from 'flux/store';
+import {IConfig} from 'config';
 
 import {injectable} from 'inversify';
 import {ILogger, ILoggerFactory} from 'articulog';

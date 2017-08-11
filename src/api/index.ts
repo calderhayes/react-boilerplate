@@ -1,6 +1,6 @@
 
-import * as Models from './models';
+import * as Models from 'api/models';
 
 export {Models};
-export * from './service';
-export * from './api-service-factory';
+export * from 'api/service';
+export * from 'api/api-service-factory';

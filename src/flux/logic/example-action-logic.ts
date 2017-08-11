@@ -1,10 +1,10 @@
-import {IDispatcher} from '../dispatcher';
-import {IAPIService} from '../../api';
-import {IEventEmitter, EventTypeKey} from '../event';
-import {IStore} from '../store';
-import {BaseActionLogic} from './base-action-logic';
-import {makeExampleAction} from '../action';
-import {IConfig} from '../../config';
+import {IDispatcher} from 'flux/dispatcher';
+import {IAPIService} from 'api';
+import {IEventEmitter, EventTypeKey} from 'flux/event';
+import {IStore} from 'flux/store';
+import {BaseActionLogic} from 'flux/logic/base-action-logic';
+import {makeExampleAction} from 'flux/action';
+import {IConfig} from 'config';
 
 import {ILoggerFactory} from 'articulog';
 

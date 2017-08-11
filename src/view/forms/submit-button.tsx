@@ -2,7 +2,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import * as cx from 'classnames';
-import {BaseComponent} from '../base-component';
+import {BaseComponent} from 'view/base-component';
 
 export interface ISubmitButtonProps {
   errorClassName?: string;

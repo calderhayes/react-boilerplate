@@ -1,7 +1,7 @@
 
 import * as React from 'react';
-import {BaseComponent} from '../base-component';
-import {EventTypeKey} from '../../flux/event';
+import {BaseComponent} from 'view/base-component';
+import {EventTypeKey} from 'flux/event';
 
 export interface IFluxExampleProps {
 

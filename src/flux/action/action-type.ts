@@ -1,4 +1,4 @@
-import * as Model from '../../api/models';
+import * as Model from 'api/models';
 
 // TODO: Split these off of index
 export enum ActionTypeKey {

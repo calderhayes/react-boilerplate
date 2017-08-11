@@ -1,11 +1,11 @@
 
 import * as React from 'react';
-import {BaseComponent} from '../base-component';
-import {NavBar} from '../components/nav-bar';
-import {Loader} from '../components/loader';
-import {EventTypeKey} from '../../flux/event';
+import {BaseComponent} from 'view/base-component';
+import {NavBar} from 'view/components/nav-bar';
+import {Loader} from 'view/components/loader';
+import {EventTypeKey} from 'flux/event';
 
-import '../style/app.css';
+import 'view/style/app.css';
 
 export interface IAppProps {
 

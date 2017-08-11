@@ -14,7 +14,8 @@
         "emitDecoratorMetadata": true,
         "jsx": "react",
         "noUnusedLocals": true,
-        "noUnusedParameters": true
+        "noUnusedParameters": true,
+        "baseUrl": "./src"
     },
     "filesGlob": [
         "./src/**/*.ts",

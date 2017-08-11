@@ -1,13 +1,13 @@
-import {IAuthActionLogic, AuthActionLogic} from './auth-action-logic';
-import {IExampleActionLogic, ExampleActionLogic} from './example-action-logic';
-import {IInitializerActionLogic, InitializerActionLogic} from './initializer-action-logic';
-import {BaseActionLogic} from './base-action-logic';
-import {IDispatcher} from '../dispatcher';
-import {IAPIServiceFactory} from '../../api';
-import {IEventEmitter} from '../event';
-import {IStore} from '../store';
-import {IOC_TYPE} from '../../ioc/ioc-type';
-import {IConfig} from '../../config';
+import {IAuthActionLogic, AuthActionLogic} from 'flux/logic/auth-action-logic';
+import {IExampleActionLogic, ExampleActionLogic} from 'flux/logic/example-action-logic';
+import {IInitializerActionLogic, InitializerActionLogic} from 'flux/logic/initializer-action-logic';
+import {BaseActionLogic} from 'flux/logic/base-action-logic';
+import {IDispatcher} from 'flux/dispatcher';
+import {IAPIServiceFactory} from 'api';
+import {IEventEmitter} from 'flux/event';
+import {IStore} from 'flux/store';
+import {IOC_TYPE} from 'ioc/ioc-type';
+import {IConfig} from 'config';
 
 import {ILoggerFactory} from 'articulog';
 import {injectable, inject} from 'inversify';

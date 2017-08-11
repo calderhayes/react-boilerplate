@@ -11,16 +11,16 @@ import {
 
 import {render} from 'react-dom';
 
-import {Log} from '../util/logging';
+import {Log} from 'util/logging';
 
-import {App} from './routes/app';
-import {Login} from './routes/login';
-import {About} from './routes/about';
-import {Example} from './routes/example';
-import {Contact} from './routes/contact';
-import {Dashboard} from './routes/dashboard';
+import {App} from 'view/routes/app';
+import {Login} from 'view/routes/login';
+import {About} from 'view/routes/about';
+import {Example} from 'view/routes/example';
+import {Contact} from 'view/routes/contact';
+import {Dashboard} from 'view/routes/dashboard';
 
-import {IStore, StoreHelpers} from '../flux/store';
+import {IStore, StoreHelpers} from 'flux/store';
 
 // Stubbing the type, had some issues referencing History
 export interface IHistory {

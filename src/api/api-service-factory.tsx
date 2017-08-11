@@ -1,9 +1,9 @@
 
-import {APIService} from './api-service';
-import {LocalAPIService} from './local-api-service';
-import {IConfig, EnvironmentType} from '../config';
-import * as Service from './service';
-import {IOC_TYPE} from '../ioc/ioc-type';
+import {APIService} from 'api/api-service';
+import {LocalAPIService} from 'api/local-api-service';
+import {IConfig, EnvironmentType} from 'config';
+import * as Service from 'api/service';
+import {IOC_TYPE} from 'ioc/ioc-type';
 
 import {ILoggerFactory} from 'articulog';
 import {injectable, inject} from 'inversify';

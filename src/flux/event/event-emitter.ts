@@ -1,5 +1,5 @@
 import * as events from 'events';
-import {EventType, EventTypeKey} from './event-type';
+import {EventType, EventTypeKey} from 'flux/event/event-type';
 import {injectable} from 'inversify';
 
 export interface IEventEmitter {

@@ -1,13 +1,13 @@
 
 import * as React from 'react';
-import {IStore} from '../flux/store';
-import {IOC_TYPE} from '../ioc/ioc-type';
-import {IEventEmitter} from '../flux/event';
-import {IActionLogic} from '../flux/logic';
-import {IHistory} from './router';
+import {IStore} from 'flux/store';
+import {IOC_TYPE} from 'ioc/ioc-type';
+import {IEventEmitter} from 'flux/event';
+import {IActionLogic} from 'flux/logic';
+import {IHistory} from 'view/router';
 import {TranslationFunction} from 'i18next';
-import {lazyInject} from '../ioc';
-import {IConfig} from '../config';
+import {lazyInject} from 'ioc';
+import {IConfig} from 'config';
 
 // import {browserHistory} from 'react-router';
 // tslint:disable-next-line:no-var-requires no-require-imports

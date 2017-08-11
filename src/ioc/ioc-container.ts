@@ -1,13 +1,13 @@
-import {IAPIServiceFactory, APIServiceFactory, Models} from '../api';
-import {IStore, Store, IAppState} from '../flux/store';
-import {Reducer, reducer} from '../flux/reducer';
-import {IDispatcher, Dispatcher} from '../flux/dispatcher';
-import {IEventEmitter, EventEmitter} from '../flux/event';
-import {ActionLogic, IActionLogic} from '../flux/logic';
-import {TranslationFunction, translationFunction} from '../util/i18n';
-import {IOC_TYPE} from './ioc-type';
-import {config, IConfig } from '../config';
-import {namedConsoleLoggerFactory} from '../util/logging';
+import {IAPIServiceFactory, APIServiceFactory, Models} from 'api';
+import {IStore, Store, IAppState} from 'flux/store';
+import {Reducer, reducer} from 'flux/reducer';
+import {IDispatcher, Dispatcher} from 'flux/dispatcher';
+import {IEventEmitter, EventEmitter} from 'flux/event';
+import {ActionLogic, IActionLogic} from 'flux/logic';
+import {TranslationFunction, translationFunction} from 'util/i18n';
+import {IOC_TYPE} from 'ioc/ioc-type';
+import {config, IConfig } from 'config';
+import {namedConsoleLoggerFactory} from 'util/logging';
 
 import {ILoggerFactory} from 'articulog';
 import {Container} from 'inversify';

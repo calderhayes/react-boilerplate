@@ -1,5 +1,5 @@
 
-import * as Model from './models';
+import * as Model from 'api/models';
 
 export enum APIServiceType {
   LocalAPIService,

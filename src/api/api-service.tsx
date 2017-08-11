@@ -5,8 +5,8 @@ import {
   APIError,
   APIErrorType,
   HTTPStatusCode
-} from './service';
-import * as Model from './models';
+} from 'api/service';
+import * as Model from 'api/models';
 
 import * as urljoin from 'url-join';
 import {stringify} from 'qs';

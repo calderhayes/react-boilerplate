@@ -1,10 +1,10 @@
-import {ActionType} from '../action';
-import {Reducer} from '../reducer/index';
-import {IStore} from '../store/index';
+import {ActionType} from 'flux/action';
+import {Reducer} from 'flux/reducer/index';
+import {IStore} from 'flux/store/index';
 import {inject, injectable} from 'inversify';
-import {IOC_TYPE} from '../../ioc/ioc-type';
+import {IOC_TYPE} from 'ioc/ioc-type';
 import {ILoggerFactory, ILogger} from 'articulog';
-import {IConfig} from '../../config';
+import {IConfig} from 'config';
 
 export interface IDispatcher {
   dispatch(action: ActionType): void;

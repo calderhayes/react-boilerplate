@@ -1,9 +1,9 @@
 
 import * as React from 'react';
 import {Form, Input, SubmitButton} from './base';
-import {VALIDATION_RULES} from './rules';
-import {ValidationError} from './validation-error';
-import {BaseComponent} from '../base-component';
+import {VALIDATION_RULES} from 'view/forms/rules';
+import {ValidationError} from 'view/forms/validation-error';
+import {BaseComponent} from 'view/base-component';
 
 export interface ILoginFormData {
   username: string;

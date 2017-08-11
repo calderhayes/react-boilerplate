@@ -1,11 +1,11 @@
-import {IDispatcher} from '../dispatcher';
-import {IAPIService, APIErrorType, APIError} from '../../api';
-import {IEventEmitter, EventTypeKey} from '../event';
-import {IStore} from '../store';
-import {BaseActionLogic} from './base-action-logic';
-import {makeLoginAction, makeLogoutAction} from '../action';
+import {IDispatcher} from 'flux/dispatcher';
+import {IAPIService, APIErrorType, APIError} from 'api';
+import {IEventEmitter, EventTypeKey} from 'flux/event';
+import {IStore} from 'flux/store';
+import {BaseActionLogic} from 'flux/logic/base-action-logic';
+import {makeLoginAction, makeLogoutAction} from 'flux/action';
 import {ILoggerFactory} from 'articulog';
-import {IConfig} from '../../config';
+import {IConfig} from 'config';
 
 export interface IAuthActionLogic {
   login(username: string, password: string): Promise<void>;

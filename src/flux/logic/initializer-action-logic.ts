@@ -1,11 +1,11 @@
-import {IDispatcher} from '../dispatcher';
-import {IAPIService} from '../../api';
-import {IEventEmitter, EventTypeKey} from '../event';
-import {IStore} from '../store';
+import {IDispatcher} from 'flux/dispatcher';
+import {IAPIService} from 'api';
+import {IEventEmitter, EventTypeKey} from 'flux/event';
+import {IStore} from 'flux/store';
 import {BaseActionLogic} from './base-action-logic';
-import {makeInitializeAppRouteAction} from '../action';
-import {initializeTranslationData} from '../../util/i18n';
-import {IConfig} from '../../config';
+import {makeInitializeAppRouteAction} from 'flux/action';
+import {initializeTranslationData} from 'util/i18n';
+import {IConfig} from 'config';
 
 import {ILoggerFactory} from 'articulog';
 

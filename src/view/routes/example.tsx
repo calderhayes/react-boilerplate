@@ -1,8 +1,8 @@
 
 import * as React from 'react';
-import {BaseComponent} from '../base-component';
-import {Hello} from '../components/example';
-import {FluxExample} from '../components/flux-example';
+import {BaseComponent} from 'view/base-component';
+import {Hello} from 'view/components/example';
+import {FluxExample} from 'view/components/flux-example';
 
 export interface IExampleProps {
 
