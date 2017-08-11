@@ -2,7 +2,7 @@
 import * as React from 'react';
 import {SubmitButton} from './submit-button';
 
-import '../style/forms/base.css';
+import 'view/style/forms/base.css';
 
 export interface IFormProps {
   className?: string;

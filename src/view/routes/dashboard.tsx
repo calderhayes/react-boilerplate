@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import {BaseComponent} from '../base-component';
+import {BaseComponent} from 'view/base-component';
 
 export interface IDashboardProps {
 
