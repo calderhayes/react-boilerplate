@@ -11,7 +11,7 @@ import {
 
 import {render} from 'react-dom';
 
-import {Log} from './logging';
+import {Log} from './util/logging';
 
 import {App} from './view/routes/app';
 import {Login} from './view/routes/login';

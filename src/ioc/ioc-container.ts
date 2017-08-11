@@ -7,7 +7,7 @@ import {ActionLogic, IActionLogic} from '../flux/logic';
 import {TranslationFunction, translationFunction} from '../util/i18n';
 import {IOC_TYPE} from './ioc-type';
 import {config, IConfig } from '../config';
-import {namedConsoleLoggerFactory} from '../logging';
+import {namedConsoleLoggerFactory} from '../util/logging';
 
 import {ILoggerFactory} from 'articulog';
 import {Container} from 'inversify';
@@ -45,15 +45,6 @@ iocContainer.bind<IDispatcher>(IOC_TYPE.DISPATCHER)
 
 iocContainer.bind<IEventEmitter>(IOC_TYPE.EVENT_EMITTER)
   .to(EventEmitter);
-
-/*iocContainer.bind<Action.IAuthActionLogic>(IOC_TYPES.AUTH_ACTION_LOGIC)
-  .to(Action.AuthActionLogic);
-
-iocContainer.bind<Action.IInitializerActionLogic>(IOC_TYPES.INITIALIZER_ACTION_LOGIC)
-  .to(Action.InitializerActionLogic);
-
-iocContainer.bind<Action.IExampleActionLogic>(IOC_TYPES.EXAMPLE_ACTION_LOGIC)
-  .to(Action.ExampleActionLogic);*/
 
 iocContainer.bind<IActionLogic>(IOC_TYPE.ACTION_LOGIC)
   .to(ActionLogic);

@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 import {IStore} from '../flux/store';
-import {IOC_TYPE} from '../ioc';
+import {IOC_TYPE} from '../ioc/ioc-type';
 import {IEventEmitter} from '../flux/event';
 import {IActionLogic} from '../flux/logic';
 import {IHistory} from '../router';

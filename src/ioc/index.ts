@@ -1,2 +1,3 @@
 export * from './ioc-container';
-export * from './ioc-type';
+// Do not export this
+// export * from './ioc-type';

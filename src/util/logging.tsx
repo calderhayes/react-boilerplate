@@ -1,5 +1,5 @@
 import {ILogger, LoggerLevel, ILoggerOptions, ConsoleLoggerFactory, ILoggerFactory} from 'articulog';
-import {config} from './config';
+import {config} from '../config';
 
 const addLogPrefix = (logger: ILogger, prefix?: string) => {
 
