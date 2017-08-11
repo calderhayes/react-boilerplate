@@ -7,7 +7,7 @@ import {Log} from './util/logging';
 import {config} from './config';
 import {iocContainer} from './ioc';
 import {IOC_TYPE} from './ioc/ioc-type';
-import {bootstrapReact} from './router';
+import {bootstrapReact} from './view/router';
 import {IStore} from './flux/store';
 
 import {LogControl} from 'articulog';
