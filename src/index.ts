@@ -2,13 +2,13 @@
 
 import 'reflect-metadata';
 
-import {Log} from './src/logging';
+import {Log} from './logging';
 
-import {config} from './src/config';
-import {iocContainer} from './src/ioc';
-import {IOC_TYPES} from './src/ioc/ioc-type';
-import {bootstrapReact} from './src/router';
-import {IStore} from './src/flux/store';
+import {config} from './config';
+import {iocContainer} from './ioc';
+import {IOC_TYPES} from './ioc/ioc-type';
+import {bootstrapReact} from './router';
+import {IStore} from './flux/store';
 
 Log.info('Bootstrapping...');
 Log.info('Bootstrapping under environment: ' + config.ENVIRONMENT);

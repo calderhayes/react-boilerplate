@@ -3,7 +3,7 @@ var webpack = require('webpack');
 path = require('path');
 //console.log('webpack relative root: ', path.join(__dirname, '/demo/'));
 module.exports = {
-  entry: ["./index.tsx"],
+  entry: ["./src/index.ts"],
   output: {
     path: __dirname,
     filename: "./dist/bundle.js"
