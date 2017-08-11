@@ -4,6 +4,8 @@ import {IEventEmitter, EventTypeKey} from '../event';
 import {IStore} from '../store';
 import {BaseActionLogic} from './base-action-logic';
 import {makeLoginAction, makeLogoutAction} from '../action';
+import {ILoggerFactory} from 'articulog';
+import {IConfig} from '../../config';
 
 export interface IAuthActionLogic {
   login(username: string, password: string): Promise<void>;
@@ -16,13 +18,15 @@ export class AuthActionLogic extends BaseActionLogic implements IAuthActionLogic
     dispatcher: IDispatcher,
     api: IAPIService,
     eventEmitter: IEventEmitter,
-    store: IStore) {
-      super(dispatcher, api, eventEmitter, store);
+    store: IStore,
+    loggerFactory: ILoggerFactory,
+    config: IConfig) {
+      super(dispatcher, api, eventEmitter, store, loggerFactory, config);
 
   }
 
   public async login(username: string, password: string): Promise<void> {
-    this.log.info('Logging in ', username);
+    this.logger.info('Logging in ', username);
 
     try {
       const result = await this.api.login(username, password);

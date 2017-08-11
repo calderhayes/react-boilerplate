@@ -74,7 +74,7 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
 
     this.actionLogic.authActionLogic.login(data.username, data.password);
 
-    this.log.debug('Logging in with ' + data.username);
+    this.logger.debug('Logging in with ' + data.username);
   }
 
   private onChange = (data: ILoginFormData) => {
@@ -86,12 +86,12 @@ export class Login extends BaseComponent<ILoginProps, ILoginState> {
 
   private loginCompleted = (event: ILoginEvent) => {
     if (event.result.success) {
-      this.log.debug('Login success!');
+      this.logger.debug('Login success!');
       this.history.push('dashboard');
     }
     else {
-      this.log.debug('Login failure!');
-      this.log.debug('Re-enabling');
+      this.logger.debug('Login failure!');
+      this.logger.debug('Re-enabling');
       this.state.formData.password = '';
       this.setState({
         ...this.state,

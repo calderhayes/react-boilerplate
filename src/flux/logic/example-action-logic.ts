@@ -4,6 +4,9 @@ import {IEventEmitter, EventTypeKey} from '../event';
 import {IStore} from '../store';
 import {BaseActionLogic} from './base-action-logic';
 import {makeExampleAction} from '../action';
+import {IConfig} from '../../config';
+
+import {ILoggerFactory} from 'articulog';
 
 export interface IExampleActionLogic {
   doExample(): Promise<void>;
@@ -16,13 +19,15 @@ export class ExampleActionLogic extends BaseActionLogic
     dispatcher: IDispatcher,
     api: IAPIService,
     eventEmitter: IEventEmitter,
-    store: IStore) {
-      super(dispatcher, api, eventEmitter, store);
+    store: IStore,
+    loggerFactory: ILoggerFactory,
+    config: IConfig) {
+      super(dispatcher, api, eventEmitter, store, loggerFactory, config);
 
   }
 
   public async doExample() {
-    this.log.info('Doing example...');
+    this.logger.info('Doing example...');
 
     const newVal = (new Date()).getTime() + this.store.state.exampleValue;
     const action = makeExampleAction(newVal);

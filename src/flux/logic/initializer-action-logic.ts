@@ -5,6 +5,9 @@ import {IStore} from '../store';
 import {BaseActionLogic} from './base-action-logic';
 import {makeInitializeAppRouteAction} from '../action';
 import {initializeTranslationData} from '../../util/i18n';
+import {IConfig} from '../../config';
+
+import {ILoggerFactory} from 'articulog';
 
 export interface IInitializerActionLogic {
   initializeAppRoute(): Promise<void>;
@@ -16,13 +19,15 @@ export class InitializerActionLogic extends BaseActionLogic {
     dispatcher: IDispatcher,
     api: IAPIService,
     eventEmitter: IEventEmitter,
-    store: IStore) {
-      super(dispatcher, api, eventEmitter, store);
+    store: IStore,
+    loggerFactory: ILoggerFactory,
+    config: IConfig) {
+      super(dispatcher, api, eventEmitter, store, loggerFactory, config);
 
   }
 
   public async initializeAppRoute() {
-    this.log.info('Initializing the App Route');
+    this.logger.info('Initializing the App Route');
 
     // TODO: Dynamically get locale
     const locale = 'en-CA';

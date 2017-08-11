@@ -2,12 +2,10 @@ import {IDispatcher} from '../dispatcher';
 import {IAPIService} from '../../api';
 import {IEventEmitter, EventTypeKey} from '../event';
 import {IStore} from '../store';
+import {IConfig} from '../../config';
+
 import {injectable} from 'inversify';
-
-import {ILogger} from 'articulog';
-
-// TODO: put into DI
-import {ActionLog} from '../../logging';
+import {ILogger, ILoggerFactory} from 'articulog';
 
 @injectable()
 export abstract class BaseActionLogic {
@@ -20,19 +18,45 @@ export abstract class BaseActionLogic {
 
   protected readonly store: IStore;
 
-  protected readonly log: ILogger;
+  protected get logger() {
+    if (this._logger) {
+      return this._logger;
+    }
 
-  constructor(dispatcher: IDispatcher, api: IAPIService, eventEmitter: IEventEmitter, store: IStore) {
+    const className = (this as any).constructor.name;
+    this._logger = this.loggerFactory.createLog({
+      name: 'Action|' + className,
+      loggerLevel: this.config.ACTION_LOG_LEVEL
+    });
+
+    return this._logger;
+  };
+
+  private config: IConfig;
+
+  private _logger: ILogger;
+
+  private loggerFactory: ILoggerFactory;
+
+  constructor(
+    dispatcher: IDispatcher,
+    api: IAPIService,
+    eventEmitter: IEventEmitter,
+    store: IStore,
+    loggerFactory: ILoggerFactory,
+    config: IConfig) {
+
     this.dispatcher = dispatcher;
     this.api = api;
     this.eventEmitter = eventEmitter;
     this.store = store;
+    this.config = config;
 
-    this.log = ActionLog;
+    this.loggerFactory = loggerFactory;
   }
 
   protected unknownErrorHandler(error?: any) {
-    this.log.error('An unknown error occured', error);
+    this.logger.error('An unknown error occured', error);
     this.eventEmitter.emit({
       type: EventTypeKey.UNKNOWN_ERROR,
       error

@@ -5,17 +5,18 @@ import {
   APIErrorType,
   APIError
 } from './service';
-import {ILogger, NullLogger} from '../logging';
 import * as Model from './models';
 import {find} from 'lodash';
 import {InMemoryDatabase} from './in-memory-database';
+
+import {ILogger} from 'articulog';
 
 export class LocalAPIService implements IAPIService {
 
   private logger: ILogger;
 
   constructor(logger?: ILogger) {
-    this.logger = logger || NullLogger;
+    this.logger = logger;
   }
 
   public get type() {

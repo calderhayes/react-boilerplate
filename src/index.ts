@@ -6,12 +6,16 @@ import {Log} from './logging';
 
 import {config} from './config';
 import {iocContainer} from './ioc';
-import {IOC_TYPES} from './ioc/ioc-type';
+import {IOC_TYPE} from './ioc/ioc-type';
 import {bootstrapReact} from './router';
 import {IStore} from './flux/store';
 
+import {LogControl} from 'articulog';
+
 Log.info('Bootstrapping...');
 Log.info('Bootstrapping under environment: ' + config.ENVIRONMENT);
+
+// TODO: BaseURL, and paths values
 
 // TODO: Split up UI into Smart (stateful components / Containers) and Dumb (functional components / Presentation)
 
@@ -22,6 +26,8 @@ Log.info('Bootstrapping under environment: ' + config.ENVIRONMENT);
 //   control that handles this in a generalized way
 // TODO: Take a look at tsfmt
 
+// For easy access of the log control
+(window as any).LogControl = LogControl;
 
 // Setting a global error catcher
 window.onerror = (message, file, line, column, errorObject) => {
@@ -44,7 +50,7 @@ window.onerror = (message, file, line, column, errorObject) => {
   return false;
 };
 
-const store = iocContainer.get<IStore>(IOC_TYPES.STORE);
+const store = iocContainer.get<IStore>(IOC_TYPE.STORE);
 const rootHTMLElement = document.getElementById('app');
 bootstrapReact(rootHTMLElement, store);
 

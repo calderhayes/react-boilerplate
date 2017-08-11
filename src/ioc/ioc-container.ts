@@ -1,15 +1,17 @@
-import {IAPIService, APIServiceFactory, Models} from '../api';
+import {IAPIServiceFactory, APIServiceFactory, Models} from '../api';
 import {IStore, Store, IAppState} from '../flux/store';
 import {Reducer, reducer} from '../flux/reducer';
 import {IDispatcher, Dispatcher} from '../flux/dispatcher';
 import {IEventEmitter, EventEmitter} from '../flux/event';
 import {ActionLogic, IActionLogic} from '../flux/logic';
 import {TranslationFunction, translationFunction} from '../util/i18n';
-import {IOC_TYPES} from './ioc-type';
-import getDecorators from 'inversify-inject-decorators';
+import {IOC_TYPE} from './ioc-type';
+import {config, IConfig } from '../config';
+import {namedConsoleLoggerFactory} from '../logging';
 
-import { config, IConfig } from '../config';
+import {ILoggerFactory} from 'articulog';
 import {Container} from 'inversify';
+import getDecorators from 'inversify-inject-decorators';
 
 // This doesn't go here
 const defaultState: IAppState = {
@@ -20,25 +22,28 @@ const defaultState: IAppState = {
 
 const iocContainer = new Container({ defaultScope: 'Singleton' });
 
-iocContainer.bind<TranslationFunction>(IOC_TYPES.TRANSLATION_FUNCTION)
-  .toDynamicValue(() => translationFunction);
-
-iocContainer.bind<IConfig>(IOC_TYPES.CONFIG)
+iocContainer.bind<IConfig>(IOC_TYPE.CONFIG)
   .toConstantValue(config);
 
-iocContainer.bind<IAPIService>(IOC_TYPES.API_SERVICE)
-  .toConstantValue(APIServiceFactory.create(config));
+iocContainer.bind<ILoggerFactory>(IOC_TYPE.LOGGER_FACTORY)
+  .toConstantValue(namedConsoleLoggerFactory);
 
-iocContainer.bind<IStore>(IOC_TYPES.STORE)
+iocContainer.bind<TranslationFunction>(IOC_TYPE.TRANSLATION_FUNCTION)
+  .toDynamicValue(() => translationFunction);
+
+iocContainer.bind<IAPIServiceFactory>(IOC_TYPE.API_SERVICE_FACTORY)
+  .to(APIServiceFactory);
+
+iocContainer.bind<IStore>(IOC_TYPE.STORE)
   .toConstantValue(new Store(defaultState));
 
-iocContainer.bind<Reducer>(IOC_TYPES.REDUCER)
+iocContainer.bind<Reducer>(IOC_TYPE.REDUCER)
   .toConstantValue(reducer);
 
-iocContainer.bind<IDispatcher>(IOC_TYPES.DISPATCHER)
+iocContainer.bind<IDispatcher>(IOC_TYPE.DISPATCHER)
   .to(Dispatcher);
 
-iocContainer.bind<IEventEmitter>(IOC_TYPES.EVENT_EMITTER)
+iocContainer.bind<IEventEmitter>(IOC_TYPE.EVENT_EMITTER)
   .to(EventEmitter);
 
 /*iocContainer.bind<Action.IAuthActionLogic>(IOC_TYPES.AUTH_ACTION_LOGIC)
@@ -50,7 +55,7 @@ iocContainer.bind<Action.IInitializerActionLogic>(IOC_TYPES.INITIALIZER_ACTION_L
 iocContainer.bind<Action.IExampleActionLogic>(IOC_TYPES.EXAMPLE_ACTION_LOGIC)
   .to(Action.ExampleActionLogic);*/
 
-iocContainer.bind<IActionLogic>(IOC_TYPES.ACTION_LOGIC)
+iocContainer.bind<IActionLogic>(IOC_TYPE.ACTION_LOGIC)
   .to(ActionLogic);
 
 const {lazyInject} = getDecorators(iocContainer);

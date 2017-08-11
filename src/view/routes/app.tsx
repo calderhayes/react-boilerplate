@@ -19,7 +19,7 @@ export class App extends BaseComponent<IAppProps, IAppState> {
 
   constructor(props: IAppProps) {
     super(props);
-    this.log.info('Constructing top level react component');
+    this.logger.info('Constructing top level react component');
 
     this.state = {
       loaded: false
@@ -68,7 +68,7 @@ export class App extends BaseComponent<IAppProps, IAppState> {
   }
 
   private initializationComplete = () => {
-    this.log.info('App route initialized');
+    this.logger.info('App route initialized');
     this.setState({
       ...this.state,
       loaded: true
@@ -76,7 +76,7 @@ export class App extends BaseComponent<IAppProps, IAppState> {
   }
 
   private unknownError = (error: any) => {
-    this.log.error('Unknown error occured', error);
+    this.logger.error('Unknown error occured', error);
     // Do something visual
   }
 
