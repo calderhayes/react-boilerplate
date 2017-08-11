@@ -2,8 +2,6 @@ import {ActionType, ActionTypeKey} from '../action';
 import {IAppState} from '../store';
 import iassign from 'immutable-assign';
 
-// TODO: Split these off of the index
-// TODO: Globalize?
 iassign.setOption({
   freezeInput: false,
   freezeOutput: true,

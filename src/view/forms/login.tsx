@@ -75,8 +75,6 @@ export class LoginForm extends BaseComponent<ILoginFormProps, {}> {
     this.props.onSubmit(this.props.formData);
   }
 
-  // TODO: Better strategy for this?
-  // TODO: Get proper type?
   private onUsernameChanged = (e: any) => {
     const username = e.target.value;
     const data: ILoginFormData = Object.assign({}, this.props.formData);

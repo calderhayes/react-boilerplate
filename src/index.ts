@@ -17,9 +17,6 @@ Log.info('Bootstrapping under environment: ' + config.ENVIRONMENT);
 
 // TODO: Split up UI into Smart (stateful components / Containers) and Dumb (functional components / Presentation)
 
-// TODO: Solidify authentication strategy
-// TODO: Solidify error message handling, what provides the keys, what creates the keys (this may just be documentation)
-
 // For easy access of the log control
 (window as any).LogControl = LogControl;
 

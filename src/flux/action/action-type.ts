@@ -1,6 +1,5 @@
 import * as Model from 'api/models';
 
-// TODO: Split these off of index
 export enum ActionTypeKey {
   EXAMPLE = 'EXAMPLE',
   LOGIN = 'LOGIN',
