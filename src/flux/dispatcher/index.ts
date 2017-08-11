@@ -3,14 +3,15 @@
 // TODO: Reducer and store from DI
 // TODO: Split this off of index
 import {DispatcherLog} from '../../logging';
-import {ActionTypes} from '../action';
+import {ActionType} from '../action';
 import {Reducer} from '../reducer/index';
 import {IStore} from '../store/index';
 import {inject, injectable} from 'inversify';
-import * as IOC from '../../ioc-container';
-console.warn(IOC);
+// Be sure to reference the ioc-type folder directly! Order of operations mess
+import {IOC_TYPES} from '../../ioc/ioc-type';
+
 export interface IDispatcher {
-  dispatch(action: ActionTypes): void;
+  dispatch(action: ActionType): void;
 }
 
 @injectable()
@@ -21,13 +22,13 @@ export class Dispatcher implements IDispatcher {
   private store: IStore;
 
   constructor(
-    @inject(IOC.IOC_TYPES.REDUCER) reducer: Reducer,
-    @inject(IOC.IOC_TYPES.STORE) store: IStore) {
+    @inject(IOC_TYPES.REDUCER) reducer: Reducer,
+    @inject(IOC_TYPES.STORE) store: IStore) {
       this.reducer = reducer;
       this.store = store;
   }
 
-  public dispatch(action: ActionTypes) {
+  public dispatch(action: ActionType) {
     if (this.inDispatch) {
       const message = 'Cannot dispatch while in a dispatch!';
       DispatcherLog.error(message);

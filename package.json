@@ -6,9 +6,9 @@
   "types": "dist/src/index.d.ts",
   "scripts": {
     "_lint": "node ./node_modules/tslint/bin/tslint --config tslint.json --project tsconfig.json",
-    "lint": "npm run _lint || true",
-    "build": "npm run _lint && node ./node_modules/typescript/bin/tsc",
-    "test": "npm run build && NODE_ENV=LOCAL node ./node_modules/mocha/bin/mocha --recursive ./dist/test",
+    "lint": "npm --silent run _lint",
+    "build": "npm run lint && node ./node_modules/typescript/bin/tsc",
+    "test": "npm run build && node ./node_modules/mocha/bin/mocha --recursive ./dist/test",
     "clean": "rm -rf ./dist/*",
     "serve": "npm run build && node devserver.js"
   },

@@ -1,9 +1,10 @@
 import {IDispatcher} from '../dispatcher';
 import {IAPIService} from '../../api';
-import {IEventEmitter} from '../event';
+import {IEventEmitter, EventTypeKey} from '../event';
 import {IStore} from '../store';
 import {BaseActionLogic} from './base-action-logic';
 import {makeInitializeAppRouteAction} from '../action';
+import {initializeTranslationData} from '../../util/i18n';
 
 export interface IInitializerActionLogic {
   initializeAppRoute(): Promise<void>;
@@ -23,6 +24,10 @@ export class InitializerActionLogic extends BaseActionLogic {
   public async initializeAppRoute() {
     this.log.info('Initializing the App Route');
 
+    // TODO: Dynamically get locale
+    const locale = 'en-CA';
+    await initializeTranslationData(locale);
+
     // This will likely be a batched set of API calls
     // Or a special call to a single point which provides all
     // the data
@@ -36,7 +41,8 @@ export class InitializerActionLogic extends BaseActionLogic {
     this.dispatcher.dispatch(action);
 
     // const updatedState = this.store.getState();
-    this.eventEmitter.emit('temp2!', {
+    this.eventEmitter.emit({
+      type: EventTypeKey.APP_ROUTE_INITIALIZED,
       success: true
     });
   }

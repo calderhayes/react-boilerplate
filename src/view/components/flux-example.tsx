@@ -1,6 +1,7 @@
 
 import * as React from 'react';
 import {BaseComponent} from '../base-component';
+import {EventTypeKey} from '../../flux/event';
 
 export interface IFluxExampleProps {
 
@@ -19,17 +20,14 @@ export class FluxExample extends BaseComponent<IFluxExampleProps, IFluxExampleSt
     this.state = {
       value: appState.exampleValue
     };
-
-    this.invokeExampleAction = this.invokeExampleAction.bind(this);
-    this.exampleActionInvoked = this.exampleActionInvoked.bind(this);
   }
 
   public componentWillMount() {
-    this.eventEmitter.on('temp!', this.exampleActionInvoked);
+    this.eventEmitter.on(EventTypeKey.EXAMPLE, this.exampleActionInvoked);
   }
 
   public componentWillUnmount() {
-    this.eventEmitter.off('temp', this.exampleActionInvoked);
+    this.eventEmitter.off(EventTypeKey.EXAMPLE, this.exampleActionInvoked);
   }
 
   public render() {
@@ -50,11 +48,11 @@ export class FluxExample extends BaseComponent<IFluxExampleProps, IFluxExampleSt
 
   }
 
-  private invokeExampleAction() {
+  private invokeExampleAction = () => {
     this.actionLogic.exampleActionLogic.doExample();
   }
 
-  private exampleActionInvoked() {
+  private exampleActionInvoked = () => {
     this.setState({
       ...this.state,
       value: this.store.state.exampleValue

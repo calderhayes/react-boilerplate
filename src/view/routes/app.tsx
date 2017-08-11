@@ -3,6 +3,7 @@ import * as React from 'react';
 import {BaseComponent} from '../base-component';
 import {NavBar} from '../components/nav-bar';
 import {Loader} from '../components/loader';
+import {EventTypeKey} from '../../flux/event';
 
 import '../style/app.css';
 
@@ -16,19 +17,6 @@ export interface IAppState {
 
 export class App extends BaseComponent<IAppProps, IAppState> {
 
-  private initializationComplete = (() => {
-    this.log.info('App route initialized');
-    this.setState({
-      ...this.state,
-      loaded: true
-    });
-  }).bind(this);
-
-  private unknownError = ((error: any) => {
-    this.log.error('Unknown error occured', error);
-    // Do something visual
-  }).bind(this);
-
   constructor(props: IAppProps) {
     super(props);
     this.log.info('Constructing top level react component');
@@ -40,43 +28,56 @@ export class App extends BaseComponent<IAppProps, IAppState> {
   }
 
   public componentDidMount() {
-    this.eventEmitter.on('this.actions.CONSTANTS.APP_ROUTE_INITIALIZED', this.initializationComplete);
-    this.eventEmitter.on('this.actions.CONSTANTS.UNKNOWN_ERROR', this.unknownError);
+    this.eventEmitter.on(EventTypeKey.APP_ROUTE_INITIALIZED, this.initializationComplete);
+    this.eventEmitter.on(EventTypeKey.UNKNOWN_ERROR, this.unknownError);
     this.actionLogic.initializerActionLogic.initializeAppRoute();
   }
 
   public componentWillUnmount() {
-    this.eventEmitter.off('this.actions.CONSTANTS.APP_ROUTE_INITIALIZED', this.initializationComplete);
-    this.eventEmitter.off('this.actions.CONSTANTS.UNKNOWN_ERROR', this.unknownError);
+    this.eventEmitter.off(EventTypeKey.APP_ROUTE_INITIALIZED, this.initializationComplete);
+    this.eventEmitter.off(EventTypeKey.UNKNOWN_ERROR, this.unknownError);
   }
 
   public render() {
 
     return (
-      <div>
-        <NavBar />
-        <div className='container'>
-          <div className='row'>
-            <div className='col-xs-12' style={{minHeight: '300px'}}>
-              <Loader loaded={this.state.loaded}>
+      <Loader loaded={this.state.loaded}>
+        <div>
+          <NavBar />
+          <div className='container'>
+            <div className='row'>
+              <div className='col-xs-12' style={{minHeight: '300px'}}>
                 {this.props.children}
-              </Loader>
+              </div>
             </div>
           </div>
-        </div>
-        <div className='container'>
-            <hr />
-            <footer>
-                <div className='row'>
-                    <div className='col-lg-12'>
-                        <p>Copyright &copy; Your Website 2014</p>
-                    </div>
-                </div>
-            </footer>
-        </div>
+          <div className='container'>
+              <hr />
+              <footer>
+                  <div className='row'>
+                      <div className='col-lg-12'>
+                          <p>Copyright &copy; Your Website 2014</p>
+                      </div>
+                  </div>
+              </footer>
+          </div>
 
-      </div>);
+        </div>
+      </Loader>);
 
+  }
+
+  private initializationComplete = () => {
+    this.log.info('App route initialized');
+    this.setState({
+      ...this.state,
+      loaded: true
+    });
+  }
+
+  private unknownError = (error: any) => {
+    this.log.error('Unknown error occured', error);
+    // Do something visual
   }
 
 }

@@ -1,7 +1,7 @@
 import * as Model from '../../api/models';
 
 // TODO: Split these off of index
-export enum TypeKeys {
+export enum ActionTypeKey {
   EXAMPLE = 'EXAMPLE',
   LOGIN = 'LOGIN',
   LOGOUT = 'LOGOUT',
@@ -10,13 +10,13 @@ export enum TypeKeys {
 }
 
 export interface IExampleAction {
-  type: TypeKeys.EXAMPLE;
+  type: ActionTypeKey.EXAMPLE;
   value: number;
 }
 
 export const makeExampleAction = (value: number) => {
   const obj: IExampleAction = {
-    type: TypeKeys.EXAMPLE,
+    type: ActionTypeKey.EXAMPLE,
     value
   };
 
@@ -24,13 +24,13 @@ export const makeExampleAction = (value: number) => {
 };
 
 export interface ILoginAction {
-  type: TypeKeys.LOGIN;
+  type: ActionTypeKey.LOGIN;
   tokenData: Model.IOAuth2TokenResult;
 }
 
 export const makeLoginAction = (tokenData: Model.IOAuth2TokenResult) => {
   const obj: ILoginAction = {
-    type: TypeKeys.LOGIN,
+    type: ActionTypeKey.LOGIN,
     tokenData
   };
 
@@ -38,13 +38,13 @@ export const makeLoginAction = (tokenData: Model.IOAuth2TokenResult) => {
 };
 
 export interface IInitializeAppRouteAction {
-  type: TypeKeys.APP_ROUTE_INITIALIZED;
+  type: ActionTypeKey.APP_ROUTE_INITIALIZED;
   success: boolean;
 }
 
 export const makeInitializeAppRouteAction = (success: boolean) => {
   const obj: IInitializeAppRouteAction = {
-    type: TypeKeys.APP_ROUTE_INITIALIZED,
+    type: ActionTypeKey.APP_ROUTE_INITIALIZED,
     success
   };
 
@@ -52,22 +52,22 @@ export const makeInitializeAppRouteAction = (success: boolean) => {
 };
 
 export interface ILogoutAction {
-  type: TypeKeys.LOGOUT;
+  type: ActionTypeKey.LOGOUT;
 }
 
 export const makeLogoutAction = () => {
   const obj: ILogoutAction = {
-    type: TypeKeys.LOGOUT
+    type: ActionTypeKey.LOGOUT
   };
 
   return obj;
 };
 
 export interface IOtherAction {
-  type: TypeKeys.OTHER_ACTION;
+  type: ActionTypeKey.OTHER_ACTION;
 }
 
-export type ActionTypes =
+export type ActionType =
   IExampleAction
   | ILoginAction
   | IInitializeAppRouteAction

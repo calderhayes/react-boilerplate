@@ -1,4 +1,4 @@
-import {ActionTypes, TypeKeys} from '../action';
+import {ActionType, ActionTypeKey} from '../action';
 import {IAppState} from '../store';
 import iassign from 'immutable-assign';
 
@@ -15,29 +15,29 @@ iassign.setOption({
 // WE can offload smaller more testable functions from the main reducer
 // const someMoreComplexFunctionOrSubReducer
 
-export type Reducer = (state: IAppState, action: ActionTypes) => IAppState;
+export type Reducer = (state: IAppState, action: ActionType) => IAppState;
 
-export const reducer: Reducer = (state: IAppState, action: ActionTypes) => {
+export const reducer: Reducer = (state: IAppState, action: ActionType) => {
   switch (action.type) {
-    case TypeKeys.EXAMPLE:
+    case ActionTypeKey.EXAMPLE:
 
       // Update the exampleValue
       const newValue = action.value;
       return iassign(state, (s) => s.exampleValue, (_) => newValue);
 
-    case TypeKeys.APP_ROUTE_INITIALIZED:
+    case ActionTypeKey.APP_ROUTE_INITIALIZED:
       // Do nothing as of now
       return state;
 
-    case TypeKeys.LOGIN:
+    case ActionTypeKey.LOGIN:
       // Update the tokenData
       return iassign(state, (s) => s.authInfo, (_) => action.tokenData);
 
-    case TypeKeys.LOGOUT:
+    case ActionTypeKey.LOGOUT:
       // Clear the tokenData
       return iassign(state, (s) => s.authInfo, (_) => null);
 
-    case TypeKeys.OTHER_ACTION:
+    case ActionTypeKey.OTHER_ACTION:
       // Log warning
       return state;
 

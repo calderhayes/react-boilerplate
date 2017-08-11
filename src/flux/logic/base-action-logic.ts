@@ -1,14 +1,15 @@
 import {IDispatcher} from '../dispatcher';
 import {IAPIService} from '../../api';
-import {IEventEmitter} from '../event';
+import {IEventEmitter, EventTypeKey} from '../event';
 import {IStore} from '../store';
-
+import {injectable} from 'inversify';
 
 import {ILogger} from 'articulog';
 
 // TODO: put into DI
 import {ActionLog} from '../../logging';
 
+@injectable()
 export abstract class BaseActionLogic {
 
   protected readonly dispatcher: IDispatcher;
@@ -32,7 +33,8 @@ export abstract class BaseActionLogic {
 
   protected unknownErrorHandler(error?: any) {
     this.log.error('An unknown error occured', error);
-    this.eventEmitter.emit('temp3!!error!', {
+    this.eventEmitter.emit({
+      type: EventTypeKey.UNKNOWN_ERROR,
       error
     });
   }

@@ -1,9 +1,7 @@
 
 import * as React from 'react';
 import {IStore} from '../flux/store';
-import {IOC_TYPES} from '../ioc-container';
-import getDecorators from 'inversify-inject-decorators';
-import {iocContainer} from '../../index';
+import {IOC_TYPES} from '../ioc';
 import {IEventEmitter} from '../flux/event';
 import {IActionLogic} from '../flux/logic';
 import {ILogger} from '../logging';
@@ -13,8 +11,7 @@ import {getReactLog} from '../logging';
 const {browserHistory} = require('react-router');
 import {IHistory} from '../router';
 import {TranslationFunction} from 'i18next';
-
-const {lazyInject} = getDecorators(iocContainer);
+import {lazyInject} from '../ioc';
 
 // Handles the dependency injection
 class BaseComponent<P, S> extends React.Component<P, S> {

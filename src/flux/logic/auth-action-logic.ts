@@ -1,6 +1,6 @@
 import {IDispatcher} from '../dispatcher';
 import {IAPIService, APIErrorType, APIError} from '../../api';
-import {IEventEmitter} from '../event';
+import {IEventEmitter, EventTypeKey} from '../event';
 import {IStore} from '../store';
 import {BaseActionLogic} from './base-action-logic';
 import {makeLoginAction, makeLogoutAction} from '../action';
@@ -32,9 +32,11 @@ export class AuthActionLogic extends BaseActionLogic implements IAuthActionLogic
       // Need to allocate error from the API to translation keys
       // the login page will append this to login_page.error. for the
       // proper translation key
-
-      this.eventEmitter.emit('temp!', {
-        success: true
+      this.eventEmitter.emit({
+        type: EventTypeKey.LOGIN,
+        result: {
+          success: true
+        }
       });
     }
     catch (error) {
@@ -53,9 +55,13 @@ export class AuthActionLogic extends BaseActionLogic implements IAuthActionLogic
   public async logout() {
     const action = makeLogoutAction();
     this.dispatcher.dispatch(action);
-    this.eventEmitter.emit('TEMP!', {
-      success: false,
-      error: 'invalid_credentials'
+
+    this.eventEmitter.emit({
+      type: EventTypeKey.LOGIN,
+      result: {
+        success: false,
+        error: 'invalid_credentials'
+      }
     });
 
     return await Promise.resolve();

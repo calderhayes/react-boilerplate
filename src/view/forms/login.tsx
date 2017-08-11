@@ -20,26 +20,6 @@ export interface ILoginFormProps {
 
 export class LoginForm extends BaseComponent<ILoginFormProps, {}> {
 
-  private onClick = (() => {
-    this.props.onSubmit(this.props.formData);
-  }).bind(this);
-
-  // TODO: Better strategy for this?
-  // TODO: Get proper type?
-  private onUsernameChanged = ((e: any) => {
-    const username = e.target.value;
-    const data: ILoginFormData = Object.assign({}, this.props.formData);
-    data.username = username;
-    this.props.onChange(data);
-  }).bind(this);
-
-  private onPasswordChanged = ((e: any) => {
-    const password = e.target.value;
-    const data: ILoginFormData = Object.assign({}, this.props.formData);
-    data.password = password;
-    this.props.onChange(data);
-  }).bind(this);
-
   constructor(props: ILoginFormProps) {
     super(props);
 
@@ -89,6 +69,26 @@ export class LoginForm extends BaseComponent<ILoginFormProps, {}> {
       </Form>
     );
 
+  }
+
+  private onClick = () => {
+    this.props.onSubmit(this.props.formData);
+  }
+
+  // TODO: Better strategy for this?
+  // TODO: Get proper type?
+  private onUsernameChanged = (e: any) => {
+    const username = e.target.value;
+    const data: ILoginFormData = Object.assign({}, this.props.formData);
+    data.username = username;
+    this.props.onChange(data);
+  }
+
+  private onPasswordChanged = (e: any) => {
+    const password = e.target.value;
+    const data: ILoginFormData = Object.assign({}, this.props.formData);
+    data.password = password;
+    this.props.onChange(data);
   }
 
 }

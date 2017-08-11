@@ -27,17 +27,12 @@ export interface IHistory {
   push(path: string): void;
 }
 
-export class AppRouter {
+export const bootstrapReact = (rootHTMLElement: HTMLElement, store: IStore) => {
+  const appRouter = new AppRouter(store);
+  appRouter.render(rootHTMLElement);
+};
 
-  public isCurrentUserAuthenticated = ((nextState: RouterState, replace: RedirectFunction) => {
-    if (!StoreHelpers.isLoggedIn(this.store.state)) {
-      Log.info('User is not logged in, redirecting');
-      replace({
-        pathname: '/login',
-        state: { nextPathname: nextState.location.pathname }
-      });
-    }
-  }).bind(this);
+class AppRouter {
 
   private store: IStore;
 
@@ -65,5 +60,15 @@ export class AppRouter {
         </Router>
       ), roomDOMElement);
 
+  }
+
+  public isCurrentUserAuthenticated = (nextState: RouterState, replace: RedirectFunction) => {
+    if (!StoreHelpers.isLoggedIn(this.store.state)) {
+      Log.info('User is not logged in, redirecting');
+      replace({
+        pathname: '/login',
+        state: { nextPathname: nextState.location.pathname }
+      });
+    }
   }
 }

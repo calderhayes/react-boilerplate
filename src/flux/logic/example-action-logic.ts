@@ -1,6 +1,6 @@
 import {IDispatcher} from '../dispatcher';
 import {IAPIService} from '../../api';
-import {IEventEmitter} from '../event';
+import {IEventEmitter, EventTypeKey} from '../event';
 import {IStore} from '../store';
 import {BaseActionLogic} from './base-action-logic';
 import {makeExampleAction} from '../action';
@@ -29,7 +29,9 @@ export class ExampleActionLogic extends BaseActionLogic
 
     this.dispatcher.dispatch(action);
 
-    this.eventEmitter.emit('temp!');
+    this.eventEmitter.emit({
+      type: EventTypeKey.EXAMPLE
+    });
 
     return await Promise.resolve();
 

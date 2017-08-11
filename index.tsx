@@ -2,15 +2,13 @@
 
 import 'reflect-metadata';
 
-import {Container} from 'inversify';
-
 import {Log} from './src/logging';
-import {AppRouter} from './src/router';
-import {initializeTranslationData} from './src/util/i18n';
+
 import {config} from './src/config';
-import {bootstrapContainer, IOC_TYPES} from './src/ioc-container';
-import {IAppState, IStore} from './src/flux/store';
-import {Models} from './src/api';
+import {iocContainer} from './src/ioc';
+import {IOC_TYPES} from './src/ioc/ioc-type';
+import {bootstrapReact} from './src/router';
+import {IStore} from './src/flux/store';
 
 Log.info('Bootstrapping...');
 Log.info('Bootstrapping under environment: ' + config.ENVIRONMENT);
@@ -46,35 +44,8 @@ window.onerror = (message, file, line, column, errorObject) => {
   return false;
 };
 
-let iocContainer: Container = null;
-
-// Here we can initialize our data etc
-// tslint:disable-next-line:only-arrow-functions
-async function bootstrap() {
-  // TODO: Dynamically get locale
-  const locale = 'en-CA';
-
-  // TODO: Get this into container!
-  const translationFunction = await initializeTranslationData(locale);
-
-  const defaultState: IAppState = {
-    exampleValue: 1,
-    features: new Array<Models.IFeature>(),
-    authInfo: null
-  };
-
-  iocContainer = await bootstrapContainer(translationFunction, defaultState);
-
-  const appRouter = new AppRouter(iocContainer.get<IStore>(IOC_TYPES.STORE));
-  appRouter.render(document.getElementById('app'));
-
-  return iocContainer;
-};
-
-bootstrap();
-
-// Should be safe, as nothing happens until this is done
-// If that changes... then beware of this
-export {iocContainer};
+const store = iocContainer.get<IStore>(IOC_TYPES.STORE);
+const rootHTMLElement = document.getElementById('app');
+bootstrapReact(rootHTMLElement, store);
 
 Log.info('Bootstrapping complete');

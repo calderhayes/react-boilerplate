@@ -6,7 +6,8 @@ import {IDispatcher} from '../dispatcher';
 import {IAPIService} from '../../api';
 import {IEventEmitter} from '../event';
 import {IStore} from '../store';
-import {IOC_TYPES} from '../../ioc-container';
+// Be sure to reference the ioc-type folder directly! Order of operations mess
+import {IOC_TYPES} from '../../ioc/ioc-type';
 
 import {injectable, inject} from 'inversify';
 
