@@ -6,9 +6,8 @@ import {DispatcherLog} from '../../logging';
 import {ActionTypes} from '../action';
 import {Reducer} from '../reducer/index';
 import {IStore} from '../store/index';
-import {inject} from 'inversify';
+import {inject, injectable} from 'inversify';
 import {IOC_TYPES} from '../../ioc-container';
-import {injectable} from 'inversify';
 
 export interface IDispatcher {
   dispatch(action: ActionTypes): void;
@@ -24,8 +23,8 @@ export class Dispatcher implements IDispatcher {
   constructor(
     @inject(IOC_TYPES.REDUCER) reducer: Reducer,
     @inject(IOC_TYPES.STORE) store: IStore) {
-    this.reducer = reducer;
-    this.store = store;
+      this.reducer = reducer;
+      this.store = store;
   }
 
   public dispatch(action: ActionTypes) {

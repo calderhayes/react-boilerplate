@@ -1,5 +1,5 @@
 import {ILogger, LoggerLevel, ConsoleLoggerFactory} from 'articulog';
-import {Config} from './config';
+import {config} from './config';
 
 export interface ILogger {
 
@@ -13,7 +13,7 @@ export interface ILogger {
 
 export const assert = (value: any, message?: string, ...optionalParams: Array<any>) => {
 
-  if (Config.USE_ASSERTIONS) {
+  if (config.USE_ASSERTIONS) {
     console.assert(value, message, ...optionalParams);
   }
 
@@ -44,7 +44,7 @@ export const getReactLog = (componentName: string) => {
 
   const reactLog = ConsoleLoggerFactory.createLog({
     name: 'React|' + componentName,
-    loggerLevel: Config.REACT_LOG_LEVEL
+    loggerLevel: config.REACT_LOG_LEVEL
   });
 
   return addLogPrefix(reactLog, null);
@@ -59,25 +59,25 @@ export const NullLogger: ILogger = ConsoleLoggerFactory.createLog({
 
 export const Log: ILogger = ConsoleLoggerFactory.createLog({
   name: 'GeneralLogger',
-  loggerLevel: Config.GENERAL_LOG_LEVEL
+  loggerLevel: config.GENERAL_LOG_LEVEL
 });
 addLogPrefix(Log, 'General');
 
 export const ApiLog: ILogger = ConsoleLoggerFactory.createLog({
   name: 'Api',
-  loggerLevel: Config.API_LOG_LEVEL
+  loggerLevel: config.API_LOG_LEVEL
 });
 addLogPrefix(ApiLog, 'Api');
 
 export const DispatcherLog: ILogger = ConsoleLoggerFactory.createLog({
   name: 'Dispatcher',
-  loggerLevel: Config.DISPATCHER_LOG_LEVEL
+  loggerLevel: config.DISPATCHER_LOG_LEVEL
 });
 addLogPrefix(Log, 'Dispatcher');
 
 export const ActionLog: ILogger = ConsoleLoggerFactory.createLog({
   name: 'Action',
-  loggerLevel: Config.ACTION_LOG_LEVEL
+  loggerLevel: config.ACTION_LOG_LEVEL
 });
 addLogPrefix(Log, 'Action');
 

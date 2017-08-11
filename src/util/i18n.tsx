@@ -1,7 +1,8 @@
 
 import {init, TranslationFunction} from 'i18next';
 
-export const initialize = async (language: string) => {
+export {TranslationFunction};
+export const initializeTranslationData = async (language: string) => {
 
   return new Promise<TranslationFunction>((resolve, reject) => {
     init({

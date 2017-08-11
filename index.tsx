@@ -1,23 +1,19 @@
 
-import {EventEmitter} from './src/flux/event-emitter';
-import {Dispatcher} from './src/flux/dispatcher';
-// import {reducer} from './src/flux/reducer';
-// import {Store} from './src/flux/store';
-import {DIControl} from './src/di';
+
 import 'reflect-metadata';
-// import {ActionControl} from './src/flux/actions';
-import {Config, EnvironmentType} from './src/config';
-import {IAPIService} from './src/api/service';
-import {LocalAPIService} from './src/api/local-api-service';
-import {APIService} from './src/api/api-service';
-import {Log, ApiLog} from './src/logging';
-import {AppRouter} from './src/router';
-import {initialize} from './src/util/i18n';
 
 import {Container} from 'inversify';
 
+import {Log} from './src/logging';
+import {AppRouter} from './src/router';
+import {initializeTranslationData} from './src/util/i18n';
+import {config} from './src/config';
+import {bootstrapContainer, IOC_TYPES} from './src/ioc-container';
+import {IAppState, IStore} from './src/flux/store';
+import {Models} from './src/api';
+
 Log.info('Bootstrapping...');
-Log.info('Bootstrapping under environment: ' + Config.ENVIRONMENT);
+Log.info('Bootstrapping under environment: ' + config.ENVIRONMENT);
 
 // TODO: Split up UI into Smart (stateful components / Containers) and Dumb (functional components / Presentation)
 
@@ -28,55 +24,8 @@ Log.info('Bootstrapping under environment: ' + Config.ENVIRONMENT);
 //   control that handles this in a generalized way
 // TODO: Take a look at tsfmt
 
-const SERVICE_IDENTIFIER = {
-  IAPIService: Symbol("IAPIService")
-};
 
-const container = new Container();
-
-container.bind<IAPIService>(SERVICE_IDENTIFIER.IAPIService).to(Store);
-
-// TODO: Replace with factory?
-let api: IAPIService = null;
-if (Config.ENVIRONMENT === EnvironmentType.LOCAL) {
-  api = new LocalAPIService(ApiLog);
-}
-else if (Config.ENVIRONMENT === EnvironmentType.LOCAL_DEV) {
-  api = new APIService(ApiLog, Config.API_URL, Config.AUTH_URL);
-}
-else {
-  throw 'Not yet implemented';
-}
-
-
-
-// const API = api;
-
-
-// Or eventually initial state
-// const AppStore = new Store();
-const AppDispatcher = new Dispatcher();
-const AppEmitter = new EventEmitter();
-
-// const API
-// const AppActions = new ActionControl(AppDispatcher, API, AppEmitter, AppStore);
-
-// Allows for some level of dependency injection
-DIControl.setEventEmitter(AppEmitter);
-// DIControl.setStore(AppStore);
-DIControl.setDispatcher(AppDispatcher);
-// DIControl.setActionControl(AppActions);
-
-// Here we can initialize our data etc
-Promise.resolve()
-.then(() => {
-  return initialize('en-CA');
-})
-.then((translationMethod) => {
-  DIControl.setTranslationFunction(translationMethod);
-  AppRouter.render(document.getElementById('app'));
-});
-
+// Setting a global error catcher
 window.onerror = (message, file, line, column, errorObject) => {
   column = column || (window.event && (window.event as any).errorCharacter);
   const stack = errorObject ? errorObject.stack : null;
@@ -96,5 +45,36 @@ window.onerror = (message, file, line, column, errorObject) => {
   // the error can still be triggered as usual, we just wanted to know what's happening on the client side
   return false;
 };
+
+let container: Container = null;
+
+// Here we can initialize our data etc
+// tslint:disable-next-line:only-arrow-functions
+async function bootstrap() {
+  // TODO: Dynamically get locale
+  const locale = 'en-CA';
+
+  // TODO: Get this into container!
+  const translationFunction = await initializeTranslationData(locale);
+
+  const defaultState: IAppState = {
+    exampleValue: 1,
+    features: new Array<Models.IFeature>(),
+    authInfo: null
+  };
+
+  container = await bootstrapContainer(translationFunction, defaultState);
+
+  const appRouter = new AppRouter(container.get<IStore>(IOC_TYPES.STORE));
+  appRouter.render(document.getElementById('app'));
+
+  return container;
+};
+
+bootstrap();
+
+// Should be safe, as nothing happens until this is done
+// If that changes... then beware of this
+export {container};
 
 Log.info('Bootstrapping complete');

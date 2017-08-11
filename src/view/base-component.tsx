@@ -1,8 +1,10 @@
 
 import * as React from 'react';
-import {DIControl} from '../di';
 import {IStore} from '../flux/store';
 import {ActionControl} from '../flux/actions';
+import {IOC_TYPES} from '../ioc-container';
+import getDecorators from 'inversify-inject-decorators';
+import {iocContainer} from '../../index';
 import {IEventEmitter} from '../flux/event-emitter';
 import {ILogger} from '../logging';
 import {getReactLog} from '../logging';
@@ -12,9 +14,12 @@ const {browserHistory} = require('react-router');
 import {IHistory} from '../router';
 import {TranslationFunction} from 'i18next';
 
+const {lazyInject} = getDecorators(iocContainer);
+
 // Handles the dependency injection
 class BaseComponent<P, S> extends React.Component<P, S> {
 
+  @lazyInject(IOC_TYPES.STORE)
   public readonly store: IStore;
   public readonly actions: ActionControl;
   public readonly eventEmitter: IEventEmitter;
@@ -37,10 +42,10 @@ class BaseComponent<P, S> extends React.Component<P, S> {
   constructor(props: P) {
     super(props);
 
-    this.store = DIControl.store;
+    /*this.store = DIControl.store;
     this.actions = DIControl.actionControl;
     this.eventEmitter = DIControl.eventEmitter;
-    this.translate = DIControl.translate;
+    this.translate = DIControl.translate;*/
     this.history = browserHistory;
   }
 
