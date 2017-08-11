@@ -15,16 +15,10 @@ import {LogControl} from 'articulog';
 Log.info('Bootstrapping...');
 Log.info('Bootstrapping under environment: ' + config.ENVIRONMENT);
 
-// TODO: BaseURL, and paths values
-
 // TODO: Split up UI into Smart (stateful components / Containers) and Dumb (functional components / Presentation)
 
 // TODO: Solidify authentication strategy
-// TODO: Solidify what actions are doing vs reducers in terms of error handling
 // TODO: Solidify error message handling, what provides the keys, what creates the keys (this may just be documentation)
-// TODO: Create an automated front end task handler (refresh token), have a centralized
-//   control that handles this in a generalized way
-// TODO: Take a look at tsfmt
 
 // For easy access of the log control
 (window as any).LogControl = LogControl;
@@ -44,9 +38,6 @@ window.onerror = (message, file, line, column, errorObject) => {
 
   Log.error('Uncaught error occurred', data);
 
-  // here I make a call to the server to log the error
-
-  // the error can still be triggered as usual, we just wanted to know what's happening on the client side
   return false;
 };
 
