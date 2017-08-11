@@ -2,7 +2,7 @@
 
 import 'reflect-metadata';
 
-import {Log} from 'util/logging';
+import {Log} from 'util/logger-factory';
 
 import {config} from 'config';
 import {iocContainer} from 'ioc';

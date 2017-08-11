@@ -11,7 +11,7 @@ import {
 
 import {render} from 'react-dom';
 
-import {Log} from 'util/logging';
+import {Log} from 'util/logger-factory';
 
 import {App} from 'view/routes/app';
 import {Login} from 'view/routes/login';

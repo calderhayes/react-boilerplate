@@ -7,7 +7,7 @@ import {ActionLogic, IActionLogic} from 'flux/logic';
 import {TranslationFunction, translationFunction} from 'util/i18n';
 import {IOC_TYPE} from 'ioc/ioc-type';
 import {config, IConfig } from 'config';
-import {namedConsoleLoggerFactory} from 'util/logging';
+import {namedConsoleLoggerFactory} from 'util/logger-factory';
 
 import {ILoggerFactory} from 'articulog';
 import {Container} from 'inversify';
