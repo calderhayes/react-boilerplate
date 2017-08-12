@@ -35,7 +35,7 @@ export class APIService implements IAPIService {
     : Promise<Model.IOAuth2TokenResult> {
 
     const url = urljoin(this.authUrl, 'connect', 'token');
-    const r = await window.fetch(url, {
+    const r = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
