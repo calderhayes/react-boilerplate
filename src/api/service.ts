@@ -2,8 +2,8 @@
 import * as Model from 'api/models';
 
 export enum APIServiceType {
-  LocalAPIService,
-  DevAPIService
+  Mock,
+  Live
 }
 
 export enum APIErrorType {
@@ -74,6 +74,6 @@ export class APIError {
 
 export interface IAPIService {
   type: APIServiceType;
-  login(username: string, password: string): Promise<Model.IOAuth2TokenResult>;
+  login(username: string, password: string): Promise<Model.IOAuth2Token>;
   getFeatures(): Promise<Array<Model.IFeature>>;
 }

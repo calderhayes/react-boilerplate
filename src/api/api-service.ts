@@ -28,11 +28,11 @@ export class APIService implements IAPIService {
   }
 
   public get type() {
-    return APIServiceType.DevAPIService;
+    return APIServiceType.Live;
   }
 
   public async login(username: string, password: string)
-    : Promise<Model.IOAuth2TokenResult> {
+    : Promise<Model.IOAuth2Token> {
 
     const url = urljoin(this.authUrl, 'connect', 'token');
     const r = await fetch(url, {
@@ -52,10 +52,10 @@ export class APIService implements IAPIService {
     });
     if (r.status === HTTPStatusCode.OK) {
       const content: any = await r.json();
-      const result: Model.IOAuth2TokenResult = {
+      const result: Model.IOAuth2Token = {
         accessToken: content.access_token,
         refreshToken: ''// ,
-        // expiresIn: content.expires_in
+        rawData: content
       };
       return result;
     }

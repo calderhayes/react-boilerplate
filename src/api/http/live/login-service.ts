@@ -1,5 +1,4 @@
 import * as Model from 'api/models';
+import {ILoginService} from 'api/http/interface';
 
-export interface ILoginService {
-  login(username: string, password: string): Promise<Model.IOAuth2TokenResult>;
-}
+

@@ -24,10 +24,10 @@ export const makeExampleAction = (value: number) => {
 
 export interface ILoginAction {
   type: ActionTypeKey.LOGIN;
-  tokenData: Model.IOAuth2TokenResult;
+  tokenData: Model.IOAuth2Token;
 }
 
-export const makeLoginAction = (tokenData: Model.IOAuth2TokenResult) => {
+export const makeLoginAction = (tokenData: Model.IOAuth2Token) => {
   const obj: ILoginAction = {
     type: ActionTypeKey.LOGIN,
     tokenData

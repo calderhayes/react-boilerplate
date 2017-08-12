@@ -5,7 +5,7 @@ import {injectable} from 'inversify';
 export interface IAppState {
   readonly exampleValue: number;
   readonly features: Array<Model.IFeature>;
-  readonly authInfo: Model.IOAuth2TokenResult;
+  readonly authInfo: Model.IOAuth2Token;
 }
 
 export const defaultState: IAppState = {
