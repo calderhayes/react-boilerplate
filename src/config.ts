@@ -4,6 +4,7 @@ import {LoggerLevel} from 'articulog';
 // Provided by webpack
 declare const ENVIRONMENT: string;
 
+// TODO: Make node standard development and production (possibly test) environment values
 export enum EnvironmentType {
   LOCAL = 'LOCAL',
   LOCAL_DEV = 'LOCAL_DEV'
@@ -12,6 +13,7 @@ export enum EnvironmentType {
 export interface IConfig {
   ACTION_LOG_LEVEL: LoggerLevel;
   ENVIRONMENT: EnvironmentType;
+  API_LIVE_ENABLED: boolean;
   API_URL: string;
   AUTH_URL: string;
   USE_ASSERTIONS: boolean;
@@ -32,6 +34,7 @@ let config: IConfig = null;
 
 if (typeof ENVIRONMENT === 'undefined' || !ENVIRONMENT || ENVIRONMENT === ConfigurationConstants.LOCAL) {
   config = {
+    API_LIVE_ENABLED: true,
     ACTION_LOG_LEVEL: LoggerLevel.DEBUG,
     API_LOG_LEVEL: LoggerLevel.DEBUG,
     API_URL: '',
@@ -45,6 +48,7 @@ if (typeof ENVIRONMENT === 'undefined' || !ENVIRONMENT || ENVIRONMENT === Config
 }
 else if (ENVIRONMENT === ConfigurationConstants.LOCAL_DEV) {
   config = {
+    API_LIVE_ENABLED: false,
     ACTION_LOG_LEVEL: LoggerLevel.DEBUG,
     API_LOG_LEVEL: LoggerLevel.DEBUG,
     API_URL: '',

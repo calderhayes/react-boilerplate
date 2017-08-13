@@ -8,10 +8,10 @@ import {ILogger} from 'articulog';
 
 import {HTTPStatusCode, FetchMethod} from 'api/http/live/interface';
 
-export class BaseHTTPService {
+export abstract class BaseHTTPService {
 
-  private logger: ILogger;
-  private apiUrl: string;
+  protected readonly logger: ILogger;
+  protected readonly apiUrl: string;
   private authToken?: Model.IOAuth2Token;
 
   private fetch: FetchMethod;
@@ -35,7 +35,7 @@ export class BaseHTTPService {
     this.authToken = authToken;
   }
 
-  public get defaultRequestInit() {
+  protected get defaultRequestInit() {
     const requestInit: RequestInit = {
       method: 'GET',
       headers: {
@@ -56,11 +56,17 @@ export class BaseHTTPService {
     const url = urljoin(this.apiUrl, endpoint);
     const response = await this.fetch(url, init);
 
+    this.handleResponseIfError(response);
+
+    return response;
+  }
+
+  protected handleResponseIfError(response: Response) {
+
     if (response.status >= HTTPStatusCode.OK
       && response.status < HTTPStatusCode.MULTIPLE_CHOICES) {
-      return response;
+      return;
     }
-
     // Failure case
     this.logger.error('HTTP API Error: ', response);
     switch (response.status) {

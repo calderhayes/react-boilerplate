@@ -1,3 +1,10 @@
+export enum APIErrorType {
+  ERROR = 'ERROR',
+  VALIDATION_ERROR = 'VALIDATION_ERROR',
+  UNAUTHENTICATED = 'UNAUTHENTICATED',
+  UNAUTHORIZED = 'UNAUTHORIZED'
+}
+
 export class APIError {
 
   public readonly isAPIError: boolean = true;
