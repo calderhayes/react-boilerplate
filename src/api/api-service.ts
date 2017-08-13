@@ -54,7 +54,7 @@ export class APIService implements IAPIService {
       const content: any = await r.json();
       const result: Model.IOAuth2Token = {
         accessToken: content.access_token,
-        refreshToken: ''// ,
+        refreshToken: '',
         rawData: content
       };
       return result;
