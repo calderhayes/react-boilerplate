@@ -2,7 +2,7 @@ import {ILoginService} from 'api/interface';
 import * as Model from 'api/models';
 import {find} from 'lodash';
 import {InMemoryDatabase} from 'api/http/mock/in-memory-database';
-import {APIError, APIErrorType} from 'api/'
+import {APIError, APIErrorType} from 'api/api-error';
 
 export class MockLoginService implements ILoginService {
 
@@ -18,7 +18,8 @@ export class MockLoginService implements ILoginService {
         if (match) {
           const result: Model.IOAuth2Token = {
             accessToken: 'faketoken' + (new Date()).getTime().toString(),
-            refreshToken: 'fakerefresh' + (new Date()).getTime().toString()
+            refreshToken: 'fakerefresh' + (new Date()).getTime().toString(),
+            rawData: {}
           };
 
           resolve(result);

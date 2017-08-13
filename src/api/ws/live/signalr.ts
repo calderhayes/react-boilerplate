@@ -12,8 +12,6 @@ export class SignalRFactory {
     }
     else if (Config.ENVIRONMENT === EnvironmentType.LOCAL_DEV) {
 
-
-
     }
     else {
       throw 'Not yet implemented';

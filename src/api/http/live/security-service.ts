@@ -6,7 +6,8 @@ import {ILogger} from 'articulog';
 
 export class SecurityService extends BaseHTTPService implements ISecurityService {
 
-  constructor(logger: ILogger,
+  constructor(
+    logger: ILogger,
     apiUrl?: string,
     fetchMethod?: FetchMethod) {
       super(logger, apiUrl, fetchMethod);

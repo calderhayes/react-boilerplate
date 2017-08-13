@@ -29,7 +29,7 @@ export class AuthActionLogic extends BaseActionLogic implements IAuthActionLogic
     this.logger.info('Logging in ', username);
 
     try {
-      const result = await this.api.login(username, password);
+      const result = await this.api.LoginService.login(username, password);
       const action = makeLoginAction(result);
       this.dispatcher.dispatch(action);
 

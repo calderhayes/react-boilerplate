@@ -5,6 +5,9 @@ import {IOC_TYPE} from 'ioc/ioc-type';
 import {LoginService} from 'api/http/live/login-service';
 import {SecurityService} from 'api/http/live/security-service';
 
+import {MockLoginService} from 'api/http/mock/login-service';
+import {MockSecurityService} from 'api/http/mock/security-service';
+
 import {ILoggerFactory} from 'articulog';
 import {injectable, inject} from 'inversify';
 
@@ -43,9 +46,9 @@ export class APIServiceFactory {
     }
     else {
       const apiService: IAPIService = {
-        type: APIServiceType.Live,
-        LoginService: null,
-        SecurityService: null
+        type: APIServiceType.Mock,
+        LoginService: new MockLoginService(),
+        SecurityService: new MockSecurityService()
       };
 
       return apiService;

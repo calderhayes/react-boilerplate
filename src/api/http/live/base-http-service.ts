@@ -26,7 +26,7 @@ export abstract class BaseHTTPService {
   }
 
   public clearAuthToken() {
-    this.logger.info('Auth token data cleared')
+    this.logger.info('Auth token data cleared');
     this.authToken = null;
   }
 
@@ -61,6 +61,15 @@ export abstract class BaseHTTPService {
     return response;
   }
 
+  public async post(endpoint: string, data: any) {
+    const init = this.defaultRequestInit;
+    init.method = 'POST';
+    init.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+    init.body = stringify(data);
+
+    return this.get(endpoint, init);
+  }
+
   protected handleResponseIfError(response: Response) {
 
     if (response.status >= HTTPStatusCode.OK
@@ -79,14 +88,5 @@ export abstract class BaseHTTPService {
       default:
         throw APIError.unknownError();
     }
-  }
-
-  public async post(endpoint: string, data: any) {
-    const init = this.defaultRequestInit;
-    init.method = 'POST';
-    init.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-    init.body = stringify(data);
-
-    return this.get(endpoint, init);
   }
 }

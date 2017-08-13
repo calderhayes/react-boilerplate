@@ -15,7 +15,7 @@
         "jsx": "react",
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "baseUrl": "./src"
+        "baseUrl": "./src/"
     },
     "filesGlob": [
         "./src/**/*.ts",

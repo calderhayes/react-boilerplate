@@ -8,7 +8,8 @@ import {APIError, APIErrorType} from 'api/api-error';
 
 export class LoginService extends BaseHTTPService implements ILoginService {
 
-  constructor(logger: ILogger,
+  constructor(
+    logger: ILogger,
     apiUrl?: string,
     fetchMethod?: FetchMethod) {
       super(logger, apiUrl, fetchMethod);

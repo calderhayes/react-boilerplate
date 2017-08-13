@@ -1,4 +1,4 @@
-import * as Model from '../../api/models';
+import * as Model from 'api/models';
 import {BaseStore} from './base-store';
 import {injectable} from 'inversify';
 
