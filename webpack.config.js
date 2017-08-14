@@ -14,21 +14,12 @@ module.exports = {
     filename: "./dist/bundle.js"
   },
   module: {
-    /*rules: [
-      {
-        enforce: 'pre',
-        test: /\.(tsx|ts)?$/,
-        loader: 'tslint-loader'
-      }
-    ],*/
     loaders: [
       {
         test: /\.(tsx|ts)(\?.*$|$)/,
         loader: 'awesome-typescript-loader',
         query: {
           useWebpackText: true,
-          // tsconfig: ngAppResolve('./src/demo-app/tsconfig.json'),
-          // resolveGlobs: false,
           module: "es2015",
           target: "es5",
           lib: ['es6', 'dom'],
@@ -63,7 +54,6 @@ module.exports = {
     ]
   },
   plugins: [
-    // new TsConfigPathsPlugin(),
     new CheckerPlugin(),
     new webpack.DefinePlugin({
         'ENVIRONMENT': JSON.stringify(process.env.NODE_ENV || 'development'),
@@ -79,8 +69,6 @@ module.exports = {
     })
   ],
   node: {
-    // global: 'window',
-    // crypto: 'empty',
     module: false,
     clearImmediate: false,
     setImmediate: false
