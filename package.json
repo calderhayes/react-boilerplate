@@ -25,6 +25,7 @@
   "devDependencies": {
     "@types/chai": "3.4.34",
     "@types/mocha": "2.2.34",
+    "awesome-typescript-loader": "^3.2.2",
     "chai": "3.5.0",
     "css-loader": "0.25.0",
     "file-loader": "0.9.0",
@@ -37,14 +38,14 @@
     "sinon": "1.17.6",
     "source-map-loader": "0.1.5",
     "style-loader": "0.13.1",
-    "ts-loader": "2.2.1",
+    "ts-loader": "^2.3.2",
     "tslint": "4.1.1",
     "tslint-loader": "3.3.0",
     "tslint-react": "1.0.0",
     "typescript": "2.4.2",
     "url-loader": "0.5.7",
-    "webpack": "1.13.2",
-    "webpack-dev-server": "1.16.1"
+    "webpack": "^2.6.1",
+    "webpack-dev-server": "^2.7.1"
   },
   "dependencies": {
     "@types/classnames": "0.0.32",
@@ -65,7 +66,7 @@
     "font-awesome": "4.5.0",
     "font-awesome-webpack": "0.0.4",
     "history": "4.3.0",
-    "i18next": "4.1.4",
+    "i18next": "^8.4.3",
     "immutable": "3.8.1",
     "immutable-assign": "^1.0.36",
     "inversify": "^4.3.0",
