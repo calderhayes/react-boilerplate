@@ -66,7 +66,8 @@ module.exports = {
     // new TsConfigPathsPlugin(),
     new CheckerPlugin(),
     new webpack.DefinePlugin({
-        'ENVIRONMENT': JSON.stringify(process.env.NODE_ENV || 'LOCAL_DEV')
+        'ENVIRONMENT': JSON.stringify(process.env.NODE_ENV || 'development'),
+        'LIVE': JSON.stringify(process.env.LIVE || 'true')
     }),
     new webpack.LoaderOptionsPlugin({
       options: {

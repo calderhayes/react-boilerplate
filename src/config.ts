@@ -3,11 +3,12 @@ import {LoggerLevel} from 'articulog';
 
 // Provided by webpack
 declare const ENVIRONMENT: string;
+declare const LIVE: string;
 
 // TODO: Make node standard development and production (possibly test) environment values
 export enum EnvironmentType {
-  LOCAL = 'LOCAL',
-  LOCAL_DEV = 'LOCAL_DEV'
+  development = 'development',
+  production = 'production'
 }
 
 export interface IConfig {
@@ -23,45 +24,38 @@ export interface IConfig {
   REACT_LOG_LEVEL: LoggerLevel;
 }
 
-class ConfigurationConstants {
-
-  public static LOCAL: string = 'LOCAL'; // self contained
-  public static LOCAL_DEV: string = 'LOCAL_DEV';
-
-}
-
 let config: IConfig = null;
 
-if (typeof ENVIRONMENT === 'undefined' || !ENVIRONMENT || ENVIRONMENT === ConfigurationConstants.LOCAL) {
+if (typeof ENVIRONMENT === 'undefined' || !ENVIRONMENT || ENVIRONMENT === EnvironmentType.development) {
   config = {
-    API_LIVE_ENABLED: true,
+    API_LIVE_ENABLED: LIVE === 'true',
     ACTION_LOG_LEVEL: LoggerLevel.DEBUG,
     API_LOG_LEVEL: LoggerLevel.DEBUG,
     API_URL: '',
     AUTH_URL: '',
     DISPATCHER_LOG_LEVEL: LoggerLevel.DEBUG,
-    ENVIRONMENT: EnvironmentType.LOCAL,
+    ENVIRONMENT: EnvironmentType.development,
     GENERAL_LOG_LEVEL: LoggerLevel.DEBUG,
     REACT_LOG_LEVEL: LoggerLevel.DEBUG,
     USE_ASSERTIONS: true
   };
 }
-else if (ENVIRONMENT === ConfigurationConstants.LOCAL_DEV) {
+else if (ENVIRONMENT === EnvironmentType.production) {
   config = {
-    API_LIVE_ENABLED: false,
+    API_LIVE_ENABLED: LIVE === 'true',
     ACTION_LOG_LEVEL: LoggerLevel.DEBUG,
     API_LOG_LEVEL: LoggerLevel.DEBUG,
     API_URL: '',
     AUTH_URL: 'http://localhost:5050',
     DISPATCHER_LOG_LEVEL: LoggerLevel.DEBUG,
-    ENVIRONMENT: EnvironmentType.LOCAL_DEV,
+    ENVIRONMENT: EnvironmentType.production,
     GENERAL_LOG_LEVEL: LoggerLevel.DEBUG,
     REACT_LOG_LEVEL: LoggerLevel.DEBUG,
     USE_ASSERTIONS: true
   };
 }
 else {
-  throw 'Not implemented';
+  throw `Environment type ${ENVIRONMENT} Not implemented`;
 }
 
 // temp
