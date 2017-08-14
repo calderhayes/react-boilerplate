@@ -50,6 +50,13 @@ export class AuthActionLogic extends BaseActionLogic implements IAuthActionLogic
 
         if (e.apiErrorType === APIErrorType.UNAUTHENTICATED) {
           this.logout();
+          this.eventEmitter.emit({
+            type: EventTypeKey.LOGIN,
+            result: {
+              success: false,
+              error: 'invalid_credentials'
+            }
+          });
           return;
         }
       }
@@ -58,15 +65,18 @@ export class AuthActionLogic extends BaseActionLogic implements IAuthActionLogic
   }
 
   public async logout() {
+    try {
+      await this.api.stopWebSocketConnection();
+    }
+    catch (error) {
+      this.logger.warn('Something happened when attempting to stop the web socket connection', error);
+    }
+    
     const action = makeLogoutAction();
     this.dispatcher.dispatch(action);
 
     this.eventEmitter.emit({
-      type: EventTypeKey.LOGIN,
-      result: {
-        success: false,
-        error: 'invalid_credentials'
-      }
+      type: EventTypeKey.LOGOUT
     });
 
     return await Promise.resolve();

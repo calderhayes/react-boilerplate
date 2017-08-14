@@ -36,8 +36,13 @@ export class SignalR {
     });
   }
 
-  public static stopConnection() {
-    $.connection.hub.stop();
+  public static stopConnection(): Promise<void> {
+    return new Promise((resolve, _) => {
+      $.connection.hub.stop()
+      resolve();
+    });
+    // $.connection.hub.stop();
+    // return Promise.resolve();
   }
 
   public static updateAccessToken(accessToken: string) {

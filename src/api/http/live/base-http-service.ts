@@ -56,8 +56,6 @@ export abstract class BaseHTTPService {
     const url = urljoin(this.apiUrl, endpoint);
     const response = await this.fetch(url, init);
 
-    this.handleResponseIfError(response);
-
     return response;
   }
 

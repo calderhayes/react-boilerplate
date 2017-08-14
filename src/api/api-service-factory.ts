@@ -49,6 +49,12 @@ export class APIServiceFactory {
         HelloService: new HelloService(),
         startWebSocketConnection: (token: string) => {
           return SignalR.startConnection(logger, this.config.API_URL, token);
+        },
+        updateWebSocketAccessToken: (token: string) => {
+          SignalR.updateAccessToken(token);
+        },
+        stopWebSocketConnection: () => {
+          return SignalR.stopConnection();
         }
       };
 
@@ -61,6 +67,12 @@ export class APIServiceFactory {
         SecurityService: new MockSecurityService(),
         HelloService: new MockHelloService(),
         startWebSocketConnection: (_: string) => {
+          return Promise.resolve();
+        },
+        updateWebSocketAccessToken: (_: string) => {
+          // do nothing
+        },
+        stopWebSocketConnection: () => {
           return Promise.resolve();
         }
       };

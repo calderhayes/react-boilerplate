@@ -19,7 +19,6 @@ export class LoginService extends BaseHTTPService implements ILoginService {
     : Promise<Model.IOAuth2Token> {
 
     const endpoint = 'connect/token';
-
     const response = await this.post(endpoint, {
       grant_type: 'password',
       username,

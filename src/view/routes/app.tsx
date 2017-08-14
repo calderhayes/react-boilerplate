@@ -27,7 +27,7 @@ export class App extends BaseComponent<IAppProps, IAppState> {
 
   }
 
-  public componentDidMount() {
+  public componentWillMount() {
     this.eventEmitter.on(EventTypeKey.APP_ROUTE_INITIALIZED, this.initializationComplete);
     this.eventEmitter.on(EventTypeKey.UNKNOWN_ERROR, this.unknownError);
     this.actionLogic.initializerActionLogic.initializeAppRoute();
