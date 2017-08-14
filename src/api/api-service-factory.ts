@@ -5,8 +5,14 @@ import {IOC_TYPE} from 'ioc/ioc-type';
 import {LoginService} from 'api/http/live/login-service';
 import {SecurityService} from 'api/http/live/security-service';
 
+import {HelloService} from 'api/ws/live/hello-service';
+
 import {MockLoginService} from 'api/http/mock/login-service';
 import {MockSecurityService} from 'api/http/mock/security-service';
+
+import {MockHelloService} from 'api/ws/mock/hello-service';
+
+import {SignalR} from 'api/ws/live/signalr';
 
 import {ILoggerFactory} from 'articulog';
 import {injectable, inject} from 'inversify';
@@ -36,10 +42,14 @@ export class APIServiceFactory {
     });
 
     if (this.config.API_LIVE_ENABLED) {
+
+      SignalR.startConnection(logger, this.config.API_URL);
+
       const apiService: IAPIService = {
         type: APIServiceType.Live,
         LoginService: new LoginService(logger, this.config.AUTH_URL),
-        SecurityService: new SecurityService(logger, this.config.API_URL)
+        SecurityService: new SecurityService(logger, this.config.API_URL),
+        HelloService: new HelloService()
       };
 
       return apiService;
@@ -48,7 +58,8 @@ export class APIServiceFactory {
       const apiService: IAPIService = {
         type: APIServiceType.Mock,
         LoginService: new MockLoginService(),
-        SecurityService: new MockSecurityService()
+        SecurityService: new MockSecurityService(),
+        HelloService: new MockHelloService()
       };
 
       return apiService;

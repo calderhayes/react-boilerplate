@@ -13,8 +13,14 @@ export interface ISecurityService {
   getFeatures(): Promise<Array<Model.IFeature>>;
 }
 
+export interface IHelloService {
+  sayHello(): void;
+  registerSomeoneSaidHi(handler: (username: string) => void): void;
+}
+
 export interface IAPIService {
   readonly type: APIServiceType;
   readonly LoginService: ILoginService;
   readonly SecurityService: ISecurityService;
+  readonly HelloService: IHelloService;
 }

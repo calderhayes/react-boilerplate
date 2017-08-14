@@ -10,6 +10,7 @@ import {ILoggerFactory} from 'articulog';
 
 export interface IExampleActionLogic {
   doExample(): Promise<void>;
+  sayHello(): Promise<void>;
 }
 
 export class ExampleActionLogic extends BaseActionLogic
@@ -24,6 +25,7 @@ export class ExampleActionLogic extends BaseActionLogic
     config: IConfig) {
       super(dispatcher, api, eventEmitter, store, loggerFactory, config);
 
+      this.api.HelloService.registerSomeoneSaidHi(this.someoneSaidHi);
   }
 
   public async doExample() {
@@ -39,7 +41,13 @@ export class ExampleActionLogic extends BaseActionLogic
     });
 
     return await Promise.resolve();
-
   }
 
+  public async sayHello() {
+    return await this.api.HelloService.sayHello();
+  }
+
+  private readonly someoneSaidHi = (username: string) => {
+    this.logger.info('SOMEONE SAID HI! => ' + username);
+  }
 }
