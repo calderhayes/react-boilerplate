@@ -23,4 +23,5 @@ export interface IAPIService {
   readonly LoginService: ILoginService;
   readonly SecurityService: ISecurityService;
   readonly HelloService: IHelloService;
+  startWebSocketConnection(token: string): Promise<void>;
 }

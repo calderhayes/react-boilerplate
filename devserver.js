@@ -3,7 +3,7 @@ var WebpackDevServer = require('webpack-dev-server');
 var config = require('./webpack.config');
 var path = require('path');
 var address = 'localhost';
-var port = 8080;
+var port = 8888;
 
 
 var server = new WebpackDevServer(webpack(config),

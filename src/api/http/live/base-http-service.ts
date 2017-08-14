@@ -22,7 +22,7 @@ export abstract class BaseHTTPService {
     fetchMethod?: FetchMethod) {
     this.logger = logger;
     this.apiUrl = apiUrl || '';
-    this.fetch = fetchMethod || fetch;
+    this.fetch = fetchMethod || fetch.bind(window);
   }
 
   public clearAuthToken() {

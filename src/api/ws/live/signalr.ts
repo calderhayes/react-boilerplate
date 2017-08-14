@@ -9,7 +9,7 @@ export class SignalR {
   public static startConnection(
     logger: ILogger,
     apiUrl: string,
-    initialAccessToken?: string) {
+    initialAccessToken?: string): Promise<void> {
 
     return new Promise((resolve, reject) => {
       if (!$) {
@@ -18,16 +18,16 @@ export class SignalR {
         reject(msg);
       }
 
+      SignalR.updateAccessToken(initialAccessToken);
+
       logger.debug('SignalR connecting...');
       $.connection.hub.url = urljoin(apiUrl, 'signalr');
       $.connection.hub.logging = true;
       $.connection.hub.log = logger.info;
 
-      SignalR.updateAccessToken(initialAccessToken);
-
-      $.connection.hub.start().done(() => {
+      $.connection.hub.start({ transport: 'longPolling' }).done(() => {
         logger.info('SignalR Connected!');
-        resolve(this);
+        resolve();
       })
       .fail((error: any) => {
         logger.error(error);
@@ -41,9 +41,7 @@ export class SignalR {
   }
 
   public static updateAccessToken(accessToken: string) {
-    $.connection.hub.qs = {
-      access_token: accessToken
-    };
+    $.connection.hub.qs = { authorization: accessToken };
   }
 
 }

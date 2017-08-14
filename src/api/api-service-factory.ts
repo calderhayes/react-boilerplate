@@ -42,14 +42,14 @@ export class APIServiceFactory {
     });
 
     if (this.config.API_LIVE_ENABLED) {
-
-      SignalR.startConnection(logger, this.config.API_URL);
-
       const apiService: IAPIService = {
         type: APIServiceType.Live,
         LoginService: new LoginService(logger, this.config.AUTH_URL),
         SecurityService: new SecurityService(logger, this.config.API_URL),
-        HelloService: new HelloService()
+        HelloService: new HelloService(),
+        startWebSocketConnection: (token: string) => {
+          return SignalR.startConnection(logger, this.config.API_URL, token);
+        }
       };
 
       return apiService;
@@ -59,7 +59,10 @@ export class APIServiceFactory {
         type: APIServiceType.Mock,
         LoginService: new MockLoginService(),
         SecurityService: new MockSecurityService(),
-        HelloService: new MockHelloService()
+        HelloService: new MockHelloService(),
+        startWebSocketConnection: (_: string) => {
+          return Promise.resolve();
+        }
       };
 
       return apiService;
