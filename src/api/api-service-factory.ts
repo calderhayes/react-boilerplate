@@ -5,11 +5,13 @@ import {IOC_TYPE} from 'ioc/ioc-type';
 import {LoginService} from 'api/http/live/login-service';
 import {SecurityService} from 'api/http/live/security-service';
 
+import {SignalREventManager} from 'api/ws/live/signalr-event-manager';
 import {HelloService} from 'api/ws/live/hello-service';
 
 import {MockLoginService} from 'api/http/mock/login-service';
 import {MockSecurityService} from 'api/http/mock/security-service';
 
+import {MockWSEventManager} from 'api/ws/mock/mock-ws-event-manager';
 import {MockHelloService} from 'api/ws/mock/hello-service';
 
 import {SignalR} from 'api/ws/live/signalr';
@@ -55,7 +57,8 @@ export class APIServiceFactory {
         },
         stopWebSocketConnection: () => {
           return SignalR.stopConnection();
-        }
+        },
+        webSocketEventManager: new SignalREventManager()
       };
 
       return apiService;
@@ -74,7 +77,8 @@ export class APIServiceFactory {
         },
         stopWebSocketConnection: () => {
           return Promise.resolve();
-        }
+        },
+        webSocketEventManager: new MockWSEventManager()
       };
 
       return apiService;

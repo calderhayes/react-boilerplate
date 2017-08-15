@@ -18,6 +18,14 @@ export interface IHelloService {
   registerSomeoneSaidHi(handler: (username: string) => void): void;
 }
 
+export interface IWebSocketEventManager {
+  registerErrorHandler(handler: (error: any) => any): void;
+  registerConnectionSlowHandler(handler: () => void): void;
+  registerReconnectingHandler(handler: () => void): void;
+  registerReconnectedHandler(handler: () => void): void;
+  registerDisconnectedHandler(handler: (lastError: any) => void): void;
+}
+
 export interface IAPIService {
   readonly type: APIServiceType;
   readonly LoginService: ILoginService;
@@ -26,4 +34,5 @@ export interface IAPIService {
   startWebSocketConnection(token: string): Promise<void>;
   updateWebSocketAccessToken(token: string): void;
   stopWebSocketConnection(): Promise<void>;
+  readonly webSocketEventManager: IWebSocketEventManager;
 }

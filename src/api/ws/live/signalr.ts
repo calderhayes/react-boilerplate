@@ -38,7 +38,7 @@ export class SignalR {
 
   public static stopConnection(): Promise<void> {
     return new Promise((resolve, _) => {
-      $.connection.hub.stop()
+      $.connection.hub.stop();
       resolve();
     });
     // $.connection.hub.stop();

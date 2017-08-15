@@ -71,7 +71,7 @@ export class AuthActionLogic extends BaseActionLogic implements IAuthActionLogic
     catch (error) {
       this.logger.warn('Something happened when attempting to stop the web socket connection', error);
     }
-    
+
     const action = makeLogoutAction();
     this.dispatcher.dispatch(action);
 

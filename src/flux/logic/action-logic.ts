@@ -1,6 +1,7 @@
 import {IAuthActionLogic, AuthActionLogic} from 'flux/logic/auth-action-logic';
 import {IExampleActionLogic, ExampleActionLogic} from 'flux/logic/example-action-logic';
 import {IInitializerActionLogic, InitializerActionLogic} from 'flux/logic/initializer-action-logic';
+import {WebSocketConnectionActionLogic} from 'flux/logic/ws-connection-action-logic';
 import {BaseActionLogic} from 'flux/logic/base-action-logic';
 import {IDispatcher} from 'flux/dispatcher';
 import {IAPIServiceFactory} from 'api';
@@ -25,6 +26,8 @@ export class ActionLogic extends BaseActionLogic implements IActionLogic {
   public readonly exampleActionLogic: IExampleActionLogic;
   public readonly initializerActionLogic: IInitializerActionLogic;
 
+  private readonly webSocketConnectionActionLogic: WebSocketConnectionActionLogic;
+
   constructor(
     @inject(IOC_TYPE.DISPATCHER) dispatcher: IDispatcher,
     @inject(IOC_TYPE.API_SERVICE_FACTORY) apiFactory: IAPIServiceFactory,
@@ -34,13 +37,15 @@ export class ActionLogic extends BaseActionLogic implements IActionLogic {
     @inject(IOC_TYPE.CONFIG) config: IConfig) {
       super(dispatcher, apiFactory.create(), eventEmitter, store, loggerFactory, config);
 
-
       this.authActionLogic = new AuthActionLogic(
-        dispatcher, apiFactory.create(), eventEmitter, store, loggerFactory, config);
+        dispatcher, this.api, eventEmitter, store, loggerFactory, config);
       this.exampleActionLogic = new ExampleActionLogic(
-        dispatcher, apiFactory.create(), eventEmitter, store, loggerFactory, config);
+        dispatcher, this.api, eventEmitter, store, loggerFactory, config);
       this.initializerActionLogic = new InitializerActionLogic(
-        dispatcher, apiFactory.create(), eventEmitter, store, loggerFactory, config);
+        dispatcher, this.api, eventEmitter, store, loggerFactory, config);
+
+      this.webSocketConnectionActionLogic = new WebSocketConnectionActionLogic(
+        dispatcher, this.api, eventEmitter, store, loggerFactory, config);
   }
 
 }
