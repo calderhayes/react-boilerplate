@@ -4,6 +4,7 @@ import {LoggerLevel} from 'articulog';
 export enum WebSocketConnectionState {
   SLOW = 'SLOW',
   RECONNECTING = 'RECONNECTING',
+  // RECONNECTED = 'RECONNECTED',
   DISCONNECTED = 'DISCONNECTED',
   ERROR = 'ERROR',
   CONNECTED = 'CONNECTED'
