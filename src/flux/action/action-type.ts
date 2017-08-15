@@ -5,6 +5,7 @@ export enum ActionTypeKey {
   LOGIN = 'LOGIN',
   LOGOUT = 'LOGOUT',
   APP_ROUTE_INITIALIZED = 'APP_ROUTE_INITIALIZED',
+  WEB_SOCKET_CONNECTION_STATE_CHANGED = 'WEB_SOCKET_CONNECTION_STATE_CHANGED',
   OTHER_ACTION = '__any_other_action_type__'
 }
 
@@ -62,6 +63,28 @@ export const makeLogoutAction = () => {
   return obj;
 };
 
+
+export enum WebSocketConnectionState {
+  SLOW = 0,
+  RECONNECTING = 1,
+  RECONNECTED = 2,
+  DISCONNECTED = 3,
+  ERROR = 4
+}
+
+export interface IWebSocketConnectionStateChanged {
+  type: ActionTypeKey.WEB_SOCKET_CONNECTION_STATE_CHANGED,
+  newState: WebSocketConnectionState;
+}
+
+export const makeWebSocketConnectionStateChangedAction = (newState: WebSocketConnectionState) => {
+  const obj: IWebSocketConnectionStateChanged = {
+    type: ActionTypeKey.WEB_SOCKET_CONNECTION_STATE_CHANGED,
+    newState
+  };
+  return obj;
+}
+
 export interface IOtherAction {
   type: ActionTypeKey.OTHER_ACTION;
 }
@@ -71,4 +94,5 @@ export type ActionType =
   | ILoginAction
   | IInitializeAppRouteAction
   | ILogoutAction
+  | IWebSocketConnectionStateChanged
   | IOtherAction;

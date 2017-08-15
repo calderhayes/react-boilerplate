@@ -3,7 +3,7 @@ import {IAPIService} from 'api';
 import {IEventEmitter} from 'flux/event';
 import {IStore} from 'flux/store';
 import {BaseActionLogic} from 'flux/logic/base-action-logic';
-// import {makeLoginAction, makeLogoutAction} from 'flux/action';
+import {makeWebSocketConnectionStateChangedAction, WebSocketConnectionState} from 'flux/action';
 import {ILoggerFactory} from 'articulog';
 import {IConfig} from 'config';
 
@@ -27,23 +27,32 @@ export class WebSocketConnectionActionLogic extends BaseActionLogic {
 
   private websocketError = (error: any) => {
     this.logger.error('An unknown websockets error occured: ', error);
-    // launch client notification event
+    const action = makeWebSocketConnectionStateChangedAction(WebSocketConnectionState.ERROR);
+    this.dispatcher.dispatch(action);
   }
 
   private connectionSlow = () => {
     this.logger.info('Web Sockets Connection slow');
+    const action = makeWebSocketConnectionStateChangedAction(WebSocketConnectionState.SLOW);
+    this.dispatcher.dispatch(action);
   }
 
   private reconnecting = () => {
     this.logger.info('Web Sockets Reconnecting');
+    const action = makeWebSocketConnectionStateChangedAction(WebSocketConnectionState.RECONNECTING);
+    this.dispatcher.dispatch(action);
   }
 
   private reconnected = () => {
     this.logger.info('Web Sockets Reconnected');
+    const action = makeWebSocketConnectionStateChangedAction(WebSocketConnectionState.RECONNECTED);
+    this.dispatcher.dispatch(action);
   }
 
   private disconnected = (lastError: any) => {
     this.logger.error('Web Sockets disconnected', lastError);
+    const action = makeWebSocketConnectionStateChangedAction(WebSocketConnectionState.DISCONNECTED);
+    this.dispatcher.dispatch(action);
   }
 
 }

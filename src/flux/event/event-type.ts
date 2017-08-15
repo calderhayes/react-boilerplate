@@ -3,6 +3,7 @@ export enum EventTypeKey {
   EXAMPLE = 'EXAMPLE',
   UNKNOWN_ERROR = 'UNKNOWN_ERROR',
   APP_ROUTE_INITIALIZED = 'APP_ROUTE_INITIALIZED',
+  WEB_SOCKET_CONNECTION_STATE_CHANGED = 'WEB_SOCKET_CONNECTION_STATE_CHANGED',
   LOGOUT = 'LOGOUT'
 };
 
@@ -31,6 +32,10 @@ export interface IAppRouteInitializedEvent {
 export interface ILogoutEvent {
   type: EventTypeKey.LOGOUT;
 };
+
+export interface IWebSocketConnectionStateChangedEvent {
+  type: EventTypeKey.
+}
 
 export type EventType =
   ILoginEvent
