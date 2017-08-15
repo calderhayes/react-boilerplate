@@ -5,7 +5,7 @@ import {IStore} from 'flux/store';
 import {BaseActionLogic} from './base-action-logic';
 import {makeInitializeAppRouteAction} from 'flux/action';
 import {initializeTranslationData} from 'util/i18n';
-import {IConfig} from 'config';
+import {IConfig} from 'interface';
 
 import {ILoggerFactory} from 'articulog';
 

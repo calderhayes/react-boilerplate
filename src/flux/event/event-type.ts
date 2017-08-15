@@ -1,3 +1,5 @@
+import {WebSocketConnectionState} from 'interface';
+
 export enum EventTypeKey {
   LOGIN = 'LOGIN',
   EXAMPLE = 'EXAMPLE',
@@ -34,7 +36,8 @@ export interface ILogoutEvent {
 };
 
 export interface IWebSocketConnectionStateChangedEvent {
-  type: EventTypeKey.
+  type: EventTypeKey.WEB_SOCKET_CONNECTION_STATE_CHANGED;
+  webSocketConnectionState: WebSocketConnectionState;
 }
 
 export type EventType =
@@ -42,4 +45,5 @@ export type EventType =
   | IUnknownErrorEvent
   | IAppRouteInitializedEvent
   | IExampleEvent
+  | IWebSocketConnectionStateChangedEvent
   | ILogoutEvent;

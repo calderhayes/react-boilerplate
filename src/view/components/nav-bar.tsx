@@ -2,7 +2,7 @@
 import * as React from 'react';
 import {BaseComponent} from 'view/base-component';
 import { Link, IndexLink } from 'react-router';
-import {StoreHelpers} from 'flux/store';
+import {StateHelpers} from 'data';
 import {EventTypeKey} from 'flux/event';
 
 export interface INavBarProps {
@@ -19,7 +19,7 @@ export class NavBar extends BaseComponent<INavBarProps, INavBarState> {
     super(props);
 
     this.state = {
-      isLoggedIn: StoreHelpers.isLoggedIn(this.store.state)
+      isLoggedIn: StateHelpers.isLoggedIn(this.store.state)
     };
   }
 
@@ -93,7 +93,7 @@ export class NavBar extends BaseComponent<INavBarProps, INavBarState> {
   private loginStatusUpdated = () => {
     this.setState({
       ...this.state,
-      isLoggedIn: StoreHelpers.isLoggedIn(this.store.state)
+      isLoggedIn: StateHelpers.isLoggedIn(this.store.state)
     });
   }
 

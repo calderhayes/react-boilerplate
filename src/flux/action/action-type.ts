@@ -1,4 +1,5 @@
 import * as Model from 'api/models';
+import {WebSocketConnectionState} from 'interface';
 
 export enum ActionTypeKey {
   EXAMPLE = 'EXAMPLE',
@@ -63,17 +64,8 @@ export const makeLogoutAction = () => {
   return obj;
 };
 
-
-export enum WebSocketConnectionState {
-  SLOW = 0,
-  RECONNECTING = 1,
-  RECONNECTED = 2,
-  DISCONNECTED = 3,
-  ERROR = 4
-}
-
 export interface IWebSocketConnectionStateChanged {
-  type: ActionTypeKey.WEB_SOCKET_CONNECTION_STATE_CHANGED,
+  type: ActionTypeKey.WEB_SOCKET_CONNECTION_STATE_CHANGED;
   newState: WebSocketConnectionState;
 }
 
@@ -83,7 +75,7 @@ export const makeWebSocketConnectionStateChangedAction = (newState: WebSocketCon
     newState
   };
   return obj;
-}
+};
 
 export interface IOtherAction {
   type: ActionTypeKey.OTHER_ACTION;

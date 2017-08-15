@@ -8,6 +8,7 @@ import {iocContainer} from 'ioc';
 import {IOC_TYPE} from 'ioc/ioc-type';
 import {bootstrapReact} from 'view/router';
 import {IStore} from 'flux/store';
+import {EnvironmentType} from 'interface';
 
 import {LogControl} from 'articulog';
 
@@ -38,6 +39,9 @@ window.onerror = (message, file, line, column, errorObject) => {
 };
 
 const store = iocContainer.get<IStore>(IOC_TYPE.STORE);
+if (config.ENVIRONMENT == EnvironmentType.development) {
+  (window as any).store = store;
+}
 const rootHTMLElement = document.getElementById('app');
 bootstrapReact(rootHTMLElement, store);
 

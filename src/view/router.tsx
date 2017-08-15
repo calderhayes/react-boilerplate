@@ -20,7 +20,8 @@ import {Example} from 'view/routes/example';
 import {Contact} from 'view/routes/contact';
 import {Dashboard} from 'view/routes/dashboard';
 
-import {IStore, StoreHelpers} from 'flux/store';
+import {IStore} from 'flux/store';
+import {StateHelpers} from 'data';
 
 // Stubbing the type, had some issues referencing History
 export interface IHistory {
@@ -63,7 +64,7 @@ class AppRouter {
   }
 
   public isCurrentUserAuthenticated = (nextState: RouterState, replace: RedirectFunction) => {
-    if (!StoreHelpers.isLoggedIn(this.store.state)) {
+    if (!StateHelpers.isLoggedIn(this.store.state)) {
       Log.info('User is not logged in, redirecting');
       replace({
         pathname: '/login',

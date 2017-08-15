@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import {reducer} from '../../src/flux/reducer';
-import {Store, defaultState} from '../../src/flux/store';
+import {Store} from '../../src/flux/store';
+import {defaultState} from '../../src/data';
 import {makeExampleAction} from '../../src/flux/action';
 import * as chai from 'chai';
 

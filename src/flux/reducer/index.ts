@@ -1,5 +1,6 @@
 import {ActionType, ActionTypeKey} from '../action';
-import {IAppState} from '../store';
+import {IAppState} from 'data';
+import {WebSocketConnectionState} from 'interface';
 import iassign from 'immutable-assign';
 
 iassign.setOption({
@@ -29,11 +30,19 @@ export const reducer: Reducer = (state: IAppState, action: ActionType) => {
 
     case ActionTypeKey.LOGIN:
       // Update the tokenData
-      return iassign(state, (s) => s.authInfo, (_) => action.tokenData);
+      let newLoginState = iassign(state, (s) => s.authInfo, (_) => action.tokenData);
+      newLoginState = iassign(newLoginState, (s) => s.webSocketConnectionState, (_) => WebSocketConnectionState.CONNECTED);
+      return newLoginState;
 
     case ActionTypeKey.LOGOUT:
       // Clear the tokenData
-      return iassign(state, (s) => s.authInfo, (_) => null);
+      let newLogoutState = iassign(state, (s) => s.authInfo, (_) => null);
+      newLogoutState = iassign(newLogoutState, (s) => s.webSocketConnectionState, (_) => WebSocketConnectionState.DISCONNECTED);
+      return newLogoutState;
+
+    case ActionTypeKey.WEB_SOCKET_CONNECTION_STATE_CHANGED:
+      // Set the new state
+      return iassign(state, (s) => s.webSocketConnectionState, (_) => action.newState);
 
     case ActionTypeKey.OTHER_ACTION:
       // Log warning

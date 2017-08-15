@@ -1,6 +1,6 @@
 
 import {IAPIService, APIServiceType} from 'api/interface';
-import {IConfig} from 'config';
+import {IConfig} from 'interface';
 import {IOC_TYPE} from 'ioc/ioc-type';
 import {LoginService} from 'api/http/live/login-service';
 import {SecurityService} from 'api/http/live/security-service';

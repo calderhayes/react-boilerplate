@@ -1,28 +1,10 @@
 
 import {LoggerLevel} from 'articulog';
+import {IConfig, EnvironmentType} from 'interface';
 
 // Provided by webpack
 declare const ENVIRONMENT: string;
 declare const LIVE: string;
-
-// TODO: Make node standard development and production (possibly test) environment values
-export enum EnvironmentType {
-  development = 'development',
-  production = 'production'
-}
-
-export interface IConfig {
-  ACTION_LOG_LEVEL: LoggerLevel;
-  ENVIRONMENT: EnvironmentType;
-  API_LIVE_ENABLED: boolean;
-  API_URL: string;
-  AUTH_URL: string;
-  USE_ASSERTIONS: boolean;
-  GENERAL_LOG_LEVEL: LoggerLevel;
-  API_LOG_LEVEL: LoggerLevel;
-  DISPATCHER_LOG_LEVEL: LoggerLevel;
-  REACT_LOG_LEVEL: LoggerLevel;
-}
 
 let config: IConfig = null;
 

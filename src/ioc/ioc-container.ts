@@ -1,24 +1,19 @@
-import {IAPIServiceFactory, APIServiceFactory, Models} from 'api';
-import {IStore, Store, IAppState} from 'flux/store';
+import {IAPIServiceFactory, APIServiceFactory} from 'api';
+import {IStore, Store} from 'flux/store';
 import {Reducer, reducer} from 'flux/reducer';
 import {IDispatcher, Dispatcher} from 'flux/dispatcher';
 import {IEventEmitter, EventEmitter} from 'flux/event';
 import {ActionLogic, IActionLogic} from 'flux/logic';
 import {TranslationFunction, translationFunction} from 'util/i18n';
 import {IOC_TYPE} from 'ioc/ioc-type';
-import {config, IConfig } from 'config';
+import {config} from 'config';
+import {IConfig} from 'interface';
 import {namedConsoleLoggerFactory} from 'util/logger-factory';
+import {defaultState} from 'data';
 
 import {ILoggerFactory} from 'articulog';
 import {Container} from 'inversify';
 import getDecorators from 'inversify-inject-decorators';
-
-// This doesn't go here
-const defaultState: IAppState = {
-  exampleValue: 1,
-  features: new Array<Models.IFeature>(),
-  authInfo: null
-};
 
 const iocContainer = new Container({ defaultScope: 'Singleton' });
 

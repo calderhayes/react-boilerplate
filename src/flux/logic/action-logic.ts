@@ -8,7 +8,7 @@ import {IAPIServiceFactory} from 'api';
 import {IEventEmitter} from 'flux/event';
 import {IStore} from 'flux/store';
 import {IOC_TYPE} from 'ioc/ioc-type';
-import {IConfig} from 'config';
+import {IConfig} from 'interface';
 
 import {ILoggerFactory} from 'articulog';
 import {injectable, inject} from 'inversify';

@@ -5,7 +5,7 @@ import {IStore} from 'flux/store';
 import {BaseActionLogic} from 'flux/logic/base-action-logic';
 import {makeLoginAction, makeLogoutAction} from 'flux/action';
 import {ILoggerFactory} from 'articulog';
-import {IConfig} from 'config';
+import {IConfig} from 'interface';
 
 export interface IAuthActionLogic {
   login(username: string, password: string): Promise<void>;

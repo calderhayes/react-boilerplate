@@ -4,7 +4,7 @@ import {IEventEmitter, EventTypeKey} from 'flux/event';
 import {IStore} from 'flux/store';
 import {BaseActionLogic} from 'flux/logic/base-action-logic';
 import {makeExampleAction} from 'flux/action';
-import {IConfig} from 'config';
+import {IConfig} from 'interface';
 
 import {ILoggerFactory} from 'articulog';
 

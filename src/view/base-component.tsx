@@ -7,7 +7,7 @@ import {IActionLogic} from 'flux/logic';
 import {IHistory} from 'view/router';
 import {TranslationFunction} from 'i18next';
 import {lazyInject} from 'ioc';
-import {IConfig} from 'config';
+import {IConfig} from 'interface';
 
 // import {browserHistory} from 'react-router';
 // tslint:disable-next-line:no-var-requires no-require-imports
