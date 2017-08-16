@@ -2,16 +2,40 @@
 import * as React from 'react';
 import {BaseComponent} from 'view/base-component';
 import { Link, IndexLink } from 'react-router';
+import {StateHelpers} from 'data';
+import { EventTypeKey, IWebSocketConnectionStateChangedEvent } from 'flux/event';
 
 export interface INavBarProps {
 
 }
 
 export interface INavBarState {
-
+  isLoggedIn: boolean;
+  webSocketConnectionState: string;
 }
 
 export class NavBar extends BaseComponent<INavBarProps, INavBarState> {
+
+  constructor(props: INavBarProps) {
+    super(props);
+
+    this.state = {
+      isLoggedIn: StateHelpers.isLoggedIn(this.store.state),
+      webSocketConnectionState: this.store.state.webSocketConnectionState
+    };
+  }
+
+  public componentWillMount() {
+    this.eventEmitter.on(EventTypeKey.LOGIN, this.loginStatusUpdated);
+    this.eventEmitter.on(EventTypeKey.LOGOUT, this.loginStatusUpdated);
+    this.eventEmitter.on(EventTypeKey.WEB_SOCKET_CONNECTION_STATE_CHANGED, this.webSocketConnectionStateChanged);
+  }
+
+  public componentWillUnmount() {
+    this.eventEmitter.off(EventTypeKey.LOGIN, this.loginStatusUpdated);
+    this.eventEmitter.off(EventTypeKey.LOGOUT, this.loginStatusUpdated);
+    this.eventEmitter.off(EventTypeKey.WEB_SOCKET_CONNECTION_STATE_CHANGED, this.webSocketConnectionStateChanged);
+  }
 
   public render() {
 
@@ -48,6 +72,17 @@ export class NavBar extends BaseComponent<INavBarProps, INavBarState> {
               <li>
                 <Link to='/contact'>Contact</Link>
               </li>
+              {(() => {
+                if (this.state.isLoggedIn) {
+                  return <li>
+                    <Link to='/login' onClick={this.logoutClicked}>Logout</Link>
+                  </li>;
+                }
+                else {
+                  return null;
+                }
+              })()}
+              <li style={{color: 'white'}}>{this.state.webSocketConnectionState}</li>
             </ul>
           </div>
         </div>
@@ -55,5 +90,24 @@ export class NavBar extends BaseComponent<INavBarProps, INavBarState> {
     );
 
   }
+
+  private logoutClicked = () => {
+    this.actionLogic.authActionLogic.logout();
+  }
+
+  private loginStatusUpdated = () => {
+    this.setState({
+      ...this.state,
+      isLoggedIn: StateHelpers.isLoggedIn(this.store.state),
+      webSocketConnectionState: this.store.state.webSocketConnectionState
+    });
+  }
+
+  private webSocketConnectionStateChanged = (event: IWebSocketConnectionStateChangedEvent) => {
+    this.setState({
+      ...this.state,
+      webSocketConnectionState: event.webSocketConnectionState
+    });
+  };
 
 }

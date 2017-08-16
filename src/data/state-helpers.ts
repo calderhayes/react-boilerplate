@@ -1,6 +1,6 @@
 
 import {find} from 'lodash';
-import {IAppState} from './store';
+import {IAppState} from 'data/app-state';
 
 export const isFeatureActivated = (state: IAppState, featureType: string): boolean => {
   const f = find(state.features, (ft) => ft.featureType === featureType);

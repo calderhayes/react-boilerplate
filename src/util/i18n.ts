@@ -20,6 +20,13 @@ export const initializeTranslationData = async (language: string) => {
                 invalid_credentials: 'The username or password is incorrect',
                 unknown_error: 'An unknown error has occured'
               }
+            },
+            web_socket_connection: {
+              error: 'An error occured connecting to the server',
+              slow: 'The connection to the server is slow',
+              reconnecting: 'Reconnecting to the server',
+              disconnected: 'Cannot connect to the server',
+              connected: 'Connected to the server'
             }
           }
         },

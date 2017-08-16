@@ -3,12 +3,12 @@
 import 'reflect-metadata';
 
 import {Log} from 'util/logger-factory';
-
 import {config} from 'config';
 import {iocContainer} from 'ioc';
 import {IOC_TYPE} from 'ioc/ioc-type';
 import {bootstrapReact} from 'view/router';
 import {IStore} from 'flux/store';
+import {EnvironmentType} from 'interface';
 
 import {LogControl} from 'articulog';
 
@@ -16,6 +16,9 @@ Log.info('Bootstrapping...');
 Log.info('Bootstrapping under environment: ' + config.ENVIRONMENT);
 
 // TODO: Split up UI into Smart (stateful components / Containers) and Dumb (functional components / Presentation)
+// Refresh tokens
+// LocalStorage auth data
+// Documentation
 
 // For easy access of the log control
 (window as any).LogControl = LogControl;
@@ -39,6 +42,9 @@ window.onerror = (message, file, line, column, errorObject) => {
 };
 
 const store = iocContainer.get<IStore>(IOC_TYPE.STORE);
+if (config.ENVIRONMENT === EnvironmentType.development) {
+  (window as any).store = store;
+}
 const rootHTMLElement = document.getElementById('app');
 bootstrapReact(rootHTMLElement, store);
 

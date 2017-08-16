@@ -3,6 +3,7 @@ import * as React from 'react';
 import {BaseComponent} from 'view/base-component';
 import {NavBar} from 'view/components/nav-bar';
 import {Loader} from 'view/components/loader';
+import {Alert} from 'view/components/alert';
 import {EventTypeKey} from 'flux/event';
 
 import 'view/style/app.css';
@@ -27,7 +28,7 @@ export class App extends BaseComponent<IAppProps, IAppState> {
 
   }
 
-  public componentDidMount() {
+  public componentWillMount() {
     this.eventEmitter.on(EventTypeKey.APP_ROUTE_INITIALIZED, this.initializationComplete);
     this.eventEmitter.on(EventTypeKey.UNKNOWN_ERROR, this.unknownError);
     this.actionLogic.initializerActionLogic.initializeAppRoute();
@@ -44,6 +45,7 @@ export class App extends BaseComponent<IAppProps, IAppState> {
       <Loader loaded={this.state.loaded}>
         <div>
           <NavBar />
+          <Alert />
           <div className='container'>
             <div className='row'>
               <div className='col-xs-12' style={{minHeight: '300px'}}>

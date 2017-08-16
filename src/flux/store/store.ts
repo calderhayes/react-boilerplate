@@ -1,18 +1,6 @@
-import * as Model from '../../api/models';
+import {IAppState} from 'data';
 import {BaseStore} from './base-store';
 import {injectable} from 'inversify';
-
-export interface IAppState {
-  readonly exampleValue: number;
-  readonly features: Array<Model.IFeature>;
-  readonly authInfo: Model.IOAuth2TokenResult;
-}
-
-export const defaultState: IAppState = {
-  exampleValue: 1,
-  features: new Array<Model.IFeature>(),
-  authInfo: null
-};
 
 export interface IStore extends BaseStore<IAppState> {
 

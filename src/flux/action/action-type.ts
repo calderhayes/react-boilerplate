@@ -1,10 +1,12 @@
 import * as Model from 'api/models';
+import {WebSocketConnectionState} from 'interface';
 
 export enum ActionTypeKey {
   EXAMPLE = 'EXAMPLE',
   LOGIN = 'LOGIN',
   LOGOUT = 'LOGOUT',
   APP_ROUTE_INITIALIZED = 'APP_ROUTE_INITIALIZED',
+  WEB_SOCKET_CONNECTION_STATE_CHANGED = 'WEB_SOCKET_CONNECTION_STATE_CHANGED',
   OTHER_ACTION = '__any_other_action_type__'
 }
 
@@ -24,10 +26,10 @@ export const makeExampleAction = (value: number) => {
 
 export interface ILoginAction {
   type: ActionTypeKey.LOGIN;
-  tokenData: Model.IOAuth2TokenResult;
+  tokenData: Model.IOAuth2Token;
 }
 
-export const makeLoginAction = (tokenData: Model.IOAuth2TokenResult) => {
+export const makeLoginAction = (tokenData: Model.IOAuth2Token) => {
   const obj: ILoginAction = {
     type: ActionTypeKey.LOGIN,
     tokenData
@@ -62,6 +64,19 @@ export const makeLogoutAction = () => {
   return obj;
 };
 
+export interface IWebSocketConnectionStateChanged {
+  type: ActionTypeKey.WEB_SOCKET_CONNECTION_STATE_CHANGED;
+  newState: WebSocketConnectionState;
+}
+
+export const makeWebSocketConnectionStateChangedAction = (newState: WebSocketConnectionState) => {
+  const obj: IWebSocketConnectionStateChanged = {
+    type: ActionTypeKey.WEB_SOCKET_CONNECTION_STATE_CHANGED,
+    newState
+  };
+  return obj;
+};
+
 export interface IOtherAction {
   type: ActionTypeKey.OTHER_ACTION;
 }
@@ -71,4 +86,5 @@ export type ActionType =
   | ILoginAction
   | IInitializeAppRouteAction
   | ILogoutAction
+  | IWebSocketConnectionStateChanged
   | IOtherAction;

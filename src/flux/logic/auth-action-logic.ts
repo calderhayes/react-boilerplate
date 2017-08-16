@@ -5,7 +5,7 @@ import {IStore} from 'flux/store';
 import {BaseActionLogic} from 'flux/logic/base-action-logic';
 import {makeLoginAction, makeLogoutAction} from 'flux/action';
 import {ILoggerFactory} from 'articulog';
-import {IConfig} from 'config';
+import {IConfig} from 'interface';
 
 export interface IAuthActionLogic {
   login(username: string, password: string): Promise<void>;
@@ -29,7 +29,8 @@ export class AuthActionLogic extends BaseActionLogic implements IAuthActionLogic
     this.logger.info('Logging in ', username);
 
     try {
-      const result = await this.api.login(username, password);
+      const result = await this.api.LoginService.login(username, password);
+      await this.api.startWebSocketConnection(result.accessToken);
       const action = makeLoginAction(result);
       this.dispatcher.dispatch(action);
 
@@ -49,6 +50,13 @@ export class AuthActionLogic extends BaseActionLogic implements IAuthActionLogic
 
         if (e.apiErrorType === APIErrorType.UNAUTHENTICATED) {
           this.logout();
+          this.eventEmitter.emit({
+            type: EventTypeKey.LOGIN,
+            result: {
+              success: false,
+              error: 'invalid_credentials'
+            }
+          });
           return;
         }
       }
@@ -57,15 +65,18 @@ export class AuthActionLogic extends BaseActionLogic implements IAuthActionLogic
   }
 
   public async logout() {
+    try {
+      await this.api.stopWebSocketConnection();
+    }
+    catch (error) {
+      this.logger.warn('Something happened when attempting to stop the web socket connection', error);
+    }
+
     const action = makeLogoutAction();
     this.dispatcher.dispatch(action);
 
     this.eventEmitter.emit({
-      type: EventTypeKey.LOGIN,
-      result: {
-        success: false,
-        error: 'invalid_credentials'
-      }
+      type: EventTypeKey.LOGOUT
     });
 
     return await Promise.resolve();

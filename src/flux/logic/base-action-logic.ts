@@ -2,7 +2,7 @@ import {IDispatcher} from 'flux/dispatcher';
 import {IAPIService} from 'api';
 import {IEventEmitter, EventTypeKey} from 'flux/event';
 import {IStore} from 'flux/store';
-import {IConfig} from 'config';
+import {IConfig} from 'interface';
 
 import {injectable} from 'inversify';
 import {ILogger, ILoggerFactory} from 'articulog';
