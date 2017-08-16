@@ -7,5 +7,7 @@ export interface IFeature {
 export interface IOAuth2Token {
   accessToken: string;
   refreshToken: string;
+  expiresIn: number;
+  expiryDate: Date;
   rawData: any;
 }

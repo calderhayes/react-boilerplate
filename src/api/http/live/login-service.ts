@@ -5,6 +5,8 @@ import {BaseHTTPService} from 'api/http/live/base-http-service';
 import {ILogger} from 'articulog';
 import {HTTPStatusCode} from 'api/http/live/interface';
 import {APIError, APIErrorType} from 'api/api-error';
+import * as moment from 'moment';
+import {unitOfTime} from 'moment';
 
 export class LoginService extends BaseHTTPService implements ILoginService {
 
@@ -33,6 +35,8 @@ export class LoginService extends BaseHTTPService implements ILoginService {
       const result: Model.IOAuth2Token = {
         accessToken: content.access_token,
         refreshToken: '',
+        expiresIn: content.expires_in,
+        expiryDate: moment().add(content.expires_in, 'seconds').toDate(),
         rawData: content
       };
       return result;

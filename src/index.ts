@@ -16,6 +16,9 @@ Log.info('Bootstrapping...');
 Log.info('Bootstrapping under environment: ' + config.ENVIRONMENT);
 
 // TODO: Split up UI into Smart (stateful components / Containers) and Dumb (functional components / Presentation)
+// Refresh tokens
+// LocalStorage auth data
+// Documentation
 
 // For easy access of the log control
 (window as any).LogControl = LogControl;
