@@ -26,7 +26,7 @@ export abstract class BaseActionLogic {
     const className = (this as any).constructor.name;
     this._logger = this.loggerFactory.createLog({
       name: 'Action|' + className,
-      loggerLevel: this.config.ACTION_LOG_LEVEL
+      loggerLevel: this.config.LOGGING.ACTION_LOG_LEVEL
     });
 
     return this._logger;

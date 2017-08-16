@@ -11,19 +11,22 @@ export enum WebSocketConnectionState {
 }
 
 export enum EnvironmentType {
-  development = 'development',
-  production = 'production'
+  DEVELOPMENT = 'development',
+  PRODUCTION = 'production'
 }
 
 export interface IConfig {
-  ACTION_LOG_LEVEL: LoggerLevel;
   ENVIRONMENT: EnvironmentType;
   API_LIVE_ENABLED: boolean;
   API_URL: string;
   AUTH_URL: string;
-  USE_ASSERTIONS: boolean;
-  GENERAL_LOG_LEVEL: LoggerLevel;
-  API_LOG_LEVEL: LoggerLevel;
-  DISPATCHER_LOG_LEVEL: LoggerLevel;
-  REACT_LOG_LEVEL: LoggerLevel;
+  PERSIST_ACCESS_TOKENS: boolean;
+  LOGGING: {
+    ACTION_LOG_LEVEL: LoggerLevel;
+    USE_ASSERTIONS: boolean;
+    GENERAL_LOG_LEVEL: LoggerLevel;
+    API_LOG_LEVEL: LoggerLevel;
+    DISPATCHER_LOG_LEVEL: LoggerLevel;
+    REACT_LOG_LEVEL: LoggerLevel;
+  };
 }

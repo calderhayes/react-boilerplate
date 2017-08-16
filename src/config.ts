@@ -8,50 +8,43 @@ declare const LIVE: string;
 
 let config: IConfig = null;
 
-if (typeof ENVIRONMENT === 'undefined' || !ENVIRONMENT || ENVIRONMENT === EnvironmentType.development) {
+if (typeof ENVIRONMENT === 'undefined' || !ENVIRONMENT || ENVIRONMENT === EnvironmentType.DEVELOPMENT) {
   config = {
+    ENVIRONMENT: EnvironmentType.DEVELOPMENT,
     API_LIVE_ENABLED: LIVE === 'true',
-    ACTION_LOG_LEVEL: LoggerLevel.DEBUG,
-    API_LOG_LEVEL: LoggerLevel.DEBUG,
     API_URL: 'http://localhost:5080',
     AUTH_URL: 'http://localhost:5050',
-    DISPATCHER_LOG_LEVEL: LoggerLevel.DEBUG,
-    ENVIRONMENT: EnvironmentType.development,
-    GENERAL_LOG_LEVEL: LoggerLevel.DEBUG,
-    REACT_LOG_LEVEL: LoggerLevel.DEBUG,
-    USE_ASSERTIONS: true
+    LOGGING: {
+      ACTION_LOG_LEVEL: LoggerLevel.DEBUG,
+      API_LOG_LEVEL: LoggerLevel.DEBUG,
+      DISPATCHER_LOG_LEVEL: LoggerLevel.DEBUG,
+      GENERAL_LOG_LEVEL: LoggerLevel.DEBUG,
+      REACT_LOG_LEVEL: LoggerLevel.DEBUG,
+      USE_ASSERTIONS: true
+    },
+    PERSIST_ACCESS_TOKENS: true
   };
 }
-else if (ENVIRONMENT === EnvironmentType.production) {
+else if (ENVIRONMENT === EnvironmentType.PRODUCTION) {
   config = {
+    ENVIRONMENT: EnvironmentType.DEVELOPMENT,
     API_LIVE_ENABLED: LIVE === 'true',
-    ACTION_LOG_LEVEL: LoggerLevel.DEBUG,
-    API_LOG_LEVEL: LoggerLevel.DEBUG,
-    API_URL: '',
+    API_URL: 'http://localhost:5080',
     AUTH_URL: 'http://localhost:5050',
-    DISPATCHER_LOG_LEVEL: LoggerLevel.DEBUG,
-    ENVIRONMENT: EnvironmentType.production,
-    GENERAL_LOG_LEVEL: LoggerLevel.DEBUG,
-    REACT_LOG_LEVEL: LoggerLevel.DEBUG,
-    USE_ASSERTIONS: true
+    LOGGING: {
+      ACTION_LOG_LEVEL: LoggerLevel.DEBUG,
+      API_LOG_LEVEL: LoggerLevel.DEBUG,
+      DISPATCHER_LOG_LEVEL: LoggerLevel.DEBUG,
+      GENERAL_LOG_LEVEL: LoggerLevel.DEBUG,
+      REACT_LOG_LEVEL: LoggerLevel.DEBUG,
+      USE_ASSERTIONS: true
+    },
+    PERSIST_ACCESS_TOKENS: true
   };
 }
 else {
   throw `Environment type ${ENVIRONMENT} Not implemented`;
 }
-
-// temp
-/*config = {
-  ACTION_LOG_LEVEL: LoggerLevel.DEBUG,
-  API_LOG_LEVEL: LoggerLevel.DEBUG,
-  API_URL: '',
-  AUTH_URL: 'http://localhost:5050',
-  DISPATCHER_LOG_LEVEL: LoggerLevel.DEBUG,
-  ENVIRONMENT: EnvironmentType.LOCAL_DEV,
-  GENERAL_LOG_LEVEL: LoggerLevel.DEBUG,
-  REACT_LOG_LEVEL: LoggerLevel.DEBUG,
-  USE_ASSERTIONS: true
-};*/
 
 config = Object.freeze(config);
 export {config};

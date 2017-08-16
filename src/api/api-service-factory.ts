@@ -40,7 +40,7 @@ export class APIServiceFactory {
   public create(): IAPIService {
     const logger = this.loggerFactory.createLog({
       name: 'API',
-      loggerLevel: this.config.API_LOG_LEVEL
+      loggerLevel: this.config.LOGGING.API_LOG_LEVEL
     });
 
     if (this.config.API_LIVE_ENABLED) {

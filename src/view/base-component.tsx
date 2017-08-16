@@ -57,7 +57,7 @@ class BaseComponent<P, S> extends React.Component<P, S> {
     const className = (this as any).constructor.name;
     this._logger = this.loggerFactory.createLog({
       name: 'React|' + className,
-      loggerLevel: this.config.REACT_LOG_LEVEL
+      loggerLevel: this.config.LOGGING.REACT_LOG_LEVEL
     });
 
     return this._logger;

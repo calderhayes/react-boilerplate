@@ -28,7 +28,7 @@ export class Dispatcher implements IDispatcher {
 
     this._logger = this.loggerFactory.createLog({
       name: 'Dispatcher',
-      loggerLevel: this.config.DISPATCHER_LOG_LEVEL
+      loggerLevel: this.config.LOGGING.DISPATCHER_LOG_LEVEL
     });
 
     return this._logger;

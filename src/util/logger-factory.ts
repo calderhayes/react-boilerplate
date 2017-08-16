@@ -32,7 +32,7 @@ export const namedConsoleLoggerFactory: ILoggerFactory = {
 
 const Log: ILogger = ConsoleLoggerFactory.createLog({
   name: 'GeneralLogger',
-  loggerLevel: config.GENERAL_LOG_LEVEL
+  loggerLevel: config.LOGGING.GENERAL_LOG_LEVEL
 });
 addLogPrefix(Log, 'General');
 
