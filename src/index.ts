@@ -39,7 +39,7 @@ window.onerror = (message, file, line, column, errorObject) => {
 };
 
 const store = iocContainer.get<IStore>(IOC_TYPE.STORE);
-if (config.ENVIRONMENT == EnvironmentType.development) {
+if (config.ENVIRONMENT === EnvironmentType.development) {
   (window as any).store = store;
 }
 const rootHTMLElement = document.getElementById('app');

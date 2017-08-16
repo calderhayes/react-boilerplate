@@ -1,15 +1,8 @@
 import * as React from 'react';
 import {BaseComponent} from 'view/base-component';
 import {EventTypeKey, IWebSocketConnectionStateChangedEvent} from 'flux/event';
-// import {alertify} from 'alertifyjs';
-interface IAlertifyJS {
-  alert(val: any): void;
-  success(message: string, wait?: number, callback?: Function): void;
-}
-
-const alertifyjs = require('alertifyjs') as IAlertifyJS;
-require('alertifyjs/build/css/alertify.min.css');
-require('alertifyjs/build/css/themes/bootstrap.min.css');
+import {alert} from 'util/alert';
+import {WebSocketConnectionState} from 'interface';
 
 export interface IAlertProps {
 
@@ -21,12 +14,11 @@ export interface IAlertState {
 
 export class Alert extends BaseComponent<IAlertProps, IAlertState> {
 
-  private alert: IAlertifyJS = require('alertifyjs');
-
   constructor(props: IAlertProps) {
     super(props);
-    console.warn(alertifyjs);
-    this.alert.success('HI!!');
+    alert.success({
+      message: 'Hi!'
+    });
   }
 
   public componentWillMount() {
@@ -43,6 +35,35 @@ export class Alert extends BaseComponent<IAlertProps, IAlertState> {
 
   private webSocketConnectionStateChanged = (event: IWebSocketConnectionStateChangedEvent) => {
     this.logger.debug(event.webSocketConnectionState);
-    this.alert.success(event.webSocketConnectionState);
+    switch (event.webSocketConnectionState) {
+
+      case WebSocketConnectionState.ERROR:
+        alert.error({
+          message: this.translate('web_socket_connection.error')
+        });
+        break;
+
+      case WebSocketConnectionState.SLOW:
+        alert.warning({
+          message: this.translate('web_socket_connection.slow')
+        });
+        break;
+
+      case WebSocketConnectionState.RECONNECTING:
+        alert.warning({
+          message: this.translate('web_socket_connection.reconnecting')
+        });
+        break;
+
+      case WebSocketConnectionState.CONNECTED:
+        alert.info({
+          message: this.translate('web_socket_connection.connected')
+        });
+        break;
+
+      default:
+        break;
+    }
+
   }
 }

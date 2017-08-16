@@ -15,7 +15,7 @@ export class SignalREventManager implements IWebSocketEventManager {
   }
 
   public registerReconnectingHandler(handler: () => void) {
-    this.tryingToReconnect = false;
+    this.tryingToReconnect = true;
     $.connection.hub.reconnecting(handler);
   }
 

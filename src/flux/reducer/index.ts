@@ -31,13 +31,19 @@ export const reducer: Reducer = (state: IAppState, action: ActionType) => {
     case ActionTypeKey.LOGIN:
       // Update the tokenData
       let newLoginState = iassign(state, (s) => s.authInfo, (_) => action.tokenData);
-      newLoginState = iassign(newLoginState, (s) => s.webSocketConnectionState, (_) => WebSocketConnectionState.CONNECTED);
+      newLoginState = iassign(
+        newLoginState,
+        (s) => s.webSocketConnectionState,
+        (_) => WebSocketConnectionState.CONNECTED);
       return newLoginState;
 
     case ActionTypeKey.LOGOUT:
       // Clear the tokenData
       let newLogoutState = iassign(state, (s) => s.authInfo, (_) => null);
-      newLogoutState = iassign(newLogoutState, (s) => s.webSocketConnectionState, (_) => WebSocketConnectionState.DISCONNECTED);
+      newLogoutState = iassign(
+        newLogoutState,
+        (s) => s.webSocketConnectionState,
+        (_) => WebSocketConnectionState.DISCONNECTED);
       return newLogoutState;
 
     case ActionTypeKey.WEB_SOCKET_CONNECTION_STATE_CHANGED:
