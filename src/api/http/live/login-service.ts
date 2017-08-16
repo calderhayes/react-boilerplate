@@ -26,14 +26,14 @@ export class LoginService extends BaseHTTPService implements ILoginService {
       password,
       client_id: 'oauth2client',
       client_secret: 'notasecret',
-      scope: 'customAPI.write'
+      scope: 'customAPI.write offline_access'
     });
 
     if (response.status === HTTPStatusCode.OK) {
       const content: any = await response.json();
       const result: Model.IOAuth2Token = {
         accessToken: content.access_token,
-        refreshToken: '',
+        refreshToken: content.refresh_token,
         expiresIn: content.expires_in,
         expiryDate: moment().add(content.expires_in, 'seconds').toDate(),
         rawData: content

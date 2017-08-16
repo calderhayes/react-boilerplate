@@ -47,7 +47,7 @@ class AppRouter {
       (
         <Router history={browserHistory}>
           <Route path='/' component={App}>
-            <IndexRoute component={Login} />
+            <IndexRoute component={Login} onEnter={this.loginScreenAuthenticationCheck} />
             <Route path='login' component={Login} />
             <Route path='about' component={About} />
             <Route path='contact' component={Contact} />
@@ -63,7 +63,17 @@ class AppRouter {
 
   }
 
-  public isCurrentUserAuthenticated = (nextState: RouterState, replace: RedirectFunction) => {
+  private loginScreenAuthenticationCheck = (nextState: RouterState, replace: RedirectFunction) => {
+    if (StateHelpers.isLoggedIn(this.store.state)) {
+      Log.info('User is logged in, redirecting to the dashboard');
+      replace({
+        pathname: '/dashboard',
+        state: { nextPathname: nextState.location.pathname }
+      });
+    }
+  }
+
+  private isCurrentUserAuthenticated = (nextState: RouterState, replace: RedirectFunction) => {
     if (!StateHelpers.isLoggedIn(this.store.state)) {
       Log.info('User is not logged in, redirecting');
       replace({
