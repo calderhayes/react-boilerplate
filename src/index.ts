@@ -19,6 +19,7 @@ Log.info('Bootstrapping under environment: ' + config.ENVIRONMENT);
 // Refresh tokens
 // LocalStorage auth data
 // Documentation
+// Translate remaining fields
 
 // For easy access of the log control
 (window as any).LogControl = LogControl;

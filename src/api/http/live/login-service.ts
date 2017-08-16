@@ -6,7 +6,6 @@ import {ILogger} from 'articulog';
 import {HTTPStatusCode} from 'api/http/live/interface';
 import {APIError, APIErrorType} from 'api/api-error';
 import * as moment from 'moment';
-import {unitOfTime} from 'moment';
 
 export class LoginService extends BaseHTTPService implements ILoginService {
 

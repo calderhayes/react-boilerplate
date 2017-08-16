@@ -10,6 +10,7 @@ import {config} from 'config';
 import {IConfig} from 'interface';
 import {namedConsoleLoggerFactory} from 'util/logger-factory';
 import {defaultState} from 'data';
+import {IziToast, alert} from 'util/alert';
 
 import {ILoggerFactory} from 'articulog';
 import {Container} from 'inversify';
@@ -19,6 +20,9 @@ const iocContainer = new Container({ defaultScope: 'Singleton' });
 
 iocContainer.bind<IConfig>(IOC_TYPE.CONFIG)
   .toConstantValue(config);
+
+iocContainer.bind<IziToast>(IOC_TYPE.TOASTR)
+  .toConstantValue(alert);
 
 iocContainer.bind<ILoggerFactory>(IOC_TYPE.LOGGER_FACTORY)
   .toConstantValue(namedConsoleLoggerFactory);

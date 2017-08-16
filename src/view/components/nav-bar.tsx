@@ -108,6 +108,6 @@ export class NavBar extends BaseComponent<INavBarProps, INavBarState> {
       ...this.state,
       webSocketConnectionState: event.webSocketConnectionState
     });
-  };
+  }
 
 }

@@ -3,6 +3,7 @@ import * as Model from 'api/models';
 import {find} from 'lodash';
 import {InMemoryDatabase} from 'api/http/mock/in-memory-database';
 import {APIError, APIErrorType} from 'api/api-error';
+import * as moment from 'moment';
 
 export class MockLoginService implements ILoginService {
 
@@ -16,9 +17,12 @@ export class MockLoginService implements ILoginService {
       const tempTimeout = 2000;
       setTimeout(() => {
         if (match) {
+          const expiry = 3600;
           const result: Model.IOAuth2Token = {
             accessToken: 'faketoken' + (new Date()).getTime().toString(),
             refreshToken: 'fakerefresh' + (new Date()).getTime().toString(),
+            expiresIn: expiry,
+            expiryDate: moment().add(expiry, 'seconds').toDate(),
             rawData: {}
           };
 
