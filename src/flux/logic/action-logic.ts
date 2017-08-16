@@ -4,11 +4,12 @@ import {IInitializerActionLogic, InitializerActionLogic} from 'flux/logic/initia
 import {WebSocketConnectionActionLogic} from 'flux/logic/ws-connection-action-logic';
 import {BaseActionLogic} from 'flux/logic/base-action-logic';
 import {IDispatcher} from 'flux/dispatcher';
-import {IAPIServiceFactory} from 'api';
+import {IAPIServiceFactory, Models} from 'api';
 import {IEventEmitter} from 'flux/event';
 import {IStore} from 'flux/store';
 import {IOC_TYPE} from 'ioc/ioc-type';
 import {IConfig} from 'interface';
+import {IPersistedDataItem} from 'data';
 
 import {ILoggerFactory} from 'articulog';
 import {injectable, inject} from 'inversify';
@@ -34,11 +35,12 @@ export class ActionLogic extends BaseActionLogic implements IActionLogic {
     @inject(IOC_TYPE.EVENT_EMITTER) eventEmitter: IEventEmitter,
     @inject(IOC_TYPE.STORE) store: IStore,
     @inject(IOC_TYPE.LOGGER_FACTORY) loggerFactory: ILoggerFactory,
-    @inject(IOC_TYPE.CONFIG) config: IConfig) {
+    @inject(IOC_TYPE.CONFIG) config: IConfig,
+    @inject(IOC_TYPE.AUTH_PERSISTED_DATA_ITEM) authDataItem: IPersistedDataItem<Models.IOAuth2Token>) {
       super(dispatcher, apiFactory.create(), eventEmitter, store, loggerFactory, config);
 
       this.authActionLogic = new AuthActionLogic(
-        dispatcher, this.api, eventEmitter, store, loggerFactory, config);
+        dispatcher, this.api, eventEmitter, store, loggerFactory, config, authDataItem);
       this.exampleActionLogic = new ExampleActionLogic(
         dispatcher, this.api, eventEmitter, store, loggerFactory, config);
       this.initializerActionLogic = new InitializerActionLogic(

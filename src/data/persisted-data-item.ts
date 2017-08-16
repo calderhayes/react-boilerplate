@@ -6,40 +6,24 @@ export interface IPersistedDataItem<T> {
   clearItem(): void;
 }
 
-export class LocalStoragePersistedDataItem<T> implements IPersistedDataItem<T> {
+export class MockedPersistedDataItem<T> implements IPersistedDataItem<T> {
 
-  public readonly key: string;
+    private inMemoryItem: T|null;
 
-  constructor(key: string) {
-    this.key = key;
-  }
-
-  public get exists(): boolean {
-    return !!localStorage.getItem(this.key);
-  }
-
-  public get item(): T|null {
-    const serialized = localStorage.getItem(this.key);
-
-    if (serialized === null) {
-      return null;
+    public get exists(): boolean {
+      return !!this.inMemoryItem;
     }
 
-    try {
-      return JSON.parse(serialized);
+    public get item(): T|null {
+      return this.inMemoryItem;
     }
-    catch (_) {
-      return null;
+
+    public setItem(item: T): void {
+      this.inMemoryItem = item;
     }
-  }
 
-  public setItem(item: T): void {
-    const serialized = JSON.stringify(item);
-    localStorage.setItem(this.key, serialized);
-  }
+    public clearItem(): void {
+      this.inMemoryItem = null;
+    }
 
-  public clearItem(): void {
-    localStorage.removeItem(this.key);
   }
-
-}

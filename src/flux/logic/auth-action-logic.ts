@@ -1,11 +1,12 @@
 import {IDispatcher} from 'flux/dispatcher';
-import {IAPIService, APIErrorType, APIError} from 'api';
+import {IAPIService, APIErrorType, APIError, Models} from 'api';
 import {IEventEmitter, EventTypeKey} from 'flux/event';
 import {IStore} from 'flux/store';
 import {BaseActionLogic} from 'flux/logic/base-action-logic';
 import {makeLoginAction, makeLogoutAction} from 'flux/action';
 import {ILoggerFactory} from 'articulog';
 import {IConfig} from 'interface';
+import {IPersistedDataItem} from 'data';
 
 export interface IAuthActionLogic {
   login(username: string, password: string): Promise<void>;
@@ -14,15 +15,18 @@ export interface IAuthActionLogic {
 
 export class AuthActionLogic extends BaseActionLogic implements IAuthActionLogic {
 
+  private readonly authDataItem: IPersistedDataItem<Models.IOAuth2Token>;
+
   constructor(
     dispatcher: IDispatcher,
     api: IAPIService,
     eventEmitter: IEventEmitter,
     store: IStore,
     loggerFactory: ILoggerFactory,
-    config: IConfig) {
+    config: IConfig,
+    authDataItem: IPersistedDataItem<Models.IOAuth2Token>) {
       super(dispatcher, api, eventEmitter, store, loggerFactory, config);
-
+      this.authDataItem = authDataItem;
   }
 
   public async login(username: string, password: string): Promise<void> {
@@ -33,7 +37,7 @@ export class AuthActionLogic extends BaseActionLogic implements IAuthActionLogic
       await this.api.startWebSocketConnection(result.accessToken);
       const action = makeLoginAction(result);
       this.dispatcher.dispatch(action);
-
+      this.authDataItem.setItem(result);
       // Need to allocate error from the API to translation keys
       // the login page will append this to login_page.error. for the
       // proper translation key
@@ -45,6 +49,7 @@ export class AuthActionLogic extends BaseActionLogic implements IAuthActionLogic
       });
     }
     catch (error) {
+      this.authDataItem.clearItem();
       if (error.isAPIError) {
         const e: APIError = error;
 
@@ -65,6 +70,7 @@ export class AuthActionLogic extends BaseActionLogic implements IAuthActionLogic
   }
 
   public async logout() {
+    this.authDataItem.clearItem();
     try {
       await this.api.stopWebSocketConnection();
     }

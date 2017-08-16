@@ -1,4 +1,4 @@
-import {IAPIServiceFactory, APIServiceFactory} from 'api';
+import {IAPIServiceFactory, APIServiceFactory, Models} from 'api';
 import {IStore, Store} from 'flux/store';
 import {Reducer, reducer} from 'flux/reducer';
 import {IDispatcher, Dispatcher} from 'flux/dispatcher';
@@ -9,17 +9,31 @@ import {IOC_TYPE} from 'ioc/ioc-type';
 import {config} from 'config';
 import {IConfig} from 'interface';
 import {namedConsoleLoggerFactory} from 'util/logger-factory';
-import {defaultState} from 'data';
+import {
+  defaultState,
+  IPersistedDataItem,
+  MockedPersistedDataItem,
+  LocalStoragePersistedDataItem
+} from 'data';
 import {IziToast, alert} from 'util/alert';
 
 import {ILoggerFactory} from 'articulog';
 import {Container} from 'inversify';
 import getDecorators from 'inversify-inject-decorators';
 
+const authDataItem: IPersistedDataItem<Models.IOAuth2Token> = config.PERSIST_ACCESS_TOKENS ?
+  new LocalStoragePersistedDataItem<Models.IOAuth2Token>('accessToken')
+  : new MockedPersistedDataItem<Models.IOAuth2Token>();
+
+(defaultState as any).authInfo = authDataItem.item;
+
 const iocContainer = new Container({ defaultScope: 'Singleton' });
 
 iocContainer.bind<IConfig>(IOC_TYPE.CONFIG)
   .toConstantValue(config);
+
+iocContainer.bind<IPersistedDataItem<Models.IOAuth2Token>>(IOC_TYPE.AUTH_PERSISTED_DATA_ITEM)
+  .toConstantValue(authDataItem);
 
 iocContainer.bind<IziToast>(IOC_TYPE.TOASTR)
   .toConstantValue(alert);
