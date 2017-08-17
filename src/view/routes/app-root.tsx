@@ -84,12 +84,13 @@ export class AppRoot extends BaseRoute<IAppRootProps, IAppRootState> {
 
   protected postAppStateUpdated(_: IAppState, original: IAppRootState, newState: IAppRootState) {
     if (original.isLoggedIn !== newState.isLoggedIn) {
-      if (original.isLoggedIn) {
-        console.warn(this.history, this.history.push);
+      if (!original.isLoggedIn) {
+        this.logger.info('Logged in, moving to dashboard');
         this.history.push('/dashboard');
       }
       else {
-        this.history.push('/');
+        this.logger.info('Logged out, moving to root');
+        this.history.push('/login');
       }
     }
   }
