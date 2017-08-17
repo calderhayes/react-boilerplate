@@ -45,7 +45,7 @@ const store = iocContainer.get<IStore>(IOC_TYPE.STORE);
 if (config.ENVIRONMENT === EnvironmentType.DEVELOPMENT) {
   (window as any).store = store;
 }
-// const history = iocContainer.get<IHistory>(IOC_TYPE.HISTORY);
+
 const rootHTMLElement = document.getElementById('app');
 bootstrapReact(rootHTMLElement);
 

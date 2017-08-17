@@ -3,7 +3,7 @@ import {IAPIService} from 'api';
 import {IEventEmitter} from 'flux/event';
 import {IStore} from 'flux/store';
 import {BaseActionLogic} from './base-action-logic';
-import {makeInitializeAppRouteAction} from 'flux/action';
+import { makeInitializeAppRouteAction, makeWebSocketConnectionStateChangedAction } from 'flux/action';
 import {initializeTranslationData} from 'util/i18n';
 import { IConfig, WebSocketConnectionState } from 'interface';
 import {StateHelpers} from 'data';
@@ -34,6 +34,11 @@ export class InitializerActionLogic extends BaseActionLogic {
       StateHelpers.isLoggedIn(this.store.state) &&
       this.store.state.webSocketConnectionState === WebSocketConnectionState.DISCONNECTED) {
       await this.api.startWebSocketConnection(this.store.state.authInfo.accessToken);
+      const acton = makeWebSocketConnectionStateChangedAction(WebSocketConnectionState.CONNECTED);
+      this.dispatcher.dispatch(emit);
+    }
+    else {
+      this.logger.debug('no ws', this.store.state.authInfo, this.store.state.webSocketConnectionState);
     }
 
     // TODO: Dynamically get locale
