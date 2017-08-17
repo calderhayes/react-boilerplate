@@ -36,4 +36,22 @@ export class MockLoginService implements ILoginService {
     });
   }
 
+  public async refreshToken(_: Model.IOAuth2Token): Promise<Model.IOAuth2Token> {
+    return await new Promise<Model.IOAuth2Token>((resolve, _) => {
+      const tempTimeout = 2000;
+      setTimeout(() => {
+        const expiry = 3600;
+        const result: Model.IOAuth2Token = {
+          accessToken: 'faketoken' + (new Date()).getTime().toString(),
+          refreshToken: 'fakerefresh' + (new Date()).getTime().toString(),
+          expiresIn: expiry,
+          expiryDate: moment().add(expiry, 'seconds').toDate(),
+          rawData: {}
+        };
+
+        resolve(result);
+      }, tempTimeout);
+    });
+  }
+
 }

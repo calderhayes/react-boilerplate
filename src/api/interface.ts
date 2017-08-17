@@ -7,6 +7,7 @@ export enum APIServiceType {
 
 export interface ILoginService {
   login(username: string, password: string): Promise<Model.IOAuth2Token>;
+  refreshToken(token: Model.IOAuth2Token): Promise<Model.IOAuth2Token>;
 }
 
 export interface ISecurityService {
