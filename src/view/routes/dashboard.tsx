@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import {BaseContainer} from 'view/containers/base-container';
+import {BaseRoute} from 'view/routes/base-route';
 
 export interface IDashboardProps {
 
@@ -10,7 +10,7 @@ export interface IDashboardState {
 
 }
 
-export class Dashboard extends BaseContainer<IDashboardProps, IDashboardState> {
+export class Dashboard extends BaseRoute<IDashboardProps, IDashboardState> {
 
   public render() {
     return (

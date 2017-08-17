@@ -8,7 +8,7 @@ import {iocContainer} from 'ioc';
 import {IOC_TYPE} from 'ioc/ioc-type';
 import {bootstrapReact} from 'view/router';
 import {IStore} from 'flux/store';
-import {EnvironmentType} from 'interface';
+import { EnvironmentType, IHistory } from 'interface';
 
 import {LogControl} from 'articulog';
 
@@ -45,7 +45,8 @@ const store = iocContainer.get<IStore>(IOC_TYPE.STORE);
 if (config.ENVIRONMENT === EnvironmentType.DEVELOPMENT) {
   (window as any).store = store;
 }
+const history = iocContainer.get<IHistory>(IOC_TYPE.HISTORY);
 const rootHTMLElement = document.getElementById('app');
-bootstrapReact(rootHTMLElement, store);
+bootstrapReact(rootHTMLElement, store, history);
 
 Log.info('Bootstrapping complete');

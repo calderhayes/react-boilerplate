@@ -3,14 +3,9 @@ import {IStore} from 'flux/store';
 import {IOC_TYPE} from 'ioc/ioc-type';
 import {IEventEmitter, EventTypeKey} from 'flux/event';
 import {IActionLogic} from 'flux/logic';
-import {IHistory} from 'view/router';
 import {lazyInject} from 'ioc';
 import {IziToast} from 'util/alert';
 import {BaseComponent} from 'view/components/base-component';
-
-// import {browserHistory} from 'react-router';
-// tslint:disable-next-line:no-var-requires no-require-imports
-const {browserHistory} = require('react-router');
 import { IAppState } from 'data';
 
 // Handles the dependency injection
@@ -27,14 +22,6 @@ export class BaseContainer<P, S> extends BaseComponent<P, S> {
 
   @lazyInject(IOC_TYPE.TOASTR)
   protected readonly alert: IziToast;
-
-  // Stubbing the type, had some issues referencing History
-  protected readonly history: IHistory;
-
-  constructor(props: P) {
-    super(props);
-    this.history = browserHistory;
-  }
 
   public componentWillMount() {
     this.eventEmitter.on(EventTypeKey.APP_STATE_UPDATED, this._appStateUpdated);

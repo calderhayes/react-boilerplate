@@ -1,10 +1,10 @@
 
 import * as React from 'react';
-import {BaseContainer} from 'view/containers/base-container';
 import {NavBar} from 'view/containers/nav-bar';
 import {Loader} from 'view/components/loader';
 import {Alert} from 'view/containers/alert';
 import {IAppState, StateHelpers} from 'data';
+import {BaseRoute} from 'view/routes/base-route';
 
 import 'view/style/app.css';
 
@@ -17,7 +17,7 @@ export interface IAppRootState {
   loaded: boolean;
 }
 
-export class AppRoot extends BaseContainer<IAppRootProps, IAppRootState> {
+export class AppRoot extends BaseRoute<IAppRootProps, IAppRootState> {
 
   constructor(props: IAppRootProps) {
     super(props);

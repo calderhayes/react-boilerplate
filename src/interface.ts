@@ -30,3 +30,7 @@ export interface IConfig {
     REACT_LOG_LEVEL: LoggerLevel;
   };
 }
+
+export interface IHistory {
+  push(path: string, state?: any): void;
+}

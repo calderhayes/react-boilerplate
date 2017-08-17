@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import {BaseContainer} from 'view/containers/base-container';
+import {BaseRoute} from 'view/routes/base-route';
 
 export interface IContactProps {
 
@@ -10,7 +10,7 @@ export interface IContactState {
 
 }
 
-export class Contact extends BaseContainer<IContactProps, IContactState> {
+export class Contact extends BaseRoute<IContactProps, IContactState> {
 
   public render() {
 

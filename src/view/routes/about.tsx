@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import {BaseContainer} from 'view/containers/base-container';
+import {BaseRoute} from 'view/routes/base-route';
 
 export interface IAboutProps {
 
@@ -10,7 +10,7 @@ export interface IAboutState {
 
 }
 
-export class About extends BaseContainer<IAboutProps, IAboutState> {
+export class About extends BaseRoute<IAboutProps, IAboutState> {
 
   public render() {
 

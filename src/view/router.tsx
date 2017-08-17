@@ -3,7 +3,6 @@ import * as React from 'react';
 import {
   Router,
   Route,
-  browserHistory,
   IndexRoute,
   RouterState,
   RedirectFunction
@@ -22,15 +21,11 @@ import {Dashboard} from 'view/routes/dashboard';
 
 import {IStore} from 'flux/store';
 import {StateHelpers} from 'data';
+import {IHistory} from 'interface';
 
-// Stubbing the type, had some issues referencing History
-export interface IHistory {
-  push(path: string): void;
-}
-
-export const bootstrapReact = (rootHTMLElement: HTMLElement, store: IStore) => {
+export const bootstrapReact = (rootHTMLElement: HTMLElement, store: IStore, history: IHistory) => {
   const appRouter = new AppRouter(store);
-  appRouter.render(rootHTMLElement);
+  appRouter.render(rootHTMLElement, history);
 };
 
 class AppRouter {
@@ -41,11 +36,10 @@ class AppRouter {
     this.store = store;
   }
 
-  public render(roomDOMElement: HTMLElement) {
-
+  public render(roomDOMElement: HTMLElement, history: IHistory) {
     render(
       (
-        <Router history={browserHistory}>
+        <Router history={history as any}>
           <Route path='/' component={AppRoot}>
             <IndexRoute component={Login} onEnter={this.loginScreenAuthenticationCheck} />
             <Route path='login' component={Login} />
@@ -60,7 +54,6 @@ class AppRouter {
           </Route>
         </Router>
       ), roomDOMElement);
-
   }
 
   private loginScreenAuthenticationCheck = (nextState: RouterState, replace: RedirectFunction) => {

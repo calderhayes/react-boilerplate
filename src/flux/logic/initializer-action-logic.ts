@@ -5,7 +5,8 @@ import {IStore} from 'flux/store';
 import {BaseActionLogic} from './base-action-logic';
 import {makeInitializeAppRouteAction} from 'flux/action';
 import {initializeTranslationData} from 'util/i18n';
-import {IConfig} from 'interface';
+import { IConfig, WebSocketConnectionState } from 'interface';
+import {StateHelpers} from 'data';
 
 import {ILoggerFactory} from 'articulog';
 
@@ -28,6 +29,12 @@ export class InitializerActionLogic extends BaseActionLogic {
 
   public async initializeAppRoute() {
     this.logger.info('Initializing the App Route');
+
+    if (
+      StateHelpers.isLoggedIn(this.store.state) &&
+      this.store.state.webSocketConnectionState === WebSocketConnectionState.DISCONNECTED) {
+      await this.api.startWebSocketConnection(this.store.state.authInfo.accessToken);
+    }
 
     // TODO: Dynamically get locale
     const locale = 'en-CA';

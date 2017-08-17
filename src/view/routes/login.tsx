@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import {BaseContainer} from 'view/containers/base-container';
+import {BaseRoute} from 'view/routes/base-route';
 import {LoginForm, ILoginFormData} from 'view/components/forms/login';
 import {EventTypeKey, ILoginEvent} from 'flux/event';
 
@@ -17,7 +17,7 @@ export interface ILoginState {
 }
 
 // Should be a container
-export class Login extends BaseContainer<ILoginProps, ILoginState> {
+export class Login extends BaseRoute<ILoginProps, ILoginState> {
 
   constructor(props: ILoginProps) {
     super(props);
@@ -88,7 +88,7 @@ export class Login extends BaseContainer<ILoginProps, ILoginState> {
   private loginCompleted = (event: ILoginEvent) => {
     if (event.result.success) {
       this.logger.debug('Login success!');
-      this.history.push('dashboard');
+      this.history.push('/dashboard');
     }
     else {
       this.logger.debug('Login failure!');

@@ -17,6 +17,8 @@ import {
 } from 'data';
 import {IziToast, alert} from 'util/alert';
 
+import { createHistory, useBeforeUnload, History } from 'history';
+
 import {ILoggerFactory} from 'articulog';
 import {Container} from 'inversify';
 import getDecorators from 'inversify-inject-decorators';
@@ -27,10 +29,18 @@ const authDataItem: IPersistedDataItem<Models.IOAuth2Token> = config.PERSIST_ACC
 
 (defaultState as any).authInfo = authDataItem.item;
 
+const historyFunc = useBeforeUnload(createHistory);
+const history = historyFunc({
+  queryKey: false
+});
+
 const iocContainer = new Container({ defaultScope: 'Singleton' });
 
 iocContainer.bind<IConfig>(IOC_TYPE.CONFIG)
   .toConstantValue(config);
+
+iocContainer.bind<History>(IOC_TYPE.HISTORY)
+  .toConstantValue(history);
 
 iocContainer.bind<IPersistedDataItem<Models.IOAuth2Token>>(IOC_TYPE.AUTH_PERSISTED_DATA_ITEM)
   .toConstantValue(authDataItem);
