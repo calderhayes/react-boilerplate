@@ -77,7 +77,7 @@ export class BaseContainer<P, S> extends React.Component<P, S> {
   }
 
   protected updateLocalState(_: IAppState, localState: S): S {
-    return localState;
+    return localState || {} as any;
   }
 
   protected postAppStateUpdated(_: IAppState, _original: S, _new: S) {
