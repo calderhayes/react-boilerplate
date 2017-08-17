@@ -13,7 +13,7 @@ import {render} from 'react-dom';
 
 import {Log} from 'util/logger-factory';
 
-import {App} from 'view/routes/app';
+import {AppRoot} from 'view/routes/app-root';
 import {Login} from 'view/routes/login';
 import {About} from 'view/routes/about';
 import {Example} from 'view/routes/example';
@@ -46,7 +46,7 @@ class AppRouter {
     render(
       (
         <Router history={browserHistory}>
-          <Route path='/' component={App}>
+          <Route path='/' component={AppRoot}>
             <IndexRoute component={Login} onEnter={this.loginScreenAuthenticationCheck} />
             <Route path='login' component={Login} />
             <Route path='about' component={About} />

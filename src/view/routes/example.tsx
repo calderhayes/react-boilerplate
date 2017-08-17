@@ -1,8 +1,8 @@
 
 import * as React from 'react';
-import {BaseComponent} from 'view/base-component';
+import {BaseContainer} from 'view/containers/base-container';
 import {Hello} from 'view/components/example';
-import {FluxExample} from 'view/components/flux-example';
+import {FluxExample} from 'view/containers/flux-example';
 
 export interface IExampleProps {
 
@@ -12,7 +12,7 @@ export interface IExampleState {
 
 }
 
-export class Example extends BaseComponent<IExampleProps, IExampleState> {
+export class Example extends BaseContainer<IExampleProps, IExampleState> {
 
   public render() {
 

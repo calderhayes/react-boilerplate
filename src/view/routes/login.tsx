@@ -1,7 +1,7 @@
 
 import * as React from 'react';
-import {BaseComponent} from 'view/base-component';
-import {LoginForm, ILoginFormData} from 'view/forms/login';
+import {BaseContainer} from 'view/containers/base-container';
+import {LoginForm, ILoginFormData} from 'view/components/forms/login';
 import {EventTypeKey, ILoginEvent} from 'flux/event';
 
 import 'view/style/login.css';
@@ -16,7 +16,8 @@ export interface ILoginState {
   formData: ILoginFormData;
 }
 
-export class Login extends BaseComponent<ILoginProps, ILoginState> {
+// Should be a container
+export class Login extends BaseContainer<ILoginProps, ILoginState> {
 
   constructor(props: ILoginProps) {
     super(props);

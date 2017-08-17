@@ -1,9 +1,9 @@
 
 import * as React from 'react';
 import {Form, Input, SubmitButton} from './base';
-import {VALIDATION_RULES} from 'view/forms/rules';
-import {ValidationError} from 'view/forms/validation-error';
-import {BaseComponent} from 'view/base-component';
+import {VALIDATION_RULES} from 'view/components/forms/rules';
+import {ValidationError} from 'view/components/forms/validation-error';
+import {BaseContainer} from 'view/containers/base-container';
 
 export interface ILoginFormData {
   username: string;
@@ -18,7 +18,7 @@ export interface ILoginFormProps {
   serverErrorMessage?: string;
 }
 
-export class LoginForm extends BaseComponent<ILoginFormProps, {}> {
+export class LoginForm extends BaseContainer<ILoginFormProps, {}> {
 
   constructor(props: ILoginFormProps) {
     super(props);

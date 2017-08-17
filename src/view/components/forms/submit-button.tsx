@@ -2,7 +2,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import * as cx from 'classnames';
-import {BaseComponent} from 'view/base-component';
+import {BaseContainer} from 'view/containers/base-container';
 
 export interface ISubmitButtonProps {
   errorClassName?: string;
@@ -16,7 +16,7 @@ export interface ISubmitButtonState {
 
 }
 
-export class SubmitButton extends BaseComponent<ISubmitButtonProps, ISubmitButtonState> {
+export class SubmitButton extends BaseContainer<ISubmitButtonProps, ISubmitButtonState> {
 
   public static propTypes = {
     children: PropTypes.node,

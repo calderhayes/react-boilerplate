@@ -1,38 +1,27 @@
 import {WebSocketConnectionState} from 'interface';
 
 export enum EventTypeKey {
+  APP_STATE_UPDATED = 'APP_STATE_UPDATED',
   LOGIN = 'LOGIN',
-  EXAMPLE = 'EXAMPLE',
   UNKNOWN_ERROR = 'UNKNOWN_ERROR',
-  APP_ROUTE_INITIALIZED = 'APP_ROUTE_INITIALIZED',
-  WEB_SOCKET_CONNECTION_STATE_CHANGED = 'WEB_SOCKET_CONNECTION_STATE_CHANGED',
-  LOGOUT = 'LOGOUT'
+  WEB_SOCKET_CONNECTION_STATE_CHANGED = 'WEB_SOCKET_CONNECTION_STATE_CHANGED'
 };
+
+export interface IAppStateUpdated {
+  type: EventTypeKey.APP_STATE_UPDATED;
+}
 
 export interface ILoginEvent {
   type: EventTypeKey.LOGIN;
   result: {
-    success: boolean,
-    error?: string
+    success: boolean;
+    error?: string;
   };
-};
-
-export interface IExampleEvent {
-  type: EventTypeKey.EXAMPLE;
 };
 
 export interface IUnknownErrorEvent {
   type: EventTypeKey.UNKNOWN_ERROR;
   error: any;
-};
-
-export interface IAppRouteInitializedEvent {
-  type: EventTypeKey.APP_ROUTE_INITIALIZED;
-  success: boolean;
-};
-
-export interface ILogoutEvent {
-  type: EventTypeKey.LOGOUT;
 };
 
 export interface IWebSocketConnectionStateChangedEvent {
@@ -41,9 +30,7 @@ export interface IWebSocketConnectionStateChangedEvent {
 }
 
 export type EventType =
-  ILoginEvent
+  IAppStateUpdated
+  | ILoginEvent
   | IUnknownErrorEvent
-  | IAppRouteInitializedEvent
-  | IExampleEvent
-  | IWebSocketConnectionStateChangedEvent
-  | ILogoutEvent;
+  | IWebSocketConnectionStateChangedEvent;

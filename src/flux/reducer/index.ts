@@ -25,8 +25,8 @@ export const reducer: Reducer = (state: IAppState, action: ActionType) => {
       return iassign(state, (s) => s.exampleValue, (_) => newValue);
 
     case ActionTypeKey.APP_ROUTE_INITIALIZED:
-      // Do nothing as of now
-      return state;
+
+      return iassign(state, (s) => s.initialized, (_) => true);
 
     case ActionTypeKey.LOGIN:
       // Update the tokenData

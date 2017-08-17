@@ -1,6 +1,6 @@
 import {IDispatcher} from 'flux/dispatcher';
 import {IAPIService} from 'api';
-import {IEventEmitter, EventTypeKey} from 'flux/event';
+import {IEventEmitter} from 'flux/event';
 import {IStore} from 'flux/store';
 import {BaseActionLogic} from 'flux/logic/base-action-logic';
 import {makeExampleAction} from 'flux/action';
@@ -36,9 +36,7 @@ export class ExampleActionLogic extends BaseActionLogic
 
     this.dispatcher.dispatch(action);
 
-    this.eventEmitter.emit({
-      type: EventTypeKey.EXAMPLE
-    });
+    this.emitStateChange();
 
     return await Promise.resolve();
   }

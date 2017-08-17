@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import {BaseComponent} from '../base-component';
+import {BaseContainer} from 'view/containers/base-container';
 
 export interface IContactProps {
 
@@ -10,7 +10,7 @@ export interface IContactState {
 
 }
 
-export class Contact extends BaseComponent<IContactProps, IContactState> {
+export class Contact extends BaseContainer<IContactProps, IContactState> {
 
   public render() {
 

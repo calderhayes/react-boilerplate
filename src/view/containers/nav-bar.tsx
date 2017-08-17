@@ -1,9 +1,8 @@
 
 import * as React from 'react';
-import {BaseComponent} from 'view/base-component';
+import {BaseContainer} from 'view/containers/base-container';
 import { Link, IndexLink } from 'react-router';
-import {StateHelpers} from 'data';
-import { EventTypeKey, IWebSocketConnectionStateChangedEvent } from 'flux/event';
+import { StateHelpers, IAppState } from 'data';
 
 export interface INavBarProps {
 
@@ -14,7 +13,7 @@ export interface INavBarState {
   webSocketConnectionState: string;
 }
 
-export class NavBar extends BaseComponent<INavBarProps, INavBarState> {
+export class NavBar extends BaseContainer<INavBarProps, INavBarState> {
 
   constructor(props: INavBarProps) {
     super(props);
@@ -23,18 +22,6 @@ export class NavBar extends BaseComponent<INavBarProps, INavBarState> {
       isLoggedIn: StateHelpers.isLoggedIn(this.store.state),
       webSocketConnectionState: this.store.state.webSocketConnectionState
     };
-  }
-
-  public componentWillMount() {
-    this.eventEmitter.on(EventTypeKey.LOGIN, this.loginStatusUpdated);
-    this.eventEmitter.on(EventTypeKey.LOGOUT, this.loginStatusUpdated);
-    this.eventEmitter.on(EventTypeKey.WEB_SOCKET_CONNECTION_STATE_CHANGED, this.webSocketConnectionStateChanged);
-  }
-
-  public componentWillUnmount() {
-    this.eventEmitter.off(EventTypeKey.LOGIN, this.loginStatusUpdated);
-    this.eventEmitter.off(EventTypeKey.LOGOUT, this.loginStatusUpdated);
-    this.eventEmitter.off(EventTypeKey.WEB_SOCKET_CONNECTION_STATE_CHANGED, this.webSocketConnectionStateChanged);
   }
 
   public render() {
@@ -91,23 +78,14 @@ export class NavBar extends BaseComponent<INavBarProps, INavBarState> {
 
   }
 
+  protected updateLocalState(appState: IAppState, _: INavBarState): INavBarState {
+    return {
+      isLoggedIn: StateHelpers.isLoggedIn(appState),
+      webSocketConnectionState: appState.webSocketConnectionState
+    };
+  }
+
   private logoutClicked = () => {
     this.actionLogic.authActionLogic.logout();
   }
-
-  private loginStatusUpdated = () => {
-    this.setState({
-      ...this.state,
-      isLoggedIn: StateHelpers.isLoggedIn(this.store.state),
-      webSocketConnectionState: this.store.state.webSocketConnectionState
-    });
-  }
-
-  private webSocketConnectionStateChanged = (event: IWebSocketConnectionStateChangedEvent) => {
-    this.setState({
-      ...this.state,
-      webSocketConnectionState: event.webSocketConnectionState
-    });
-  }
-
 }

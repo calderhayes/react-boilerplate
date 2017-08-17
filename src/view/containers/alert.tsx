@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {BaseComponent} from 'view/base-component';
+import {BaseContainer} from 'view/containers/base-container';
 import {EventTypeKey, IWebSocketConnectionStateChangedEvent} from 'flux/event';
 import {WebSocketConnectionState} from 'interface';
 
@@ -12,14 +12,16 @@ export interface IAlertState {
 }
 
 // General class for system messages
-export class Alert extends BaseComponent<IAlertProps, IAlertState> {
+export class Alert extends BaseContainer<IAlertProps, IAlertState> {
 
   public componentWillMount() {
     this.eventEmitter.on(EventTypeKey.WEB_SOCKET_CONNECTION_STATE_CHANGED, this.webSocketConnectionStateChanged);
+    this.eventEmitter.on(EventTypeKey.UNKNOWN_ERROR, this.unknownError);
   }
 
   public componentWillUnmount() {
     this.eventEmitter.off(EventTypeKey.WEB_SOCKET_CONNECTION_STATE_CHANGED, this.webSocketConnectionStateChanged);
+    this.eventEmitter.off(EventTypeKey.UNKNOWN_ERROR, this.unknownError);
   }
 
   public render() {
@@ -58,5 +60,12 @@ export class Alert extends BaseComponent<IAlertProps, IAlertState> {
         break;
     }
 
+  }
+
+  private unknownError = (error: any) => {
+    this.logger.error('Unknown error occured', error);
+    this.alert.error({
+      message: this.translate('unknown_error')
+    });
   }
 }

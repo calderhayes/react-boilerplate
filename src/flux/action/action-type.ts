@@ -4,6 +4,7 @@ import {WebSocketConnectionState} from 'interface';
 export enum ActionTypeKey {
   EXAMPLE = 'EXAMPLE',
   LOGIN = 'LOGIN',
+  REFRESH = 'REFRESH',
   LOGOUT = 'LOGOUT',
   APP_ROUTE_INITIALIZED = 'APP_ROUTE_INITIALIZED',
   WEB_SOCKET_CONNECTION_STATE_CHANGED = 'WEB_SOCKET_CONNECTION_STATE_CHANGED',
@@ -32,6 +33,20 @@ export interface ILoginAction {
 export const makeLoginAction = (tokenData: Model.IOAuth2Token) => {
   const obj: ILoginAction = {
     type: ActionTypeKey.LOGIN,
+    tokenData
+  };
+
+  return obj;
+};
+
+export interface IRefreshTokenAction {
+  type: ActionTypeKey.REFRESH;
+  tokenData: Model.IOAuth2Token;
+}
+
+export const makeRefreshTokenAction = (tokenData: Model.IOAuth2Token) => {
+  const obj: IRefreshTokenAction = {
+    type: ActionTypeKey.REFRESH,
     tokenData
   };
 
@@ -84,6 +99,7 @@ export interface IOtherAction {
 export type ActionType =
   IExampleAction
   | ILoginAction
+  | IRefreshTokenAction
   | IInitializeAppRouteAction
   | ILogoutAction
   | IWebSocketConnectionStateChanged

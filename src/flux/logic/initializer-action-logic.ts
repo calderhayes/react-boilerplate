@@ -1,6 +1,6 @@
 import {IDispatcher} from 'flux/dispatcher';
 import {IAPIService} from 'api';
-import {IEventEmitter, EventTypeKey} from 'flux/event';
+import {IEventEmitter} from 'flux/event';
 import {IStore} from 'flux/store';
 import {BaseActionLogic} from './base-action-logic';
 import {makeInitializeAppRouteAction} from 'flux/action';
@@ -37,7 +37,7 @@ export class InitializerActionLogic extends BaseActionLogic {
     // Or a special call to a single point which provides all
     // the data
     await new Promise((resolve) => {
-      const dummyTimeout = 1000;
+      const dummyTimeout = 1;
       setTimeout(resolve, dummyTimeout);
     });
 
@@ -45,11 +45,7 @@ export class InitializerActionLogic extends BaseActionLogic {
 
     this.dispatcher.dispatch(action);
 
-    // const updatedState = this.store.getState();
-    this.eventEmitter.emit({
-      type: EventTypeKey.APP_ROUTE_INITIALIZED,
-      success: true
-    });
+    this.emitStateChange();
   }
 
 }

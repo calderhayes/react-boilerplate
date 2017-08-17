@@ -3,7 +3,7 @@ import {IAPIService, APIErrorType, APIError, Models} from 'api';
 import {IEventEmitter, EventTypeKey} from 'flux/event';
 import {IStore} from 'flux/store';
 import {BaseActionLogic} from 'flux/logic/base-action-logic';
-import {makeLoginAction, makeLogoutAction} from 'flux/action';
+import {makeLoginAction, makeLogoutAction, makeRefreshTokenAction} from 'flux/action';
 import {ILoggerFactory} from 'articulog';
 import {IConfig} from 'interface';
 import {IPersistedDataItem} from 'data';
@@ -67,6 +67,25 @@ export class AuthActionLogic extends BaseActionLogic implements IAuthActionLogic
       }
       this.unknownErrorHandler(error);
     }
+
+    this.emitStateChange();
+  }
+
+  public async refresh(): Promise<void> {
+    this.logger.info('Refreshing');
+
+    try {
+      const result = await this.api.LoginService.refreshToken(this.store.state.authInfo);
+      const action = makeRefreshTokenAction(result);
+      this.dispatcher.dispatch(action);
+      this.authDataItem.setItem(result);
+    }
+    catch (error) {
+      this.logger.info('Refresh failed', error);
+      this.logout();
+    }
+
+    this.emitStateChange();
   }
 
   public async logout() {
@@ -81,10 +100,7 @@ export class AuthActionLogic extends BaseActionLogic implements IAuthActionLogic
     const action = makeLogoutAction();
     this.dispatcher.dispatch(action);
 
-    this.eventEmitter.emit({
-      type: EventTypeKey.LOGOUT
-    });
-
+    this.emitStateChange();
     return await Promise.resolve();
   }
 

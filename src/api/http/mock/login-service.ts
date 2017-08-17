@@ -37,7 +37,7 @@ export class MockLoginService implements ILoginService {
   }
 
   public async refreshToken(_: Model.IOAuth2Token): Promise<Model.IOAuth2Token> {
-    return await new Promise<Model.IOAuth2Token>((resolve, _) => {
+    return await new Promise<Model.IOAuth2Token>((resolve) => {
       const tempTimeout = 2000;
       setTimeout(() => {
         const expiry = 3600;

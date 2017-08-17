@@ -1,42 +1,37 @@
 
 import * as React from 'react';
-import {BaseComponent} from 'view/base-component';
-import {NavBar} from 'view/components/nav-bar';
+import {BaseContainer} from 'view/containers/base-container';
+import {NavBar} from 'view/containers/nav-bar';
 import {Loader} from 'view/components/loader';
-import {Alert} from 'view/components/alert';
-import {EventTypeKey} from 'flux/event';
+import {Alert} from 'view/containers/alert';
+import {IAppState, StateHelpers} from 'data';
 
 import 'view/style/app.css';
 
-export interface IAppProps {
+export interface IAppRootProps {
 
 }
 
-export interface IAppState {
+export interface IAppRootState {
+  isLoggedIn: boolean;
   loaded: boolean;
 }
 
-export class App extends BaseComponent<IAppProps, IAppState> {
+export class AppRoot extends BaseContainer<IAppRootProps, IAppRootState> {
 
-  constructor(props: IAppProps) {
+  constructor(props: IAppRootProps) {
     super(props);
     this.logger.info('Constructing top level react component');
 
     this.state = {
+      isLoggedIn: StateHelpers.isLoggedIn(this.store.state),
       loaded: false
     };
 
   }
 
-  public componentWillMount() {
-    this.eventEmitter.on(EventTypeKey.APP_ROUTE_INITIALIZED, this.initializationComplete);
-    this.eventEmitter.on(EventTypeKey.UNKNOWN_ERROR, this.unknownError);
+  public componentDidMount() {
     this.actionLogic.initializerActionLogic.initializeAppRoute();
-  }
-
-  public componentWillUnmount() {
-    this.eventEmitter.off(EventTypeKey.APP_ROUTE_INITIALIZED, this.initializationComplete);
-    this.eventEmitter.off(EventTypeKey.UNKNOWN_ERROR, this.unknownError);
   }
 
   public render() {
@@ -69,17 +64,21 @@ export class App extends BaseComponent<IAppProps, IAppState> {
 
   }
 
-  private initializationComplete = () => {
-    this.logger.info('App route initialized');
-    this.setState({
-      ...this.state,
-      loaded: true
-    });
+  protected updateLocalState(appState: IAppState, _: IAppRootState): IAppRootState {
+    return {
+      isLoggedIn: StateHelpers.isLoggedIn(appState),
+      loaded: appState.initialized
+    };
   }
 
-  private unknownError = (error: any) => {
-    this.logger.error('Unknown error occured', error);
-    // Do something visual
+  protected postAppStateUpdated(_: IAppState, original: IAppRootState, newState: IAppRootState) {
+    if (original.isLoggedIn !== newState.isLoggedIn) {
+      if (original.isLoggedIn) {
+        this.history.push('/dashboard');
+      }
+      else {
+        this.history.push('/');
+      }
+    }
   }
-
 }

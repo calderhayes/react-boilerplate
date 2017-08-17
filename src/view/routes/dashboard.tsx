@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import {BaseComponent} from 'view/base-component';
+import {BaseContainer} from 'view/containers/base-container';
 
 export interface IDashboardProps {
 
@@ -10,7 +10,7 @@ export interface IDashboardState {
 
 }
 
-export class Dashboard extends BaseComponent<IDashboardProps, IDashboardState> {
+export class Dashboard extends BaseContainer<IDashboardProps, IDashboardState> {
 
   public render() {
     return (

@@ -55,6 +55,12 @@ export abstract class BaseActionLogic {
     this.loggerFactory = loggerFactory;
   }
 
+  protected emitStateChange() {
+    this.eventEmitter.emit({
+      type: EventTypeKey.APP_STATE_UPDATED
+    });
+  }
+
   protected unknownErrorHandler(error?: any) {
     this.logger.error('An unknown error occured', error);
     this.eventEmitter.emit({

@@ -2,7 +2,7 @@
 import * as React from 'react';
 import {IStore} from 'flux/store';
 import {IOC_TYPE} from 'ioc/ioc-type';
-import {IEventEmitter} from 'flux/event';
+import {IEventEmitter, EventTypeKey} from 'flux/event';
 import {IActionLogic} from 'flux/logic';
 import {IHistory} from 'view/router';
 import {TranslationFunction} from 'i18next';
@@ -14,9 +14,10 @@ import {IziToast} from 'util/alert';
 // tslint:disable-next-line:no-var-requires no-require-imports
 const {browserHistory} = require('react-router');
 import {ILogger, ILoggerFactory} from 'articulog';
+import { IAppState } from 'data';
 
 // Handles the dependency injection
-class BaseComponent<P, S> extends React.Component<P, S> {
+export class BaseContainer<P, S> extends React.Component<P, S> {
 
   @lazyInject(IOC_TYPE.STORE)
   protected readonly store: IStore;
@@ -49,6 +50,14 @@ class BaseComponent<P, S> extends React.Component<P, S> {
     this.history = browserHistory;
   }
 
+  public componentWillMount() {
+    this.eventEmitter.on(EventTypeKey.APP_STATE_UPDATED, this._appStateUpdated);
+  }
+
+  public componentWillUnmount() {
+    this.eventEmitter.off(EventTypeKey.APP_STATE_UPDATED, this._appStateUpdated);
+  }
+
   protected get logger() {
     if (this._logger) {
       return this._logger;
@@ -63,6 +72,23 @@ class BaseComponent<P, S> extends React.Component<P, S> {
     return this._logger;
   };
 
-}
+  protected appStateUpdated(_: IAppState, _2: S) {
+    // Do nothing
+  }
 
-export {BaseComponent}
+  protected updateLocalState(_: IAppState, localState: S): S {
+    return localState;
+  }
+
+  protected postAppStateUpdated(_: IAppState, _original: S, _new: S) {
+    // Do nothing
+  }
+
+  private _appStateUpdated = () => {
+    const originalState = this.state;
+    this.appStateUpdated(this.store.state, originalState);
+    const newState = this.updateLocalState(this.store.state, this.state);
+    this.setState(newState);
+    this.postAppStateUpdated(this.store.state, originalState, newState);
+  }
+}

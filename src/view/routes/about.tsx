@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import {BaseComponent} from 'view/base-component';
+import {BaseContainer} from 'view/containers/base-container';
 
 export interface IAboutProps {
 
@@ -10,7 +10,7 @@ export interface IAboutState {
 
 }
 
-export class About extends BaseComponent<IAboutProps, IAboutState> {
+export class About extends BaseContainer<IAboutProps, IAboutState> {
 
   public render() {
 
