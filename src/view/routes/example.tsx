@@ -1,10 +1,10 @@
 
 import * as React from 'react';
-import {BaseRoute} from 'view/routes/base-route';
+import {BaseRoute, IBaseRouteProps} from 'view/routes/base-route';
 import {Hello} from 'view/components/example';
 import {FluxExample} from 'view/containers/flux-example';
 
-export interface IExampleProps {
+export interface IExampleProps extends IBaseRouteProps {
 
 }
 

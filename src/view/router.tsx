@@ -1,34 +1,32 @@
 import * as React from 'react';
 
 import {
-  Router,
-  Route,
-  IndexRoute,
-  RouterState,
-  RedirectFunction
-} from 'react-router';
+  BrowserRouter as Router,
+  Route
+} from 'react-router-dom';
 
 import {render} from 'react-dom';
 
-import {Log} from 'util/logger-factory';
+// import {Log} from 'util/logger-factory';
 
 import {AppRoot} from 'view/routes/app-root';
-import {Login} from 'view/routes/login';
-import {About} from 'view/routes/about';
-import {Example} from 'view/routes/example';
-import {Contact} from 'view/routes/contact';
-import {Dashboard} from 'view/routes/dashboard';
 
-import {IStore} from 'flux/store';
-import {StateHelpers} from 'data';
-import {IHistory} from 'interface';
+// import {render} from 'react-dom';
 
-export const bootstrapReact = (rootHTMLElement: HTMLElement, store: IStore, history: IHistory) => {
-  const appRouter = new AppRouter(store);
-  appRouter.render(rootHTMLElement, history);
-};
+// import {IStore} from 'flux/store';
+// import {StateHelpers} from 'data';
+// import {IHistory} from 'interface';
 
-class AppRouter {
+class App extends React.Component<{}, {}> {
+  public render() {
+    return (
+      <Router forceRefresh={false} >
+        <Route path='/' component={AppRoot} />
+      </Router>);
+  }
+}
+
+/*class AppRouter {
 
   private store: IStore;
 
@@ -39,20 +37,7 @@ class AppRouter {
   public render(roomDOMElement: HTMLElement, history: IHistory) {
     render(
       (
-        <Router history={history as any}>
-          <Route path='/' component={AppRoot}>
-            <IndexRoute component={Login} onEnter={this.loginScreenAuthenticationCheck} />
-            <Route path='login' component={Login} />
-            <Route path='about' component={About} />
-            <Route path='contact' component={Contact} />
-            <Route path='example' component={Example} />
-            <Route
-              path='dashboard'
-              component={Dashboard}
-              onEnter={this.isCurrentUserAuthenticated}
-            />
-          </Route>
-        </Router>
+
       ), roomDOMElement);
   }
 
@@ -76,3 +61,8 @@ class AppRouter {
     }
   }
 }
+*/
+
+export const bootstrapReact = (rootHTMLElement: HTMLElement) => {
+  render(<App />, rootHTMLElement);
+};

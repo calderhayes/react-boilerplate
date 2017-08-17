@@ -1,12 +1,14 @@
 
 import {BaseContainer} from 'view/containers/base-container';
-import {IOC_TYPE} from 'ioc/ioc-type';
 import {History} from 'history';
-import {lazyInject} from 'ioc';
+
+export interface IBaseRouteProps {
+  history: History;
+}
 
 // Handles the dependency injection
-export class BaseRoute<P, S> extends BaseContainer<P, S> {
-
-  @lazyInject(IOC_TYPE.TOASTR)
-  protected readonly history: History;
+export class BaseRoute<P extends IBaseRouteProps, S> extends BaseContainer<P, S> {
+  protected get history() {
+    return this.props.history;
+  }
 }

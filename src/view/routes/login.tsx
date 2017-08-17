@@ -1,12 +1,13 @@
 
 import * as React from 'react';
-import {BaseRoute} from 'view/routes/base-route';
+import {BaseRoute, IBaseRouteProps} from 'view/routes/base-route';
 import {LoginForm, ILoginFormData} from 'view/components/forms/login';
 import {EventTypeKey, ILoginEvent} from 'flux/event';
 
 import 'view/style/login.css';
+import { StateHelpers } from "data";
 
-export interface ILoginProps {
+export interface ILoginProps extends IBaseRouteProps {
 
 }
 
@@ -32,6 +33,13 @@ export class Login extends BaseRoute<ILoginProps, ILoginState> {
   }
 
   public componentWillMount() {
+    const isLoggedIn = StateHelpers.isLoggedIn(this.store.state)
+    this.logger.debug('Login route will mount!', isLoggedIn);
+    if (StateHelpers.isLoggedIn(this.store.state)) {
+      this.logger.info('Already logged in, redirecting to dashboard');
+      this.history.push('/dashboard');
+    }
+
     this.eventEmitter.on(EventTypeKey.LOGIN, this.loginCompleted);
   }
 

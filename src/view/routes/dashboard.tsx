@@ -1,8 +1,9 @@
 
 import * as React from 'react';
-import {BaseRoute} from 'view/routes/base-route';
+import {BaseRoute, IBaseRouteProps} from 'view/routes/base-route';
+import {StateHelpers} from 'data';
 
-export interface IDashboardProps {
+export interface IDashboardProps extends IBaseRouteProps {
 
 }
 
@@ -11,6 +12,13 @@ export interface IDashboardState {
 }
 
 export class Dashboard extends BaseRoute<IDashboardProps, IDashboardState> {
+
+  public componentWillMount() {
+    if (!StateHelpers.isLoggedIn(this.store.state)) {
+      // navigate out of here
+      this.history.push('/login');
+    }
+  }
 
   public render() {
     return (

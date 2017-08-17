@@ -12,5 +12,5 @@ export const isFeatureActivated = (state: IAppState, featureType: string): boole
 };
 
 export const isLoggedIn = (state: IAppState) => {
-  return !!state.authInfo && state.authInfo.expiryDate < new Date();
+  return !!state.authInfo; // && state.authInfo.expiryDate < new Date();
 };
