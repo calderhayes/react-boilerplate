@@ -60,7 +60,7 @@
     "articulog": "1.0.10",
     "classnames": "2.2.5",
     "debounce": "1.0.0",
-    "history": "4.6.3",
+    "history": "^4.6.3",
     "i18next": "8.4.3",
     "immutable-assign": "1.0.36",
     "inversify": "4.3.0",

@@ -11,6 +11,8 @@ import {About} from 'view/routes/about';
 import {Example} from 'view/routes/example';
 import {Contact} from 'view/routes/contact';
 import {Dashboard} from 'view/routes/dashboard';
+import {EventTypeKey} from 'flux/event';
+import {Error} from 'view/routes/error';
 
 import 'view/style/app.css';
 
@@ -21,6 +23,7 @@ export interface IAppRootProps extends IBaseRouteProps {
 export interface IAppRootState {
   isLoggedIn: boolean;
   loaded: boolean;
+  error: boolean;
 }
 
 export class AppRoot extends BaseRoute<IAppRootProps, IAppRootState> {
@@ -31,52 +34,73 @@ export class AppRoot extends BaseRoute<IAppRootProps, IAppRootState> {
 
     this.state = {
       isLoggedIn: StateHelpers.isLoggedIn(this.store.state),
-      loaded: false
+      loaded: false,
+      error: false
     };
 
+  }
+
+  public componentWillMount() {
+    super.componentWillMount();
+    this.eventEmitter.on(EventTypeKey.UNKNOWN_ERROR, this.unknownErrorOccured);
   }
 
   public componentDidMount() {
     this.actionLogic.initializerActionLogic.initializeAppRoute();
   }
 
+  public componentWillUnmount() {
+    super.componentWillUnmount();
+    this.eventEmitter.off(EventTypeKey.UNKNOWN_ERROR, this.unknownErrorOccured);
+  }
+
   public render() {
-
+    // TODO: clean this up, move to top level, make error and 404 components, not routes
     return (
-      <Loader loaded={this.state.loaded}>
-        <div>
-          <NavBar />
-          <Alert />
-          <div className='container'>
-            <div className='row'>
-              <div className='col-xs-12' style={{minHeight: '300px'}}>
-                <Redirect to='/login' path='/' />
-                <Route strict path='/login' component={Login} />
-                <Route path='/about' component={About} />
-                <Route path='/contact' component={Contact} />
-                <Route path='/example' component={Example} />
-                <Route path='/dashboard' component={Dashboard} />
-              </div>
-            </div>
-          </div>
-          <div className='container'>
-              <hr />
-              <footer>
+      <div>
+        {(() => {
+          if (this.state.error) {
+            return <Error history={null} />;
+          }
+          else {
+            return <Loader loaded={this.state.loaded}>
+              <div>
+                <NavBar />
+                <Alert />
+                <div className='container'>
                   <div className='row'>
-                      <div className='col-lg-12'>
-                          <p>Copyright &copy; Your Website 2014</p>
-                      </div>
+                    <div className='col-xs-12' style={{minHeight: '300px'}}>
+                      <Redirect to='/login' path='/' />
+                      <Route strict path='/login' component={Login} />
+                      <Route path='/about' component={About} />
+                      <Route path='/contact' component={Contact} />
+                      <Route path='/example' component={Example} />
+                      <Route path='/dashboard' component={Dashboard} />
+                    </div>
                   </div>
-              </footer>
-          </div>
+                </div>
+                <div className='container'>
+                    <hr />
+                    <footer>
+                        <div className='row'>
+                            <div className='col-lg-12'>
+                                <p>Copyright &copy; Your Website 2014</p>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
 
-        </div>
-      </Loader>);
+              </div>
+            </Loader>
+          }
+        })()}
+      </div>);
 
   }
 
   protected updateLocalState(appState: IAppState, _: IAppRootState): IAppRootState {
     return {
+      ...this.state,
       isLoggedIn: StateHelpers.isLoggedIn(appState),
       loaded: appState.initialized
     };
@@ -93,5 +117,15 @@ export class AppRoot extends BaseRoute<IAppRootProps, IAppRootState> {
         this.history.push('/login');
       }
     }
+  }
+
+  private unknownErrorOccured = () => {
+    this.logger.error('An unknown error occured, redirecting');
+    this.setState({
+      ...this.state,
+      loaded: true,
+      error: true
+    });
+    // this.history.push('/error');
   }
 }

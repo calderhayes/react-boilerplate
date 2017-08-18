@@ -7,7 +7,7 @@ import {makeWebSocketConnectionStateChangedAction} from 'flux/action';
 import {WebSocketConnectionState} from 'interface';
 import {ILoggerFactory} from 'articulog';
 import {IConfig} from 'interface';
-import {IWebSocketConnectionStateChangedEvent, EventTypeKey} from 'flux/event';
+import {makeWebSocketConnectionStateChangedEvent} from 'flux/event';
 
 export class WebSocketConnectionActionLogic extends BaseActionLogic {
 
@@ -56,10 +56,7 @@ export class WebSocketConnectionActionLogic extends BaseActionLogic {
     const action = makeWebSocketConnectionStateChangedAction(state);
     this.dispatcher.dispatch(action);
 
-    const event: IWebSocketConnectionStateChangedEvent = {
-      type: EventTypeKey.WEB_SOCKET_CONNECTION_STATE_CHANGED,
-      webSocketConnectionState: state
-    };
+    const event = makeWebSocketConnectionStateChangedEvent(state);
 
     this.eventEmitter.emit(event);
   }

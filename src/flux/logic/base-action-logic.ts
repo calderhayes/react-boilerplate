@@ -1,6 +1,6 @@
 import {IDispatcher} from 'flux/dispatcher';
 import {IAPIService} from 'api';
-import {IEventEmitter, EventTypeKey} from 'flux/event';
+import { IEventEmitter, makeAppStateUpdatedEvent, makeUnknownErrorEvent } from 'flux/event';
 import {IStore} from 'flux/store';
 import {IConfig} from 'interface';
 
@@ -56,17 +56,12 @@ export abstract class BaseActionLogic {
   }
 
   protected emitStateChange() {
-    this.eventEmitter.emit({
-      type: EventTypeKey.APP_STATE_UPDATED
-    });
+    this.eventEmitter.emit(makeAppStateUpdatedEvent());
   }
 
   protected unknownErrorHandler(error?: any) {
     this.logger.error('An unknown error occured', error);
-    this.eventEmitter.emit({
-      type: EventTypeKey.UNKNOWN_ERROR,
-      error
-    });
+    this.eventEmitter.emit(makeUnknownErrorEvent(error));
   }
 
 }

@@ -12,7 +12,7 @@ import {AppRoot} from 'view/routes/app-root';
 class App extends React.Component<{}, {}> {
   public render() {
     return (
-      <Router forceRefresh={false} >
+      <Router>
         <Route path='/' component={AppRoot} />
       </Router>);
   }

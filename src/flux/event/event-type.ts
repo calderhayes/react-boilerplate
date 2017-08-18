@@ -11,6 +11,14 @@ export interface IAppStateUpdated {
   type: EventTypeKey.APP_STATE_UPDATED;
 }
 
+export const makeAppStateUpdatedEvent = () => {
+  const obj: IAppStateUpdated = {
+    type: EventTypeKey.APP_STATE_UPDATED
+  };
+
+  return obj;
+};
+
 export interface ILoginEvent {
   type: EventTypeKey.LOGIN;
   result: {
@@ -19,15 +27,42 @@ export interface ILoginEvent {
   };
 };
 
+export const makeLoginEvent = (result: { success: boolean, error?: string }) => {
+  const obj: ILoginEvent = {
+    type: EventTypeKey.LOGIN,
+    result
+  };
+
+  return obj;
+};
+
 export interface IUnknownErrorEvent {
   type: EventTypeKey.UNKNOWN_ERROR;
   error: any;
+};
+
+export const makeUnknownErrorEvent = (error: any) => {
+  const event: IUnknownErrorEvent = {
+    type: EventTypeKey.UNKNOWN_ERROR,
+    error
+  };
+
+  return event;
 };
 
 export interface IWebSocketConnectionStateChangedEvent {
   type: EventTypeKey.WEB_SOCKET_CONNECTION_STATE_CHANGED;
   webSocketConnectionState: WebSocketConnectionState;
 }
+
+export const makeWebSocketConnectionStateChangedEvent = (state: WebSocketConnectionState) => {
+  const event: IWebSocketConnectionStateChangedEvent = {
+    type: EventTypeKey.WEB_SOCKET_CONNECTION_STATE_CHANGED,
+    webSocketConnectionState: state
+  };
+
+  return event;
+};
 
 export type EventType =
   IAppStateUpdated

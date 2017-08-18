@@ -24,6 +24,7 @@ export class BaseContainer<P, S> extends BaseComponent<P, S> {
   protected readonly alert: IziToast;
 
   public componentWillMount() {
+    this.logger.debug('Mounting container');
     this.eventEmitter.on(EventTypeKey.APP_STATE_UPDATED, this._appStateUpdated);
   }
 
@@ -44,6 +45,7 @@ export class BaseContainer<P, S> extends BaseComponent<P, S> {
   }
 
   private _appStateUpdated = () => {
+    this.logger.debug('APP STATE UPDATED');
     const originalState = this.state;
     this.appStateUpdated(this.store.state, originalState);
     const newState = this.updateLocalState(this.store.state, this.state);

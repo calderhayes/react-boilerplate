@@ -11,6 +11,7 @@ import {IStore} from 'flux/store';
 import { EnvironmentType } from 'interface';
 
 import {LogControl} from 'articulog';
+import { IEventEmitter, makeUnknownErrorEvent } from 'flux/event';
 
 Log.info('Bootstrapping...');
 Log.info('Bootstrapping under environment: ' + config.ENVIRONMENT);
@@ -22,6 +23,11 @@ Log.info('Bootstrapping under environment: ' + config.ENVIRONMENT);
 
 // For easy access of the log control
 (window as any).LogControl = LogControl;
+
+const store = iocContainer.get<IStore>(IOC_TYPE.STORE);
+if (config.ENVIRONMENT === EnvironmentType.DEVELOPMENT) {
+  (window as any).store = store;
+}
 
 // Setting a global error catcher
 window.onerror = (message, file, line, column, errorObject) => {
@@ -38,13 +44,12 @@ window.onerror = (message, file, line, column, errorObject) => {
 
   Log.error('Uncaught error occurred', data);
 
+  const eventEmitter = iocContainer.get<IEventEmitter>(IOC_TYPE.EVENT_EMITTER);
+  const event = makeUnknownErrorEvent(data);
+  eventEmitter.emit(event);
+
   return false;
 };
-
-const store = iocContainer.get<IStore>(IOC_TYPE.STORE);
-if (config.ENVIRONMENT === EnvironmentType.DEVELOPMENT) {
-  (window as any).store = store;
-}
 
 const rootHTMLElement = document.getElementById('app');
 bootstrapReact(rootHTMLElement);

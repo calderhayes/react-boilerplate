@@ -28,36 +28,55 @@ export class InitializerActionLogic extends BaseActionLogic {
   }
 
   public async initializeAppRoute() {
-    this.logger.info('Initializing the App Route');
+    try {
+      this.logger.info('Initializing the App Route');
 
-    if (
-      StateHelpers.isLoggedIn(this.store.state) &&
-      this.store.state.webSocketConnectionState === WebSocketConnectionState.DISCONNECTED) {
-      await this.api.startWebSocketConnection(this.store.state.authInfo.accessToken);
-      const acton = makeWebSocketConnectionStateChangedAction(WebSocketConnectionState.CONNECTED);
-      this.dispatcher.dispatch(emit);
+      const startWSConnection = StateHelpers.isLoggedIn(this.store.state) &&
+      this.store.state.webSocketConnectionState === WebSocketConnectionState.DISCONNECTED;
+      if (startWSConnection) {
+        try {
+          if (!!true) {
+            // throw 'dummy error';
+          }
+
+          await this.api.startWebSocketConnection(this.store.state.authInfo.accessToken);
+
+          // Assuming successful connection, otherwise error
+          const state = WebSocketConnectionState.CONNECTED;
+          const wsAction = makeWebSocketConnectionStateChangedAction(state);
+          this.dispatcher.dispatch(wsAction);
+          // this.eventEmitter.emit(makeWebSocketConnectionStateChangedEvent(state));
+        }
+        catch (error) {
+          this.logger.error('Failed to automatically reconnect to websockets', error);
+          throw error;
+        }
+      }
+      else {
+        this.logger.debug('no ws', this.store.state.authInfo, this.store.state.webSocketConnectionState);
+      }
+
+      // TODO: Dynamically get locale
+      const locale = 'en-CA';
+      await initializeTranslationData(locale);
+
+      // This will likely be a batched set of API calls
+      // Or a special call to a single point which provides all
+      // the data
+      await new Promise((resolve) => {
+        const dummyTimeout = 1;
+        setTimeout(resolve, dummyTimeout);
+      });
+
+      const action = makeInitializeAppRouteAction(true);
+
+      this.dispatcher.dispatch(action);
+      this.emitStateChange();
     }
-    else {
-      this.logger.debug('no ws', this.store.state.authInfo, this.store.state.webSocketConnectionState);
+    catch (error) {
+      console.warn('HERE', error);
+      this.unknownErrorHandler(error);
     }
-
-    // TODO: Dynamically get locale
-    const locale = 'en-CA';
-    await initializeTranslationData(locale);
-
-    // This will likely be a batched set of API calls
-    // Or a special call to a single point which provides all
-    // the data
-    await new Promise((resolve) => {
-      const dummyTimeout = 1;
-      setTimeout(resolve, dummyTimeout);
-    });
-
-    const action = makeInitializeAppRouteAction(true);
-
-    this.dispatcher.dispatch(action);
-
-    this.emitStateChange();
   }
 
 }
