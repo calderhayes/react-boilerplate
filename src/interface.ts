@@ -21,6 +21,7 @@ export interface IConfig {
   API_URL: string;
   AUTH_URL: string;
   PERSIST_ACCESS_TOKENS: boolean;
+  REFRESH_TOKEN_INTERVAL: number;
   LOGGING: {
     ACTION_LOG_LEVEL: LoggerLevel;
     USE_ASSERTIONS: boolean;

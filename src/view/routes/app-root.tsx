@@ -4,7 +4,7 @@ import {NavBar} from 'view/containers/nav-bar';
 import {Loader} from 'view/components/loader';
 import {NotFound404} from 'view/components/notFound404';
 import {Alert} from 'view/containers/alert';
-import {IAppState, StateHelpers} from 'data';
+import {IAppState} from 'data';
 import {BaseRoute, IBaseRouteProps} from 'view/routes/base-route';
 import {Route, Switch} from 'react-router-dom';
 import {Login} from 'view/routes/login';
@@ -23,19 +23,19 @@ export interface IAppRootProps extends IBaseRouteProps {
 export interface IAppRootState {
   isLoggedIn: boolean;
   loaded: boolean;
-  error: boolean;
 }
 
 export class AppRoot extends BaseRoute<IAppRootProps, IAppRootState> {
+
+  private refreshTokenInterval: any;
 
   constructor(props: IAppRootProps) {
     super(props);
     this.logger.info('Constructing top level react component');
 
     this.state = {
-      isLoggedIn: StateHelpers.isLoggedIn(this.store.state),
-      loaded: false,
-      error: false
+      isLoggedIn: this.store.isLoggedIn,
+      loaded: false
     };
 
   }
@@ -43,6 +43,10 @@ export class AppRoot extends BaseRoute<IAppRootProps, IAppRootState> {
   public componentWillMount() {
     super.componentWillMount();
     this.eventEmitter.on(EventTypeKey.UNKNOWN_ERROR, this.unknownErrorOccured);
+
+    this.refreshTokenInterval = setInterval(
+      () => this.refreshToken(),
+      this.config.REFRESH_TOKEN_INTERVAL * 1000);
   }
 
   public componentDidMount() {
@@ -52,6 +56,8 @@ export class AppRoot extends BaseRoute<IAppRootProps, IAppRootState> {
   public componentWillUnmount() {
     super.componentWillUnmount();
     this.eventEmitter.off(EventTypeKey.UNKNOWN_ERROR, this.unknownErrorOccured);
+
+    clearInterval(this.refreshTokenInterval);
   }
 
   public render() {
@@ -93,7 +99,7 @@ export class AppRoot extends BaseRoute<IAppRootProps, IAppRootState> {
   protected updateLocalState(appState: IAppState, _: IAppRootState): IAppRootState {
     return {
       ...this.state,
-      isLoggedIn: StateHelpers.isLoggedIn(appState),
+      isLoggedIn: this.store.isLoggedIn,
       loaded: appState.initialized
     };
   }
@@ -121,4 +127,8 @@ export class AppRoot extends BaseRoute<IAppRootProps, IAppRootState> {
       message: 'An unknown error has occured!'
     });
   }
+
+  private refreshToken = () => {
+    // TODO: Logic
+  };
 }

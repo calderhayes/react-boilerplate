@@ -16,7 +16,7 @@ import { IEventEmitter, makeUnknownErrorEvent } from 'flux/event';
 Log.info('Bootstrapping...');
 Log.info('Bootstrapping under environment: ' + config.ENVIRONMENT);
 
-// TODO: Split up UI into Smart (stateful components / Containers) and Dumb (functional components / Presentation)
+// TODO: Store merged with statehelpers
 // Refresh tokens
 // Documentation
 // Translate remaining fields

@@ -5,7 +5,6 @@ import {LoginForm, ILoginFormData} from 'view/components/forms/login';
 import {EventTypeKey, ILoginEvent} from 'flux/event';
 
 import 'view/style/login.css';
-import { StateHelpers } from 'data';
 
 export interface ILoginProps extends IBaseRouteProps {
 
@@ -33,9 +32,9 @@ export class Login extends BaseRoute<ILoginProps, ILoginState> {
   }
 
   public componentWillMount() {
-    const isLoggedIn = StateHelpers.isLoggedIn(this.store.state);
+    const isLoggedIn = this.store.isLoggedIn;
     this.logger.debug('Login route will mount!', isLoggedIn);
-    if (StateHelpers.isLoggedIn(this.store.state)) {
+    if (isLoggedIn) {
       this.logger.info('Already logged in, redirecting to dashboard');
       this.history.push('/dashboard');
     }

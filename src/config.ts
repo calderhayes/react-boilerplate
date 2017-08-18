@@ -22,7 +22,8 @@ if (typeof ENVIRONMENT === 'undefined' || !ENVIRONMENT || ENVIRONMENT === Enviro
       REACT_LOG_LEVEL: LoggerLevel.DEBUG,
       USE_ASSERTIONS: true
     },
-    PERSIST_ACCESS_TOKENS: true
+    PERSIST_ACCESS_TOKENS: true,
+    REFRESH_TOKEN_INTERVAL: 10
   };
 }
 else if (ENVIRONMENT === EnvironmentType.PRODUCTION) {
@@ -39,7 +40,8 @@ else if (ENVIRONMENT === EnvironmentType.PRODUCTION) {
       REACT_LOG_LEVEL: LoggerLevel.DEBUG,
       USE_ASSERTIONS: true
     },
-    PERSIST_ACCESS_TOKENS: true
+    PERSIST_ACCESS_TOKENS: true,
+    REFRESH_TOKEN_INTERVAL: 10
   };
 }
 else {

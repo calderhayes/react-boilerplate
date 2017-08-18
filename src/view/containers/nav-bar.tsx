@@ -2,7 +2,7 @@
 import * as React from 'react';
 import {BaseContainer} from 'view/containers/base-container';
 import { Link } from 'react-router-dom';
-import { StateHelpers, IAppState } from 'data';
+import { IAppState } from 'data';
 
 export interface INavBarProps {
 
@@ -19,7 +19,7 @@ export class NavBar extends BaseContainer<INavBarProps, INavBarState> {
     super(props);
 
     this.state = {
-      isLoggedIn: StateHelpers.isLoggedIn(this.store.state),
+      isLoggedIn: this.store.isLoggedIn,
       webSocketConnectionState: this.store.state.webSocketConnectionState
     };
   }
@@ -80,7 +80,7 @@ export class NavBar extends BaseContainer<INavBarProps, INavBarState> {
 
   protected updateLocalState(appState: IAppState, _: INavBarState): INavBarState {
     return {
-      isLoggedIn: StateHelpers.isLoggedIn(appState),
+      isLoggedIn: this.store.isLoggedIn,
       webSocketConnectionState: appState.webSocketConnectionState
     };
   }

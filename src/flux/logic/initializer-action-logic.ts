@@ -6,7 +6,6 @@ import {BaseActionLogic} from './base-action-logic';
 import { makeInitializeAppRouteAction, makeWebSocketConnectionStateChangedAction } from 'flux/action';
 import {initializeTranslationData} from 'util/i18n';
 import { IConfig, WebSocketConnectionState } from 'interface';
-import {StateHelpers} from 'data';
 
 import {ILoggerFactory} from 'articulog';
 
@@ -31,7 +30,7 @@ export class InitializerActionLogic extends BaseActionLogic {
     try {
       this.logger.info('Initializing the App Route');
 
-      const startWSConnection = StateHelpers.isLoggedIn(this.store.state) &&
+      const startWSConnection = this.store.isLoggedIn &&
       this.store.state.webSocketConnectionState === WebSocketConnectionState.DISCONNECTED;
       if (startWSConnection) {
         try {
