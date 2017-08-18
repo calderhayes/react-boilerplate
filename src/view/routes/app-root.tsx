@@ -2,17 +2,17 @@
 import * as React from 'react';
 import {NavBar} from 'view/containers/nav-bar';
 import {Loader} from 'view/components/loader';
+import {NotFound404} from 'view/components/notFound404';
 import {Alert} from 'view/containers/alert';
 import {IAppState, StateHelpers} from 'data';
 import {BaseRoute, IBaseRouteProps} from 'view/routes/base-route';
-import {Route, Redirect} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 import {Login} from 'view/routes/login';
 import {About} from 'view/routes/about';
 import {Example} from 'view/routes/example';
 import {Contact} from 'view/routes/contact';
 import {Dashboard} from 'view/routes/dashboard';
 import {EventTypeKey} from 'flux/event';
-import {Error} from 'view/routes/error';
 
 import 'view/style/app.css';
 
@@ -57,45 +57,37 @@ export class AppRoot extends BaseRoute<IAppRootProps, IAppRootState> {
   public render() {
     // TODO: clean this up, move to top level, make error and 404 components, not routes
     return (
-      <div>
-        {(() => {
-          if (this.state.error) {
-            return <Error history={null} />;
-          }
-          else {
-            return <Loader loaded={this.state.loaded}>
-              <div>
-                <NavBar />
-                <Alert />
-                <div className='container'>
-                  <div className='row'>
-                    <div className='col-xs-12' style={{minHeight: '300px'}}>
-                      <Redirect to='/login' path='/' />
-                      <Route strict path='/login' component={Login} />
-                      <Route path='/about' component={About} />
-                      <Route path='/contact' component={Contact} />
-                      <Route path='/example' component={Example} />
-                      <Route path='/dashboard' component={Dashboard} />
-                    </div>
-                  </div>
-                </div>
-                <div className='container'>
-                    <hr />
-                    <footer>
-                        <div className='row'>
-                            <div className='col-lg-12'>
-                                <p>Copyright &copy; Your Website 2014</p>
-                            </div>
-                        </div>
-                    </footer>
-                </div>
-
+      <Loader loaded={this.state.loaded}>
+        <div>
+          <NavBar />
+          <Alert />
+          <div className='container'>
+            <div className='row'>
+              <div className='col-xs-12' style={{minHeight: '300px'}}>
+                <Switch>
+                  <Route exact path='/' component={Login} />
+                  <Route path='/login' component={Login} />
+                  <Route path='/about' component={About} />
+                  <Route path='/contact' component={Contact} />
+                  <Route path='/example' component={Example} />
+                  <Route path='/dashboard' component={Dashboard} />
+                  <Route path='*' component={NotFound404} />
+                </Switch>
               </div>
-            </Loader>
-          }
-        })()}
-      </div>);
-
+            </div>
+          </div>
+          <div className='container'>
+              <hr />
+              <footer>
+                  <div className='row'>
+                      <div className='col-lg-12'>
+                          <p>Copyright &copy; Your Website 2017</p>
+                      </div>
+                  </div>
+              </footer>
+          </div>
+        </div>
+      </Loader>);
   }
 
   protected updateLocalState(appState: IAppState, _: IAppRootState): IAppRootState {
@@ -123,9 +115,10 @@ export class AppRoot extends BaseRoute<IAppRootProps, IAppRootState> {
     this.logger.error('An unknown error occured, redirecting');
     this.setState({
       ...this.state,
-      loaded: true,
-      error: true
+      loaded: true
     });
-    // this.history.push('/error');
+    this.alert.error({
+      message: 'An unknown error has occured!'
+    });
   }
 }
