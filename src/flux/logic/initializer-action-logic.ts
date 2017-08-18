@@ -35,10 +35,6 @@ export class InitializerActionLogic extends BaseActionLogic {
       this.store.state.webSocketConnectionState === WebSocketConnectionState.DISCONNECTED;
       if (startWSConnection) {
         try {
-          if (!!true) {
-            // throw 'dummy error';
-          }
-
           await this.api.startWebSocketConnection(this.store.state.authInfo.accessToken);
 
           // Assuming successful connection, otherwise error
@@ -74,7 +70,6 @@ export class InitializerActionLogic extends BaseActionLogic {
       this.emitStateChange();
     }
     catch (error) {
-      console.warn('HERE', error);
       this.unknownErrorHandler(error);
     }
   }
