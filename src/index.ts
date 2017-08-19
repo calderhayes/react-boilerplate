@@ -1,6 +1,7 @@
 
 
 import 'reflect-metadata';
+import 'view/style/bootstrap/css/bootstrap.min.css';
 
 import {Log} from 'util/logger-factory';
 import {config} from 'config';

@@ -31,3 +31,13 @@ Navigate to http://localhost:8080 to start working.
 
 You also can use the base tools such as tsc for a straight built, tslint for linting,
 devserver.js for just running the local deployment.
+
+## Environment Variables
+
+Use NODE_ENV = {development or production}, LIVE = {true or false}, WS_LIVE = {true or false}
+to dictate the configuration at build time.
+
+Note: the index.html has some hard coded dependencies due to SignalR being weird,
+so you will need to comment the jquery and signalr dependency from that if you truly
+do not want it included. Like if you are disconnected from the internet. Otherwise, in the code
+switching the environment variable will cause the code to inject mock providers.

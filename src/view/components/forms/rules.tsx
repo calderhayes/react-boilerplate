@@ -2,7 +2,6 @@
 import * as React from 'react';
 import {ValidationError} from 'view/components/forms/validation-error';
 
-// tslint:disable-next-line:no-var-requires no-require-imports
 import {rules} from './base';
 
 export const VALIDATION_RULES = {
