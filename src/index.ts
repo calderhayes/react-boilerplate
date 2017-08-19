@@ -16,9 +16,6 @@ import { IEventEmitter, makeUnknownErrorEvent } from 'flux/event';
 Log.info('Bootstrapping...');
 Log.info('Bootstrapping under environment: ' + config.ENVIRONMENT);
 
-// Documentation
-// Translate remaining fields
-
 // For easy access of the log control
 (window as any).LogControl = LogControl;
 

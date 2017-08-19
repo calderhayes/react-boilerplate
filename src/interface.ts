@@ -18,6 +18,7 @@ export enum EnvironmentType {
 export interface IConfig {
   ENVIRONMENT: EnvironmentType;
   API_LIVE_ENABLED: boolean;
+  WS_LIVE_ENABLED: boolean;
   API_URL: string;
   AUTH_URL: string;
   PERSIST_ACCESS_TOKENS: boolean;

@@ -50,13 +50,23 @@ export class APIServiceFactory {
         SecurityService: new SecurityService(logger, this.config.API_URL),
         HelloService: new HelloService(),
         startWebSocketConnection: (token: string) => {
-          return SignalR.startConnection(logger, this.config.API_URL, token);
+          if (this.config.WS_LIVE_ENABLED) {
+            return SignalR.startConnection(logger, this.config.API_URL, token);
+          }
+          else {
+            return Promise.resolve();
+          }
         },
         updateWebSocketAccessToken: (token: string) => {
-          SignalR.updateAccessToken(token);
+          if (this.config.WS_LIVE_ENABLED) {
+            SignalR.updateAccessToken(token);
+          }
         },
         stopWebSocketConnection: () => {
-          return SignalR.stopConnection();
+          if (this.config.WS_LIVE_ENABLED) {
+            return SignalR.stopConnection();
+          }
+          return Promise.resolve();
         },
         webSocketEventManager: new SignalREventManager()
       };

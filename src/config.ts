@@ -5,6 +5,7 @@ import {IConfig, EnvironmentType} from 'interface';
 // Provided by webpack
 declare const ENVIRONMENT: string;
 declare const LIVE: string;
+declare const WS_LIVE: string;
 
 let config: IConfig = null;
 
@@ -12,6 +13,7 @@ if (typeof ENVIRONMENT === 'undefined' || !ENVIRONMENT || ENVIRONMENT === Enviro
   config = {
     ENVIRONMENT: EnvironmentType.DEVELOPMENT,
     API_LIVE_ENABLED: LIVE === 'true',
+    WS_LIVE_ENABLED: WS_LIVE === 'true',
     API_URL: 'http://localhost:5080',
     AUTH_URL: 'http://localhost:5050',
     LOGGING: {
@@ -30,6 +32,7 @@ else if (ENVIRONMENT === EnvironmentType.PRODUCTION) {
   config = {
     ENVIRONMENT: EnvironmentType.DEVELOPMENT,
     API_LIVE_ENABLED: LIVE === 'true',
+    WS_LIVE_ENABLED: WS_LIVE === 'true',
     API_URL: 'http://localhost:5080',
     AUTH_URL: 'http://localhost:5050',
     LOGGING: {

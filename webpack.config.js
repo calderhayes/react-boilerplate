@@ -57,7 +57,8 @@ module.exports = {
     new CheckerPlugin(),
     new webpack.DefinePlugin({
         'ENVIRONMENT': JSON.stringify(process.env.NODE_ENV || 'development'),
-        'LIVE': JSON.stringify(process.env.LIVE || 'true')
+        'LIVE': JSON.stringify(process.env.LIVE || 'true'),
+        'WS_LIVE': JSON.stringify(process.env.WS_LIVE || 'true')
     }),
     new webpack.LoaderOptionsPlugin({
       options: {
