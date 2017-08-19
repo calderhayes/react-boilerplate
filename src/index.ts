@@ -16,8 +16,6 @@ import { IEventEmitter, makeUnknownErrorEvent } from 'flux/event';
 Log.info('Bootstrapping...');
 Log.info('Bootstrapping under environment: ' + config.ENVIRONMENT);
 
-// TODO: Store merged with statehelpers
-// Refresh tokens
 // Documentation
 // Translate remaining fields
 

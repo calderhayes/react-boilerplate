@@ -15,7 +15,9 @@ export const initializeTranslationData = async (language: string) => {
           translation: {
             hello: 'Hello',
             unknown_error: 'An unknown error has occured',
-            login_page: {
+
+            login_route: {
+              create_account: 'Create an account',
               error: {
                 invalid_credentials: 'The username or password is incorrect',
                 unknown_error: 'An unknown error has occured'

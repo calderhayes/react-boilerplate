@@ -40,7 +40,7 @@ export class AuthActionLogic extends BaseActionLogic implements IAuthActionLogic
       this.dispatcher.dispatch(action);
       this.authDataItem.setItem(result);
       // Need to allocate error from the API to translation keys
-      // the login page will append this to login_page.error. for the
+      // the login page will append this to login_route.error. for the
       // proper translation key
       this.eventEmitter.emit({
         type: EventTypeKey.LOGIN,

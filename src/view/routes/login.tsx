@@ -67,7 +67,7 @@ export class Login extends BaseRoute<ILoginProps, ILoginState> {
                   isLoading={this.state.saving}
                   serverErrorMessage={this.state.error} />
             </div>
-            <a href='#' className='text-center new-account'>Create an account </a>
+            <a href='#' className='text-center new-account'>{this.translate('login_route.create_account')}</a>
           </div>
       </div>
     );
@@ -104,7 +104,7 @@ export class Login extends BaseRoute<ILoginProps, ILoginState> {
       this.setState({
         ...this.state,
         formData: this.state.formData,
-        error: this.translate('login_page.error.' + event.result.error),
+        error: this.translate('login_route.error.' + event.result.error),
         saving: false
       });
     }
