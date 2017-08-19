@@ -80,6 +80,7 @@ export class AuthActionLogic extends BaseActionLogic implements IAuthActionLogic
       const action = makeRefreshTokenAction(result);
       this.dispatcher.dispatch(action);
       this.authDataItem.setItem(result);
+      this.api.updateWebSocketAccessToken(result.accessToken);
     }
     catch (error) {
       this.logger.info('Refresh failed', error);

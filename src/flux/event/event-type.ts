@@ -4,7 +4,8 @@ export enum EventTypeKey {
   APP_STATE_UPDATED = 'APP_STATE_UPDATED',
   LOGIN = 'LOGIN',
   UNKNOWN_ERROR = 'UNKNOWN_ERROR',
-  WEB_SOCKET_CONNECTION_STATE_CHANGED = 'WEB_SOCKET_CONNECTION_STATE_CHANGED'
+  WEB_SOCKET_CONNECTION_STATE_CHANGED = 'WEB_SOCKET_CONNECTION_STATE_CHANGED',
+  SOMEONE_SAID_HELLO = 'SOMEONE_SAID_HELLO'
 };
 
 export interface IAppStateUpdated {
@@ -64,8 +65,23 @@ export const makeWebSocketConnectionStateChangedEvent = (state: WebSocketConnect
   return event;
 };
 
+export interface ISomeoneSaidHelloEvent {
+  type: EventTypeKey.SOMEONE_SAID_HELLO;
+  username: string;
+}
+
+export const makeSomeoneSaidHelloEvent = (username: string) => {
+  const event: ISomeoneSaidHelloEvent = {
+    type: EventTypeKey.SOMEONE_SAID_HELLO,
+    username
+  };
+
+  return event;
+};
+
 export type EventType =
   IAppStateUpdated
   | ILoginEvent
   | IUnknownErrorEvent
-  | IWebSocketConnectionStateChangedEvent;
+  | IWebSocketConnectionStateChangedEvent
+  | ISomeoneSaidHelloEvent;

@@ -26,5 +26,4 @@ export class Example extends BaseRoute<IExampleProps, IExampleState> {
     );
 
   }
-
 }

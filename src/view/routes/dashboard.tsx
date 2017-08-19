@@ -26,10 +26,17 @@ export class Dashboard extends BaseRoute<IDashboardProps, IDashboardState> {
           This is an Dashboard page
           <br />
           this is translated text: {this.translate('colour')}
+          <br />
+          This is a signalr test
+          <button type='button' className='btn btn-info' onClick={this.sayHiClicked}>
+            Say Hello to concurrent users!
+          </button>
         </div>
       </div>
     );
-
   }
 
+  private sayHiClicked = () => {
+    this.actionLogic.exampleActionLogic.sayHello();
+  }
 }

@@ -1,6 +1,10 @@
 import * as React from 'react';
 import {BaseContainer} from 'view/containers/base-container';
-import {EventTypeKey, IWebSocketConnectionStateChangedEvent} from 'flux/event';
+import {
+  EventTypeKey,
+  EventType,
+  IWebSocketConnectionStateChangedEvent
+} from 'flux/event';
 import {WebSocketConnectionState} from 'interface';
 
 export interface IAlertProps {
@@ -15,17 +19,45 @@ export interface IAlertState {
 export class Alert extends BaseContainer<IAlertProps, IAlertState> {
 
   public componentWillMount() {
-    this.eventEmitter.on(EventTypeKey.WEB_SOCKET_CONNECTION_STATE_CHANGED, this.webSocketConnectionStateChanged);
-    this.eventEmitter.on(EventTypeKey.UNKNOWN_ERROR, this.unknownError);
+    this.eventEmitter.on(EventTypeKey.WEB_SOCKET_CONNECTION_STATE_CHANGED, this.handleEventAlert);
+    this.eventEmitter.on(EventTypeKey.UNKNOWN_ERROR, this.handleEventAlert);
+    this.eventEmitter.on(EventTypeKey.SOMEONE_SAID_HELLO, this.handleEventAlert);
   }
 
   public componentWillUnmount() {
-    this.eventEmitter.off(EventTypeKey.WEB_SOCKET_CONNECTION_STATE_CHANGED, this.webSocketConnectionStateChanged);
-    this.eventEmitter.off(EventTypeKey.UNKNOWN_ERROR, this.unknownError);
+    this.eventEmitter.off(EventTypeKey.WEB_SOCKET_CONNECTION_STATE_CHANGED, this.handleEventAlert);
+    this.eventEmitter.off(EventTypeKey.UNKNOWN_ERROR, this.handleEventAlert);
+    this.eventEmitter.off(EventTypeKey.SOMEONE_SAID_HELLO, this.handleEventAlert);
   }
 
   public render() {
     return <div></div>;
+  }
+
+  private handleEventAlert = (event: EventType) => {
+
+    switch (event.type) {
+      case EventTypeKey.WEB_SOCKET_CONNECTION_STATE_CHANGED:
+        this.webSocketConnectionStateChanged(event);
+        break;
+      case EventTypeKey.UNKNOWN_ERROR:
+        this.logger.error('Unknown error occured', event.error);
+        this.alert.error({
+          message: this.translate('unknown_error')
+        });
+
+        break;
+      case EventTypeKey.SOMEONE_SAID_HELLO:
+        this.alert.info({
+          message: `${event.username} says hello!`
+        });
+
+        break;
+      default:
+        // Do nothing
+        break;
+    }
+
   }
 
   private webSocketConnectionStateChanged = (event: IWebSocketConnectionStateChangedEvent) => {
@@ -60,12 +92,5 @@ export class Alert extends BaseContainer<IAlertProps, IAlertState> {
         break;
     }
 
-  }
-
-  private unknownError = (error: any) => {
-    this.logger.error('Unknown error occured', error);
-    this.alert.error({
-      message: this.translate('unknown_error')
-    });
   }
 }

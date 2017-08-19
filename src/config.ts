@@ -23,7 +23,7 @@ if (typeof ENVIRONMENT === 'undefined' || !ENVIRONMENT || ENVIRONMENT === Enviro
       USE_ASSERTIONS: true
     },
     PERSIST_ACCESS_TOKENS: true,
-    REFRESH_TOKEN_INTERVAL: 10
+    REFRESH_TOKEN_INTERVAL: 30
   };
 }
 else if (ENVIRONMENT === EnvironmentType.PRODUCTION) {

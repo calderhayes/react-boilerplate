@@ -132,6 +132,7 @@ export class AppRoot extends BaseRoute<IAppRootProps, IAppRootState> {
 
   private refreshToken = () => {
     if (this.store.isLoggedIn) {
+      this.logger.info('Refreshing...');
       this.actionLogic.authActionLogic.refresh();
     }
   }

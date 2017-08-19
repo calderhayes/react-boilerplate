@@ -37,6 +37,11 @@ export const reducer: Reducer = (state: IAppState, action: ActionType) => {
         (_) => WebSocketConnectionState.CONNECTED);
       return newLoginState;
 
+    case ActionTypeKey.REFRESH:
+
+      const refreshedLoginState = iassign(state, (s) => s.authInfo, (_) => action.tokenData);
+      return refreshedLoginState;
+
     case ActionTypeKey.LOGOUT:
       // Clear the tokenData
       let newLogoutState = iassign(state, (s) => s.authInfo, (_) => null);

@@ -1,6 +1,6 @@
 import {IDispatcher} from 'flux/dispatcher';
 import {IAPIService} from 'api';
-import {IEventEmitter} from 'flux/event';
+import {IEventEmitter, makeSomeoneSaidHelloEvent} from 'flux/event';
 import {IStore} from 'flux/store';
 import {BaseActionLogic} from 'flux/logic/base-action-logic';
 import {makeExampleAction} from 'flux/action';
@@ -47,5 +47,7 @@ export class ExampleActionLogic extends BaseActionLogic
 
   private readonly someoneSaidHi = (username: string) => {
     this.logger.info('SOMEONE SAID HI! => ' + username);
+    const event = makeSomeoneSaidHelloEvent(username);
+    this.eventEmitter.emit(event);
   }
 }
