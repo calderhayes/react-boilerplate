@@ -44,9 +44,11 @@ export class AppRoot extends BaseRoute<IAppRootProps, IAppRootState> {
     super.componentWillMount();
     this.eventEmitter.on(EventTypeKey.UNKNOWN_ERROR, this.unknownErrorOccured);
 
+    const millisecondsInSeconds = 1000;
+
     this.refreshTokenInterval = setInterval(
       () => this.refreshToken(),
-      this.config.REFRESH_TOKEN_INTERVAL * 1000);
+      this.config.REFRESH_TOKEN_INTERVAL * millisecondsInSeconds);
   }
 
   public componentDidMount() {
@@ -129,6 +131,8 @@ export class AppRoot extends BaseRoute<IAppRootProps, IAppRootState> {
   }
 
   private refreshToken = () => {
-    // TODO: Logic
-  };
+    if (this.store.isLoggedIn) {
+      this.actionLogic.authActionLogic.refresh();
+    }
+  }
 }

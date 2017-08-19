@@ -4,8 +4,8 @@ import {injectable} from 'inversify';
 import {find} from 'lodash';
 
 export interface IStore extends BaseStore<IAppState> {
-  isFeatureActivated(featureType: string): boolean;
   readonly isLoggedIn: boolean;
+  isFeatureActivated(featureType: string): boolean;
 }
 
 @injectable()
@@ -18,10 +18,10 @@ export class Store extends BaseStore<IAppState> implements IStore {
     }
 
     return false;
-  };
+  }
 
   public get isLoggedIn() {
     return !!this.state.authInfo; // && state.authInfo.expiryDate < new Date();
-  };
+  }
 
 }

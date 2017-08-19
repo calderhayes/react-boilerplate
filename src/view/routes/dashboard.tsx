@@ -13,7 +13,7 @@ export interface IDashboardState {
 export class Dashboard extends BaseRoute<IDashboardProps, IDashboardState> {
 
   public componentWillMount() {
-    if (this.store.isLoggedIn) {
+    if (!this.store.isLoggedIn) {
       // navigate out of here
       this.history.push('/login');
     }

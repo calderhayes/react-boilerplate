@@ -10,6 +10,7 @@ import {IPersistedDataItem} from 'data';
 
 export interface IAuthActionLogic {
   login(username: string, password: string): Promise<void>;
+  refresh(): Promise<void>;
   logout(): Promise<void>;
 }
 
