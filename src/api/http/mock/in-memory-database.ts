@@ -7,6 +7,10 @@ export const InMemoryDatabase = {
     {
       username: 'chayes',
       password: 'password123'
+    },
+    {
+      username: 'john.doe@fake.com',
+      password: 'password123'
     }
   ]
 
