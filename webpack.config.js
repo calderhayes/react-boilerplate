@@ -4,6 +4,8 @@ var path = require('path');
 var {CheckerPlugin, TsConfigPathsPlugin} = require('awesome-typescript-loader');
 var debug = process.env.NODE_ENV !== "production";
 
+const wsLive = process.env.WS_LIVE === 'true' && process.env.LIVE === 'true';
+
 module.exports = {
   target: 'web',
   context: __dirname,
@@ -47,7 +49,8 @@ module.exports = {
   resolve: {
     extensions: ['*', '.js', '.jsx', '.tsx', '.ts'],
     alias: {
-      styles: path.join(__dirname, '/src/styles/')
+      styles: path.join(__dirname, '/src/styles/'),
+      hubs: path.join(__dirname, wsLive ? '/src/api/ws/hubs.js' : '/src/api/ws/mock/hubs.js')
     },
     plugins: [
       new TsConfigPathsPlugin()

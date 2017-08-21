@@ -1,7 +1,7 @@
 import {ILogger} from 'articulog';
 import * as urljoin from 'url-join';
 
-import './hubs';
+import 'hubs';
 
 // So far this is the only dependency on jquery, and it is hopefully
 // not going to be around for much longer
