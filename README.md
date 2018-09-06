@@ -1,6 +1,6 @@
-# React Typescript Flux Template
+# Some old and obsolete test boilerplate with React Typescript Flux Template
 
-**Use at your own risk**
+**Use at your own risk, not maintained or used**
 
 This is a simple collection of utilities forming a transparent platform to start working off of for medium to large scale front end React applications.
 
